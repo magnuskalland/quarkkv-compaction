@@ -1,68 +1,125 @@
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include <cstring>
+#include <memory>
 #include <string>
 #include <thread>
 #include <vector>
 
-#include "config.h"
-#include "fs/FSLoaderWorker.h"
+#include "fs/ManifestFS.h"
+#include "fs/SSTFileManagerFS.h"
+#include "include/config.h"
 
-void parse_args(int argc, char *argv[], Config *dest) {
+static const char *usage = R"(usage %s [OPTIONS]
+    -e, --engine <fs|quarkstore>    Specify storage engine      (REQUIRED)
+    -d, --data-directory            Data directory              (REQUIRED)
+    -w, --working-directory         Working directory           (REQUIRED)
+    -m, --mode <load|compact>       Specify mode                (Default 'compact')
+    -l, --levels                    Number of SST file levels   (Default %d)
+    -s, --level-size-multiplier     Level size multiplier       (Default %d)
+    -k, --key-size                  Key size                    (Default %d)
+    -z, --level0-max                Level 0 max size            (Default %d)
+    -f, --sst-file-size             SST file size               (Default %d)
+    -h, --help                      Display this help message
+)";
+
+void parse_args(int argc, char *argv[], Config *dest)
+{
     int opt;
-    bool dir = false, mode = false, engine = false;
+    bool engine = false, ddir = false, wdir = false;
 
-    while ((opt = getopt(argc, argv, "d:m:s:")) != -1) {
+    static struct option long_options[] = {
+        {"engine", required_argument, 0, 'e'},
+        {"mode", required_argument, 0, 'm'},
+        {"data-directory", required_argument, 0, 'd'},
+        {"working-directory", required_argument, 0, 'w'},
+        {"levels", required_argument, 0, 'l'},
+        {"level-size-mult", required_argument, 0, 's'},
+        {"key-size", required_argument, 0, 'k'},
+        {"level0-max", required_argument, 0, 'z'},
+        {"sst-file-size", required_argument, 0, 'f'},
+        {"help", 0, 0, 'h'},
+        {0, 0, 0, 0},
+    };
+
+    while ((opt = getopt_long(argc, argv, "e:m:d:w:l:s:k:f:h", long_options, nullptr)) != -1) {
         switch (opt) {
-            case 'd':
-                dir = true;
-                dest->directory = optarg;
-                break;
-            case 'm':
-                mode = true;
-                if (std::string(optarg) == "load")
-                    dest->mode = LOAD;
-                else if (std::string(optarg) == "compact")
-                    dest->mode = COMPACT;
-                else {
-                    fprintf(stderr, "invalid option for mode: '%s'\n", optarg);
-                    goto err;
-                }
-                break;
-            case 's':
+            case 'e':
                 engine = true;
                 if (std::string(optarg) == "fs")
                     dest->engine = FS;
                 else if (std::string(optarg) == "quarkstore")
                     dest->engine = QUARKSTORE;
                 else {
-                    fprintf(stderr, "invalid option for storage engine: '%s'\n", optarg);
-                    goto err;
+                    fprintf(stderr, "invalid engine: %s\n", optarg);
+                    goto parse_args_err;
                 }
                 break;
+
+            case 'm':
+                if (std::string(optarg) == "load")
+                    dest->mode = LOAD;
+                else if (std::string(optarg) == "compact")
+                    dest->mode = COMPACT;
+                else {
+                    fprintf(stderr, "invalid mode: %s\n", optarg);
+                    goto parse_args_err;
+                }
+                break;
+
+            case 'd':
+                ddir = true;
+                dest->ddir = std::string(optarg);
+                break;
+
+            case 'w':
+                wdir = true;
+                dest->wdir = std::string(optarg);
+                break;
+
+            case 'l':
+                dest->n_levels = atoi(optarg);
+                break;
+
+            case 's':
+                dest->level_size_multiplier = atoi(optarg);
+                break;
+
+            case 'k':
+                dest->key_size = atoi(optarg);
+                break;
+
+            case 'z':
+                dest->level0_max_size = atoi(optarg);
+                break;
+
+            case 'f':
+                dest->sst_file_size = atoi(optarg);
+                break;
+
+            case 'h':
             case '?':
             default:
-                goto err;
+                goto parse_args_err;
         }
     }
-
-    if (!(dir && mode && engine)) goto err;
+    if (!(engine && ddir && wdir)) goto parse_args_err;
     return;
-err:
-    fprintf(stderr, "usage: %s -d <data directory> -m <load | compact> -s <fs | quarkstore>\n", argv[0]);
+parse_args_err:
+    fprintf(stderr, usage, argv[0], DEFAULT_LEVELS, DEFAULT_LEVEL_SIZE_MULTIPLIER, DEFAULT_KEY_SIZE,
+            DEFAULT_LEVEL0_MAX_SIZE, DEFAULT_SST_FILE_SIZE);
     exit(EXIT_FAILURE);
 }
 
-int load(Config *config) {
-    printf("%-25s %20ld\n%-25s %20ld\n%-25s %20ld\n", "Dataset size:", DATASET_SIZE, "SST file size:", SSTFILE_SIZE,
-           "Number of SST files:", N_SSTFILES);
-
+int load_fs(Config *config)
+{
     int status;
     std::string cmd;
     char buf[256];
-    std::snprintf(buf, sizeof(buf), "rm -rf %s/*\n", config->directory.c_str());
+    std::snprintf(buf, sizeof(buf), "rm -rf %s/*\n", config->wdir.c_str());
     cmd = buf;
 
     status = system(cmd.c_str());
@@ -71,35 +128,21 @@ int load(Config *config) {
         return -1;
     }
 
-    std::atomic<int> counter(0);
-    std::vector<std::thread> loaders;
-
-    for (int i = 0; i < LOADER_THREADS; ++i) {
-        auto worker = std::make_shared<FSLoaderWorker>(config, &counter);
-        loaders.emplace_back([worker]() { worker->Work(); });
-    }
-    for (int i = 0; i < LOADER_THREADS; ++i) {
-        loaders[i].join();
-    }
-
     return 0;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     Config config;
     int ok;
 
     parse_args(argc, argv, &config);
 
-    printf("%-20s %25s\n%-20s %25s\n%-20s %25s\n", "Data directory:", config.directory.c_str(),
-           "Mode:", config.mode == LOAD ? "Load" : "Compact",
-           "Storage engine:", config.engine == FS ? "File system" : "QuarkStore");
+    printf("%s\n", config.ToString().c_str());
 
-    if (config.mode == LOAD) {
-        if (config.engine == FS) {
-            ok = load(&config);
-        }
-    }
+    ManifestFS manifest(&config);
+    manifest.Populate(1);
+    manifest.Open();
 
     return 0;
 }

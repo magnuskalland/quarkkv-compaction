@@ -1,12 +1,10 @@
 CC = g++
-CFLAGS = -std=c++11 -Wno-unused-variable
-LIBS = -lpthread 
+CFLAGS = -std=c++11 -Wall -Wno-unused-variable -I./fs -I./quark -I./utils -I./headers
+LIBS = -lpthread
 
 TARGET = main
 
-SRCS = $(wildcard *.cpp)
-HDRS = $(wildcard *.h)
-
+SRCS = $(wildcard *.cpp fs/*.cpp quark/*.cpp utils/*.cpp)
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGET)
@@ -14,10 +12,12 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) -o $@ $(OBJS) $(LIBS)
 
-%.o: %.cpp $(HDRS)
-	$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.cpp
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
+
+-include $(SRCS:.cpp=.d)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(SRCS:.cpp=.d) $(TARGET)
 
 .PHONY: all clean
