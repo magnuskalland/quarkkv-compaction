@@ -48,7 +48,7 @@ int OpenForWrite(std::string path)
     mode_t old = umask(0);
     fd = open(path.c_str(), O_RDWR | O_DIRECT, 0666);
     if (fd == -1) {
-        perror("Open");
+        perror("OpenForWrite");
     }
     umask(old);
     return fd;
@@ -70,6 +70,16 @@ ssize_t Append(int fd, std::string src, size_t length)
     wc = write(fd, src.c_str(), length);
     if (wc == -1) {
         perror("Append");
+    }
+    return wc;
+}
+
+ssize_t WriteMeta(int fd, void* src, size_t length)
+{
+    ssize_t wc;
+    wc = write(fd, src, length);
+    if (wc == -1) {
+        perror("WriteMeta");
     }
     return wc;
 }

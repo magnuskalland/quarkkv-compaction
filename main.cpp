@@ -9,8 +9,7 @@
 #include <thread>
 #include <vector>
 
-#include "fs/ManifestFS.h"
-#include "fs/SSTFileManagerFS.h"
+#include "include/DB.h"
 #include "include/config.h"
 
 static const char *usage = R"(usage %s [OPTIONS]
@@ -140,9 +139,10 @@ int main(int argc, char *argv[])
 
     printf("%s\n", config.ToString().c_str());
 
-    ManifestFS manifest(&config);
-    manifest.Populate(1);
-    manifest.Open();
+    DB db(&config);
+    db.VerifyConfig();
+    db.Open();
+    ok = db.Populate(5);
 
     return 0;
 }

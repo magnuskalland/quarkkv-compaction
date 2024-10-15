@@ -18,6 +18,6 @@ $(TARGET): $(OBJS)
 -include $(SRCS:.cpp=.d)
 
 clean:
-	rm -f $(OBJS) $(SRCS:.cpp=.d) $(TARGET)
+	rm -f $(OBJS) $(SRCS:.cpp=.d) $(TARGET) ddir/*.sst ddir/MANIFEST-*
 
 .PHONY: all clean

@@ -48,6 +48,11 @@ struct Config {
         return key_size + sizeof(uint64_t);
     }
 
+    std::string cwd()
+    {
+        return mode == LOAD ? ddir : wdir;
+    }
+
     std::string ToString()
     {
         char buffer[1024];
