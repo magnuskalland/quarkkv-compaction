@@ -2,6 +2,7 @@
 #include <set>
 
 #include "ManifestFS.h"
+#include "MemTable.h"
 #include "config.h"
 
 class DB {
@@ -10,15 +11,17 @@ class DB {
     ~DB();
     int Open();
     int Close();
-    int Get(std::string key);
+    int Get(std::string key, std::string& dest);
     int Put(std::string key, std::string _);
 
     void VerifyConfig();
     int Populate(int n);
+    int Compact();
 
    private:
     Manifest* manifest_;
     SSTManager* manager_;
     Config* config_;
-    std::vector<std::shared_ptr<SST>> ssts_;
+    MemTable* memTable_;
+    std::vector<std::vector<std::shared_ptr<SST>>> ssts_;
 };

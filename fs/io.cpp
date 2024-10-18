@@ -14,7 +14,7 @@ int Create(std::string path)
 
     fd = open(path.c_str(), O_RDONLY);
     if (fd != -1) {
-        fprintf(stderr, "file %s exists\n", path.c_str());
+        // fprintf(stderr, "file %s exists\n", path.c_str());
         return -1;
     }
 
@@ -64,10 +64,20 @@ ssize_t Read(int fd, char* dest, size_t length)
     return rc;
 }
 
-ssize_t Append(int fd, std::string src, size_t length)
+off_t Seek(int fd, off_t offset, int whence)
+{
+    return lseek(fd, offset, whence);
+}
+
+off_t CurrentOffset(int fd)
+{
+    return lseek(fd, 0, SEEK_CUR);
+}
+
+ssize_t Append(int fd, void* src, size_t length)
 {
     ssize_t wc;
-    wc = write(fd, src.c_str(), length);
+    wc = write(fd, src, length);
     if (wc == -1) {
         perror("Append");
     }

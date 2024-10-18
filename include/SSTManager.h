@@ -13,10 +13,11 @@
 class SSTManager {
    public:
     SSTManager(Config* config) : config_(config), keygen_(new UniformKeyGenerator(config->key_size)) {}
-    virtual ~SSTManager() {}
+    virtual ~SSTManager() = default;
 
     /**
      * Create new empty SST.
+     * @return A pointer to the newly created SST.
      */
     virtual std::shared_ptr<SST> NewEmptySST() = 0;
 
@@ -28,9 +29,17 @@ class SSTManager {
     /**
      * Open and read SST file and assign it to level a level.
      * @param id of SST file.
-     * @param level Level to assign SST file to.
+     * @return A pointer to the read and parsed SST file.
      */
-    virtual int ReadSST(uint32_t id, uint32_t level) = 0;
+    virtual std::shared_ptr<SST> ReadSST(uint32_t id) = 0;
+
+    /**
+     * @param key The key to look up.
+     * @param dest Destination for the value.
+     * @return The newest value associated with the key, into dest, or nullptr if
+     * the key does not exist.
+     */
+    virtual int Get(SST* sst, std::string key, KVPair** dest) = 0;
 
     /**
      * Creates an iterator for this SST file.

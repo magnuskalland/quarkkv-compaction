@@ -30,10 +30,10 @@ class KVPair {
         return ts_;
     }
 
-    int Compare(KVPair other)
+    int Compare(KVPair* other)
     {
-        int keyComp = key_.compare(other.GetKey());
-        std::time_t otherTS = other.GetTimestamp();
+        int keyComp = key_.compare(other->GetKey());
+        std::time_t otherTS = other->GetTimestamp();
         int tsComp = ts_ < otherTS ? -1 : ts_ == otherTS ? 0 : 1;
         return keyComp < 0 ? 0 : keyComp > 0 ? 1 : tsComp;
     }

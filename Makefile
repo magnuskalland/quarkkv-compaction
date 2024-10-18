@@ -1,10 +1,10 @@
 CC = g++
-CFLAGS = -std=c++11 -Wall -Wno-unused-variable -I./fs -I./quark -I./utils -I./headers
+CFLAGS = -std=c++11 -Wall -Wno-unused-variable -I./fs -I./quark -I./utils -I./core -I./headers
 LIBS = -lpthread
 
 TARGET = main
 
-SRCS = $(wildcard *.cpp fs/*.cpp quark/*.cpp utils/*.cpp)
+SRCS = $(wildcard *.cpp fs/*.cpp quark/*.cpp core/*.cpp utils/*.cpp)
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGET)

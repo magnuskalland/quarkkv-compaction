@@ -10,7 +10,9 @@ class SSTManagerFS : public SSTManager {
     ~SSTManagerFS() override;
     std::shared_ptr<SST> NewEmptySST() override;
     int PopulateSST(SST& sst) override;
-    int ReadSST(uint32_t id, uint32_t level) override;
+    std::shared_ptr<SST> ReadSST(uint32_t id) override;
+
+    int Get(SST* sst, std::string key, KVPair** dest) override;
 
    private:
     std::atomic<int> ctr_;

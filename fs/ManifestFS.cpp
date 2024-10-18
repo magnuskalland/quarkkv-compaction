@@ -13,41 +13,40 @@ ManifestFS::~ManifestFS() {}
 
 int ManifestFS::Open()
 {
-    //     int fd, ok, current_fd;
-    //     ssize_t rc;
-    //     char manifest_name[BLOCK_SIZE];
+    int fd, ok, current_fd;
+    ssize_t rc;
+    char manifest_name[BLOCK_SIZE] = {0};
 
-    //     std::string current_path = getFullPath(std::string("CURRENT"));
-    //     current_fd = ::Open(current_path);
-    //     if (current_fd == -1) {
-    //         return -1;
-    //     }
+    std::string current_path = getFullPath(std::string("CURRENT"));
+    current_fd = ::Open(current_path);
+    if (current_fd == -1) {
+        return -1;
+    }
 
-    //     ok = ::Read(current_fd, manifest_name, BLOCK_SIZE);
-    //     if (ok == -1) {
-    //         return -1;
-    //     }
+    ok = ::Read(current_fd, manifest_name, BLOCK_SIZE);
+    if (ok == -1) {
+        return -1;
+    }
 
-    //     std::string full_path = getFullPath(std::string(manifest_name));
-    //     fd = ::Open(full_path);
-    //     if (fd == -1) {
-    //         return -1;
-    //     }
+    printf("Opening manifest %s\n", manifest_name);
 
-    //     char buf[BLOCK_SIZE];
-    //     rc = ::Read(fd, buf, BLOCK_SIZE);
-    //     if (rc == -1) {
-    //         goto open_ret;
-    //     }
+    std::string full_path = getFullPath(std::string(manifest_name));
+    fd = ::Open(full_path);
+    if (fd == -1) {
+        return -1;
+    }
 
-    // open_ret:
-    //     return ::Close(fd);
+    char buf[BLOCK_SIZE];
+    rc = ::Read(fd, buf, BLOCK_SIZE);
+    ::Close(fd);
+    if (rc == -1) {
+        return -1;
+    }
+
+    deserializeLevels(buf, BLOCK_SIZE);
     return 0;
 }
 
-/**
- * @param mutex_ must be held
- */
 int ManifestFS::Persist()
 {
     int id, fd, ok;

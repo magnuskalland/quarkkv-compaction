@@ -54,7 +54,12 @@ int SSTManagerFS::PopulateSST(SST& sst)
     return 0;
 }
 
-int SSTManagerFS::ReadSST(uint32_t id, uint32_t level)
+std::shared_ptr<SST> SSTManagerFS::ReadSST(uint32_t id)
 {
-    return 0;
+    return SSTFS::OpenWithID(config_, id);
+}
+
+int SSTManagerFS::Get(SST* sst, std::string key, KVPair** dest)
+{
+    return sst->Get(key, dest);
 }

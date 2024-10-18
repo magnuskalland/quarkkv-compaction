@@ -31,6 +31,7 @@ struct Config {
     uint32_t key_size = DEFAULT_KEY_SIZE;
     uint32_t level0_max_size = DEFAULT_LEVEL0_MAX_SIZE;
     uint64_t sst_file_size = DEFAULT_SST_FILE_SIZE;
+    uint32_t ts_size = 19;
 
     uint32_t value_size()
     {
@@ -45,7 +46,7 @@ struct Config {
 
     uint32_t index_block_entry_size()
     {
-        return key_size + sizeof(uint64_t);
+        return key_size + sizeof(size_t);
     }
 
     std::string cwd()

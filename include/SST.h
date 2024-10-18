@@ -9,6 +9,7 @@
 #include <sstream>
 #include <string>
 
+#include "KVPair.h"
 #include "config.h"
 
 class SST {
@@ -25,12 +26,21 @@ class SST {
      * Factory method. Opens a persisted SST file with ID.
      * @param id ID of existing SST file.
      */
-    std::unique_ptr<SST> OpenWithID(uint32_t id);
+    std::shared_ptr<SST> OpenWithID(Config* config, uint32_t id);
 
     /**
      * Persist SST file to disk.
      */
     virtual int Persist() = 0;
+
+    /**
+     * Parse an SST file from disk.
+     */
+    virtual int Parse() = 0;
+
+    virtual int Close() = 0;
+
+    virtual int Get(std::string key, KVPair** dest) = 0;
 
     int GetHandler()
     {
@@ -62,6 +72,9 @@ class SST {
 
     virtual int writeIndexBlock() = 0;
     virtual int writeNumberOfEntries() = 0;
+    virtual int readIndexBlock() = 0;
+    virtual int readNumberOfEntries() = 0;
+    virtual int readKVAtOffset(uint64_t off, KVPair** kv_pair) = 0;
 
     Config* config_;
     int handler_;
@@ -69,7 +82,7 @@ class SST {
     uint32_t entries_;
     std::string smallestKey_;
     std::string largestKey_;
-    std::map<std::string, uint32_t> indexTable_;
+    std::map<std::string, uint64_t> indexTable_;
 
     static std::string createNameFromID(uint32_t id)
     {

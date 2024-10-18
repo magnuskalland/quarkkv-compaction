@@ -18,7 +18,7 @@ static const char *usage = R"(usage %s [OPTIONS]
     -w, --working-directory         Working directory           (REQUIRED)
     -m, --mode <load|compact>       Specify mode                (Default 'compact')
     -l, --levels                    Number of SST file levels   (Default %d)
-    -s, --level-size-multiplier     Level size multiplier       (Default %d)
+    -s, --fanout                    Level size multiplier       (Default %d)
     -k, --key-size                  Key size                    (Default %d)
     -z, --level0-max                Level 0 max size            (Default %d)
     -f, --sst-file-size             SST file size               (Default %d)
@@ -36,7 +36,7 @@ void parse_args(int argc, char *argv[], Config *dest)
         {"data-directory", required_argument, 0, 'd'},
         {"working-directory", required_argument, 0, 'w'},
         {"levels", required_argument, 0, 'l'},
-        {"level-size-mult", required_argument, 0, 's'},
+        {"fanout", required_argument, 0, 's'},
         {"key-size", required_argument, 0, 'k'},
         {"level0-max", required_argument, 0, 'z'},
         {"sst-file-size", required_argument, 0, 'f'},
@@ -139,10 +139,21 @@ int main(int argc, char *argv[])
 
     printf("%s\n", config.ToString().c_str());
 
+    std::string key("key-aaadkmbozpxdzfwcyaopwxnowgrxajhlwrbigjxyekdnyzxdzedn");
+
     DB db(&config);
     db.VerifyConfig();
-    db.Open();
-    ok = db.Populate(5);
+    ok = db.Open();
+    if (ok == -1) {
+        db.Populate(1);
+    }
+
+    std::string dest;
+    printf("Searching for key %s...\n", key.substr(0, 10).c_str());
+    db.Get(key, dest);
+    printf("Got KV-pair: %s...\n", dest.substr(0, 10).c_str());
+
+    db.Close();
 
     return 0;
 }
