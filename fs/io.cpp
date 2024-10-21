@@ -28,6 +28,20 @@ int Create(std::string path)
     return fd;
 }
 
+int OpenForWrite(std::string path)
+{
+    int fd;
+
+    mode_t old = umask(0);
+    fd = open(path.c_str(), O_RDWR | O_DIRECT | O_CREAT, 0666);
+    if (fd == -1) {
+        perror("OpenForWrite");
+    }
+    umask(old);
+
+    return fd;
+}
+
 int Open(std::string path)
 {
     int fd;
@@ -39,18 +53,6 @@ int Open(std::string path)
     }
     umask(old);
 
-    return fd;
-}
-
-int OpenForWrite(std::string path)
-{
-    int fd;
-    mode_t old = umask(0);
-    fd = open(path.c_str(), O_RDWR | O_DIRECT, 0666);
-    if (fd == -1) {
-        perror("OpenForWrite");
-    }
-    umask(old);
     return fd;
 }
 
@@ -69,27 +71,12 @@ off_t Seek(int fd, off_t offset, int whence)
     return lseek(fd, offset, whence);
 }
 
-off_t CurrentOffset(int fd)
-{
-    return lseek(fd, 0, SEEK_CUR);
-}
-
-ssize_t Append(int fd, void* src, size_t length)
+ssize_t Write(int fd, void* src, size_t length)
 {
     ssize_t wc;
     wc = write(fd, src, length);
     if (wc == -1) {
-        perror("Append");
-    }
-    return wc;
-}
-
-ssize_t WriteMeta(int fd, void* src, size_t length)
-{
-    ssize_t wc;
-    wc = write(fd, src, length);
-    if (wc == -1) {
-        perror("WriteMeta");
+        perror("write");
     }
     return wc;
 }

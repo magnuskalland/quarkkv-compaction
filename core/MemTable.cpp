@@ -4,9 +4,12 @@
 #include <map>
 #include <string>
 
-MemTable::MemTable(size_t limit) : limit_(limit) {}
+MemTable::MemTable(Config* config) : config_(config)
+{
+    limit_ = config_->sst_file_size / config_->kv_size();
+}
 
-std::string* MemTable::Get(std::string key)
+KVPair* MemTable::Get(std::string key)
 {
     auto it = table_.find(key);
     return it == table_.end() ? nullptr : &it->second;
@@ -14,7 +17,8 @@ std::string* MemTable::Get(std::string key)
 
 void MemTable::Put(std::string key, std::string val)
 {
-    table_[key] = val;
+    KVPair kv(key, config_->value_size());
+    table_.insert({key, kv});
 }
 
 bool MemTable::Full()
@@ -22,12 +26,12 @@ bool MemTable::Full()
     return table_.size() == limit_;
 }
 
-std::map<std::string, std::string>* MemTable::GetTable()
+std::map<std::string, KVPair>* MemTable::GetTable()
 {
     return &table_;
 }
 
-void MemTable::Clear()
+void MemTable::Flush()
 {
     table_.clear();
 }

@@ -9,7 +9,7 @@
 #include <thread>
 #include <vector>
 
-#include "include/DB.h"
+#include "DB.h"
 #include "include/config.h"
 
 static const char *usage = R"(usage %s [OPTIONS]
@@ -139,21 +139,20 @@ int main(int argc, char *argv[])
 
     printf("%s\n", config.ToString().c_str());
 
-    std::string key("key-aaadkmbozpxdzfwcyaopwxnowgrxajhlwrbigjxyekdnyzxdzedn");
-
     DB db(&config);
     db.VerifyConfig();
     ok = db.Open();
-    if (ok == -1) {
-        db.Populate(1);
+
+    UniformKeyGenerator gen(config.key_size);
+
+    while (1) {
+        std::string key = gen.Generate();
+        ok = db.Put(key, "-");
+        if (ok == -1) {
+            fprintf(stderr, "error");
+        }
     }
 
-    std::string dest;
-    printf("Searching for key %s...\n", key.substr(0, 10).c_str());
-    db.Get(key, dest);
-    printf("Got KV-pair: %s...\n", dest.substr(0, 10).c_str());
-
     db.Close();
-
     return 0;
 }

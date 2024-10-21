@@ -1,14 +1,14 @@
-#pragma once
-
 #include "../include/Manifest.h"
 
 class ManifestFS : public Manifest {
    public:
-    ManifestFS(Config* config);
-    ~ManifestFS() override;
+    ManifestFS(Config* config) : Manifest(config) {}
     int Open() override;
     int Persist() override;
+    std::string ToString() override;
 
-   protected:
-    std::string getFullPath(std::string name);
+   private:
+    int openCurrent() override;
+    int getCurrentManifestPath(char* dest);
+    int createNewManifest(char* dest);
 };
