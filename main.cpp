@@ -84,7 +84,7 @@ void parse_args(int argc, char *argv[], Config *dest)
                 break;
 
             case 's':
-                dest->level_size_multiplier = atoi(optarg);
+                dest->fanout = atoi(optarg);
                 break;
 
             case 'k':
@@ -108,8 +108,8 @@ void parse_args(int argc, char *argv[], Config *dest)
     if (!(engine && ddir && wdir)) goto parse_args_err;
     return;
 parse_args_err:
-    fprintf(stderr, usage, argv[0], DEFAULT_LEVELS, DEFAULT_LEVEL_SIZE_MULTIPLIER, DEFAULT_KEY_SIZE,
-            DEFAULT_LEVEL0_MAX_SIZE, DEFAULT_SST_FILE_SIZE);
+    fprintf(stderr, usage, argv[0], DEFAULT_LEVELS, DEFAULT_FANOUT, DEFAULT_KEY_SIZE, DEFAULT_LEVEL0_MAX_SIZE,
+            DEFAULT_SST_FILE_SIZE);
     exit(EXIT_FAILURE);
 }
 
@@ -140,7 +140,6 @@ int main(int argc, char *argv[])
     printf("%s\n", config.ToString().c_str());
 
     DB db(&config);
-    db.VerifyConfig();
     ok = db.Open();
 
     UniformKeyGenerator gen(config.key_size);

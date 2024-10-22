@@ -90,6 +90,24 @@ int SST::AddKV(KVPair* kv)
     return 0;
 }
 
+int SST::GetKVAtIndex(uint32_t index, KVPair** dest)
+{
+    int ok;
+    assert(index >= 0 && index < entries_);
+
+    ok = readKV((off_t)(index * config_->kv_size()), dest);
+    if (ok == -1) {
+        return -1;
+    }
+
+    return 0;
+}
+
+bool SST::operator>(const SST& other) const
+{
+    return smallestKey_ > other.smallestKey_;
+}
+
 int SST::GetHandler()
 {
     return handler_;
@@ -98,6 +116,16 @@ int SST::GetHandler()
 uint32_t SST::GetEntries()
 {
     return entries_;
+}
+
+void SST::SetLevel(uint32_t level)
+{
+    level_ = level;
+}
+
+uint32_t SST::GetLevel()
+{
+    return level_;
 }
 
 std::string SST::GetSmallestKey()
@@ -113,6 +141,16 @@ std::string SST::GetLargestKey()
 int SST::GetID()
 {
     return id_;
+}
+
+bool SST::IsMarkedForCompaction()
+{
+    return markedForCompaction_;
+}
+
+bool SST::MarkForCompaction()
+{
+    markedForCompaction_ = true;
 }
 
 /* Protected */
@@ -141,6 +179,7 @@ int SST::writeIndexBlock()
     size_t offset = 0;
     char buf[index_block_size];
     std::map<std::string, uint64_t>::iterator it;
+
     for (it = indexTable_.begin(); it != indexTable_.end(); it++) {
         assert(it->first.size() == config_->key_size);
         memcpy(&buf[offset], it->first.c_str(), config_->key_size);

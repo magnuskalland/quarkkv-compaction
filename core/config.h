@@ -7,7 +7,7 @@
 
 // Defaults
 #define DEFAULT_LEVELS 7
-#define DEFAULT_LEVEL_SIZE_MULTIPLIER 10
+#define DEFAULT_FANOUT 10
 #define DEFAULT_KEY_SIZE 56
 #define DEFAULT_SST_FILE_SIZE ((long)1024 * 1024 * 64)  // 64 MiB
 #define DEFAULT_LEVEL0_MAX_SIZE 1
@@ -27,7 +27,7 @@ struct Config {
     std::string wdir;
     enum mode mode = COMPACT;
     uint32_t n_levels = DEFAULT_LEVELS;
-    uint32_t level_size_multiplier = DEFAULT_LEVEL_SIZE_MULTIPLIER;
+    uint32_t fanout = DEFAULT_FANOUT;
     uint32_t key_size = DEFAULT_KEY_SIZE;
     uint32_t level0_max_size = DEFAULT_LEVEL0_MAX_SIZE;
     uint64_t sst_file_size = DEFAULT_SST_FILE_SIZE;
@@ -72,7 +72,7 @@ struct Config {
     )",
                      "Engine:", engine == FS ? "FS" : "QuarkStore", "Data directory:", ddir.c_str(),
                      "Working directory:", wdir.c_str(), "Mode:", mode == COMPACT ? "Compact" : "Load",
-                     "Levels:", n_levels, "Level multiplier:", level_size_multiplier, "Key size:", key_size,
+                     "Levels:", n_levels, "Level multiplier:", fanout, "Key size:", key_size,
                      "Value size:", value_size(), "Level 0 max size:", level0_max_size,
                      "SST file size:", sst_file_size >> 20);
         return std::string(buffer);

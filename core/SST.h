@@ -18,6 +18,8 @@ class SST {
 
     virtual std::string GetName() = 0;
 
+    virtual bool operator>(const SST& other) const;
+
     /**
      * Factory method. Creates a new, empty SST file
      * @param id ID of SST file. Must not already exist.
@@ -64,11 +66,17 @@ class SST {
      */
     int AddKV(KVPair* kv);
 
+    int GetKVAtIndex(uint32_t index, KVPair** dest);
+
     int GetHandler();
     uint32_t GetEntries();
+    uint32_t GetLevel();
+    void SetLevel(uint32_t level);
     std::string GetSmallestKey();
     std::string GetLargestKey();
     int GetID();
+    bool IsMarkedForCompaction();
+    bool MarkForCompaction();
 
    protected:
     /**
@@ -100,10 +108,13 @@ class SST {
     Config* config_;
     int handler_;
     int id_;
-    uint32_t entries_;
     std::string smallestKey_;
     std::string largestKey_;
     std::map<std::string, uint64_t> indexTable_;
+
+    uint32_t entries_ = 0;
+    uint32_t level_ = 0;
+    bool markedForCompaction_ = false;
 
     uint32_t indexBlockSize_ = -1;
     off_t dataBlockOffset_ = -1;

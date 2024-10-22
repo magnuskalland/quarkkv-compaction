@@ -1,0 +1,36 @@
+#pragma once
+
+#include <set>
+
+#include "../include/Compacter.h"
+#include "../include/Manifest.h"
+#include "../include/MemTable.h"
+#include "../include/SSTManager.h"
+#include "../include/config.h"
+
+class DBImpl {
+   public:
+    // Public interface
+    DBImpl(Config* config);
+    int Open();
+    int Close();
+    int Get(std::string key, std::string& dest);
+    int Put(std::string key, std::string _);
+
+    std::string ToString();
+
+   private:
+    Manifest* manifest_;
+    SSTManager* manager_;
+    Config* config_;
+    MemTable* memTable_;
+    Compacter* compacter_;
+    std::vector<std::vector<std::shared_ptr<SST>>> ssts_;
+
+    int populate(int n);
+    bool verifyConfig();
+    int compact();
+    int flush();
+    void padKey(std::string& key);
+    void markLevelForCompaction(uint32_t level);
+};
