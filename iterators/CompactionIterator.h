@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <queue>
+#include <set>
 
 #include "../include/KVPair.h"
 #include "../include/LevelIterator.h"
@@ -10,11 +11,15 @@
 
 class CompactionIterator : public Iterator {
    public:
-    CompactionIterator(Config* config, std::vector<std::vector<std::shared_ptr<SST>>>* ssts);
+    CompactionIterator(
+        Config* config,
+        std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>* ssts);
     void Next() override;
 
    private:
-    std::priority_queue<Iterator*, std::vector<Iterator*>, std::greater<Iterator*>> heap_;
-    void addLevel0SST(std::vector<std::shared_ptr<SST>> vec);
-    void addLevelNSST(std::vector<std::shared_ptr<SST>> vec);
+    std::priority_queue<std::shared_ptr<Iterator>, std::vector<std::shared_ptr<Iterator>>,
+                        std::less<std::shared_ptr<Iterator>>>
+        heap_;
+    void addLevel0SST(std::set<std::shared_ptr<SST>, SST::SSTComparator> vec);
+    void addLevelNSST(std::set<std::shared_ptr<SST>, SST::SSTComparator> vec);
 };

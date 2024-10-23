@@ -31,7 +31,7 @@ struct Config {
     uint32_t key_size = DEFAULT_KEY_SIZE;
     uint32_t level0_max_size = DEFAULT_LEVEL0_MAX_SIZE;
     uint64_t sst_file_size = DEFAULT_SST_FILE_SIZE;
-    uint32_t ts_size = 19;
+    uint32_t ts_size = 26;
 
     uint32_t value_size()
     {
@@ -70,9 +70,10 @@ struct Config {
     %-20s %d SST file
     %-20s %lu MiB
     )",
-                     "Engine:", engine == FS ? "FS" : "QuarkStore", "Data directory:", ddir.c_str(),
-                     "Working directory:", wdir.c_str(), "Mode:", mode == COMPACT ? "Compact" : "Load",
-                     "Levels:", n_levels, "Level multiplier:", fanout, "Key size:", key_size,
+                     "Engine:", engine == FS ? "FS" : "QuarkStore",
+                     "Data directory:", ddir.c_str(), "Working directory:", wdir.c_str(),
+                     "Mode:", mode == COMPACT ? "Compact" : "Load", "Levels:", n_levels,
+                     "Level multiplier:", fanout, "Key size:", key_size,
                      "Value size:", value_size(), "Level 0 max size:", level0_max_size,
                      "SST file size:", sst_file_size >> 20);
         return std::string(buffer);

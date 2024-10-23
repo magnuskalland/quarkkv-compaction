@@ -16,8 +16,9 @@ DBImpl::DBImpl(Config* config) : config_(config)
     manager_ = new SSTManager(config_);
     memTable_ = new MemTable(config_);
     compacter_ = new CompacterFS(config_, &ssts_);
+
     for (uint32_t level = 0; level < config_->n_levels; level++) {
-        ssts_.emplace_back(std::vector<std::shared_ptr<SST>>());
+        ssts_.emplace_back(std::set<std::shared_ptr<SST>, SST::SSTComparator>());
     }
 };
 
@@ -42,7 +43,7 @@ int DBImpl::Open()
                 return -1;
             }
             sst.get()->SetLevel(i);
-            ssts_.at(i).emplace_back(sst);
+            ssts_.at(i).insert(sst);
         }
     }
 
@@ -51,8 +52,8 @@ int DBImpl::Open()
 
 int DBImpl::Close()
 {
-    std::vector<std::vector<std::shared_ptr<SST>>>::iterator outer;
-    std::vector<std::shared_ptr<SST>>::iterator it;
+    std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>::iterator outer;
+    std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
     for (outer = ssts_.begin(); outer != ssts_.end(); ++outer) {
         for (it = outer->begin(); it != outer->end(); ++it) {
             delete (*it).get();
@@ -81,10 +82,10 @@ int DBImpl::Get(std::string key, std::string& dest)
 
     KVPair* latest = nullptr;
     SST* sst;
-    std::vector<std::shared_ptr<SST>> level0 = ssts_.at(0);
+    std::set<std::shared_ptr<SST>, SST::SSTComparator> level0 = ssts_.at(0);
 
     // search in level 0
-    std::vector<std::shared_ptr<SST>>::iterator it;
+    std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
     for (it = level0.begin(); it != level0.end(); ++it) {
         sst = (*it).get();
         ok = manager_->Get(sst, key, &kv);
@@ -92,7 +93,7 @@ int DBImpl::Get(std::string key, std::string& dest)
             return -1;
         }
 
-        if (kv && (!latest || kv->Compare(latest))) {
+        if (kv && (!latest || kv > latest)) {
             latest = kv;
         }
     }
@@ -104,7 +105,8 @@ int DBImpl::Get(std::string key, std::string& dest)
     }
 
     // search in rest of levels
-    std::vector<std::vector<std::shared_ptr<SST>>>::iterator outer = ssts_.begin();
+    std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>::iterator outer =
+        ssts_.begin();
     outer++;
     int level = 1;
     for (; outer != ssts_.end(); ++outer) {
@@ -153,8 +155,9 @@ std::string DBImpl::ToString()
 
     for (uint32_t i = 0; i < ssts_.size(); i++) {
         oss << "Level " << i << ": ";
-        for (uint32_t j = 0; j < ssts_.at(i).size(); j++) {
-            oss << ssts_.at(i).at(j).get()->GetName() << " ";
+        std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
+        for (it = ssts_.at(i).begin(); it != ssts_.at(i).end(); it++) {
+            oss << (*it).get()->GetName() << " ";
         }
         oss << "\n";
     }
@@ -179,7 +182,7 @@ int DBImpl::populate(int n)
             return -1;
         }
 
-        ssts_.at(0).emplace_back(sst);
+        ssts_.at(0).insert(sst);
         manifest_->AddToLevel(i, sst.get()->GetID());
     }
 
@@ -208,7 +211,7 @@ int DBImpl::flush()
 
     memTable_->Flush();
     manifest_->AddToLevel(0, sst.get()->GetID());
-    ssts_.at(0).emplace_back(sst);
+    ssts_.at(0).insert(sst);
 
     if (ssts_.at(0).size() > 1) {
         ok = compact();
@@ -218,7 +221,6 @@ int DBImpl::flush()
     }
 
     printf("%s\n", ToString().c_str());
-    std::this_thread::sleep_for(std::chrono::seconds(2));
 
     return ok;
 }

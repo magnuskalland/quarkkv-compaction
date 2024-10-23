@@ -2,36 +2,47 @@
 
 #include "../include/KVIterator.h"
 
-LevelIterator::LevelIterator(Config* config, std::vector<std::shared_ptr<SST>> ssts) : Iterator(config)
+LevelIterator::LevelIterator(Config* config,
+                             std::set<std::shared_ptr<SST>, SST::SSTComparator> ssts)
+    : Iterator(config)
 {
     assert(ssts.size() > 0);
-    level_ = ssts.at(0).get()->GetLevel();
+    level_ = ssts.begin()->get()->GetLevel();
 
-    std::vector<std::shared_ptr<SST>>::iterator it;
+    std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
     for (it = ssts.begin(); it != ssts.end(); it++) {
         KVIterator kvIterator(config_, *it);
         iterators.emplace_back(kvIterator);
     }
 
-    Next();
+    ptr_ = iterators.at(0).Get();
 }
 
 void LevelIterator::Next()
 {
-    int ok = -1;
-    KVPair* prev = ptr_;
+    printf("Calling LevelIterator::Next()\n");
 
-    if (!ptr_) {
+    // init
+    if (!ptr_ && (int)index == -1) {
         index = index + 1;
     }
 
-    if (index >= iterators.size()) {
-        ptr_ = nullptr;
+    KVPair* prev = ptr_;
+    while (index < iterators.size()) {
+        KVIterator iter = iterators.at(index);
+
+        // exhausted current SST
+        if (iter.Get() == iter.End()) {
+            index = index + 1;
+            continue;
+        }
+
+        ptr_ = iter.Get();
+        iter.Next();
+        assert((!ptr_ && !iter.Get()) || (ptr_->GetKey() > prev->GetKey()));
         return;
     }
 
-    KVIterator iter = iterators.at(index);
-    iter.Next();
-    ptr_ = iter.Get();
-    assert((!ptr_ && !iter.Get()) || (ptr_ > prev));
+    // iterator exhausted
+    ptr_ = nullptr;
 }

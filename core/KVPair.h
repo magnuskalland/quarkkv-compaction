@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cassert>
 #include <chrono>
 #include <iomanip>
 #include <iostream>
@@ -11,47 +12,78 @@ class KVPair {
     KVPair(std::string key, uint32_t value_size) : key_(key), value_size_(value_size)
     {
         auto now = std::chrono::system_clock::now();
-        ts_ = std::chrono::system_clock::to_time_t(now);
+        ts_ = now;
     }
 
-    KVPair(std::string key, std::string ts, uint32_t value_size) : key_(key), value_size_(value_size)
+    KVPair(std::string key, std::string ts, uint32_t value_size)
+        : key_(key), value_size_(value_size)
     {
         std::tm tm = {};
         std::istringstream ss(ts);
         ss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
-        ts_ = std::mktime(&tm);
+        auto base_time = std::chrono::system_clock::from_time_t(std::mktime(&tm));
+
+        size_t dotPos = ts.find('.');
+        if (dotPos != std::string::npos) {
+            int microseconds = std::stoi(ts.substr(dotPos + 1, 6));
+            ts_ = base_time + std::chrono::microseconds(microseconds);
+        }
+        else {
+            ts_ = base_time;
+        }
     }
 
-    std::string GetKey()
+    std::string GetKey() const
     {
         return key_;
     }
 
-    std::time_t GetTimestamp()
+    std::chrono::system_clock::time_point GetTimestamp() const
     {
         return ts_;
     }
 
-    int Compare(KVPair* other)
+    bool operator>(const KVPair& other) const
     {
-        int keyComp = key_.compare(other->GetKey());
-        std::time_t otherTS = other->GetTimestamp();
-        int tsComp = ts_ < otherTS ? -1 : ts_ == otherTS ? 0 : 1;
-        return keyComp < 0 ? 0 : keyComp > 0 ? 1 : tsComp;
+        int keyComp = key_.compare(other.GetKey());
+        if (keyComp != 0) {
+            return keyComp > 0 ? true : false;
+        }
+        auto otherTS = other.GetTimestamp();
+        return ts_ > otherTS;
     }
 
-    std::string ToString()
+    std::string ToBinary() const
     {
-        std::ostringstream oss;
-        std::tm* now_tm = std::localtime(&ts_);
-        oss << std::put_time(now_tm, "%Y-%m-%d %H:%M:%S");
-        std::string ts = oss.str();
+        std::string ts = tsToString();
         std::string value(value_size_ - ts.length(), 'V');
+        return key_ + value + ts;
+    }
+
+    std::string ToString() const
+    {
+        std::string ts = tsToString();
+        std::string value(" (value) ");
         return key_ + value + ts;
     }
 
    private:
     std::string key_;
-    std::time_t ts_;
+    std::chrono::system_clock::time_point ts_;
     uint32_t value_size_;
+
+   private:
+    std::string tsToString() const
+    {
+        auto in_time_t = std::chrono::system_clock::to_time_t(ts_);
+        auto microsec = std::chrono::duration_cast<std::chrono::microseconds>(
+                            ts_.time_since_epoch()) %
+                        1000000;
+
+        std::ostringstream oss;
+        std::tm* now_tm = std::localtime(&in_time_t);
+        oss << std::put_time(now_tm, "%Y-%m-%d %H:%M:%S");
+        oss << "." << std::setw(6) << std::setfill('0') << microsec.count();
+        return oss.str();
+    }
 };

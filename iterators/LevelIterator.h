@@ -1,12 +1,13 @@
 #pragma once
-#include <queue>
+#include <set>
 
 #include "../include/Iterator.h"
 #include "../include/KVIterator.h"
 
 class LevelIterator : public Iterator {
    public:
-    LevelIterator(Config* config, std::vector<std::shared_ptr<SST>> ssts);
+    LevelIterator(Config* config,
+                  std::set<std::shared_ptr<SST>, SST::SSTComparator> ssts);
     void Next() override;
 
    private:

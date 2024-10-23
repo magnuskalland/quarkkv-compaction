@@ -148,20 +148,23 @@ bool SST::IsMarkedForCompaction()
     return markedForCompaction_;
 }
 
-bool SST::MarkForCompaction()
+void SST::MarkForCompaction()
 {
     markedForCompaction_ = true;
 }
 
 /* Protected */
 
-SST::SST(Config* config, uint32_t handler, int id) : config_(config), handler_(handler), id_(id) {}
+SST::SST(Config* config, uint32_t handler, int id)
+    : config_(config), handler_(handler), id_(id)
+{
+}
 
 int SST::appendKV(KVPair* kv)
 {
     uint32_t kv_size = config_->kv_size();
     char kv_pair[kv_size];
-    memcpy(kv_pair, kv->ToString().c_str(), kv_size);
+    memcpy(kv_pair, kv->ToBinary().c_str(), kv_size);
 
     int ok = append(kv_pair, kv_size);
     if (ok == -1) {

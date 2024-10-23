@@ -25,12 +25,11 @@ class DBImpl {
     Config* config_;
     MemTable* memTable_;
     Compacter* compacter_;
-    std::vector<std::vector<std::shared_ptr<SST>>> ssts_;
+    std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>> ssts_;
 
     int populate(int n);
     bool verifyConfig();
     int compact();
     int flush();
     void padKey(std::string& key);
-    void markLevelForCompaction(uint32_t level);
 };

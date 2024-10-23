@@ -14,6 +14,14 @@
 
 class SST {
    public:
+    struct SSTComparator {
+        bool operator()(const std::shared_ptr<SST> s1,
+                        const std::shared_ptr<SST> s2) const
+        {
+            return s1 < s2;
+        }
+    };
+
     virtual ~SST();
 
     virtual std::string GetName() = 0;
@@ -76,7 +84,7 @@ class SST {
     std::string GetLargestKey();
     int GetID();
     bool IsMarkedForCompaction();
-    bool MarkForCompaction();
+    void MarkForCompaction();
 
    protected:
     /**
