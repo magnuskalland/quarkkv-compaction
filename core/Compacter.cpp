@@ -16,33 +16,49 @@ int Compacter::Compact()
     assert(ssts_->size() == config_->n_levels);
     assert(ssts_->at(0).size() > 1);
 
+    currentStats.Clear();
+
     int ok;
     for (uint32_t level = 0; level < ssts_->size() - 1; level++) {
-        std::set<std::shared_ptr<SST>, SST::SSTComparator> l = ssts_->at(level);
-        if (ssts_->at(level).size() <= pow(config_->fanout, level)) {
+        std::set<std::shared_ptr<SST>, SST::SSTComparator>*l1 = &ssts_->at(level),
+                                       *l2 = &ssts_->at(level + 1);
+
+        // stop compaction if level is smaller than the fanout
+        if (l1->size() <= pow(config_->fanout, level)) {
             break;
         }
 
-        printf("Compacting %ld SSTs from level %d into %ld SSTs on level %d\n",
-               ssts_->at(level).size(), level, ssts_->at(level + 1).size(), level + 1);
         markLevelForCompaction(level);
+
+        // if next level is empty, simply move SSTs
+        if (level != 0 && l2->size() == 0) {
+            initEmptyLevel(level + 1);
+            break;
+        }
+
+        // create compaction iterator for this and the next level
         markLevelForCompaction(level + 1);
         CompactionIterator ci(config_, ssts_);
+        ok = ci.SeekToFirst();
+        if (ok == -1) {
+            return -1;
+        }
 
+        // do compaction
         std::set<std::shared_ptr<SST>, SST::SSTComparator> set;
-        set.insert(ssts_->at(level).begin(), ssts_->at(level).end());
-        set.insert(ssts_->at(level + 1).begin(), ssts_->at(level + 1).end());
+        set.insert(l1->begin(), l1->end());
+        set.insert(l2->begin(), l2->end());
         ok = doCompaction(&ci, set, level + 1);
         if (ok == -1) {
             fprintf(stderr, "error: compaction failed\n");
             return -1;
         }
+
+        currentStats.compactions++;
+        totalStats.Add(currentStats);
+        currentStats.Clear();
     }
 
-    currentStats.compactions++;
-    totalStats.Add(currentStats);
-
-    printf("Current compaction stats:\n%s\n", currentStats.ToString().c_str());
     printf("Total compaction stats:\n%s\n", totalStats.ToString().c_str());
 
     return 0;
@@ -58,8 +74,6 @@ void Compacter::markLevelForCompaction(uint32_t level)
 
 int Compacter::finishSSTFile(std::shared_ptr<SST> sst, uint32_t level)
 {
-    printf("Finishing %s (%d entries)\n", sst.get()->GetName().c_str(),
-           sst.get()->GetEntries());
     int ok;
     ssts_->at(level).insert(sst);
     sst.get()->SetLevel(level);
@@ -69,4 +83,23 @@ int Compacter::finishSSTFile(std::shared_ptr<SST> sst, uint32_t level)
     }
     currentStats.newSSTs++;
     return 0;
+}
+
+void Compacter::initEmptyLevel(uint32_t level)
+{
+    assert(ssts_->at(level).size() == 0);
+    std::set<std::shared_ptr<SST>, SST::SSTComparator> set;
+    std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
+    for (it = ssts_->at(level - 1).begin(); it != ssts_->at(level - 1).end(); it++) {
+        if ((*it).get()->IsMarkedForCompaction()) {
+            (*it).get()->SetLevel(level);
+            (*it).get()->UnmarkForCompaction();
+            ssts_->at(level).insert(*it);
+            set.insert(*it);
+        }
+    }
+
+    for (it = set.begin(); it != set.end(); it++) {
+        ssts_->at(level - 1).erase(*it);
+    }
 }

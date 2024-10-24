@@ -48,7 +48,10 @@ int CompacterFS::doCompaction(
         ci->Next();
     }
 
-    printf("Got %d values from iterators\n", c);
+    printf(
+        "Merged level %d with %d, got %d values from iterators (%ld SSTs) (%d keys "
+        "merged)\n",
+        destLevel - 1, destLevel, c, toCompact.size(), currentStats.merged);
 
     ok = finishSSTFile(sst, destLevel);
     if (ok == -1) {
@@ -61,10 +64,15 @@ int CompacterFS::doCompaction(
         std::shared_ptr<SST> sst = *it;
         ssts_->at(sst.get()->GetLevel()).erase(sst);
         ok = sst.get()->Remove();
+        currentStats.deleted++;
         if (ok == -1) {
             return -1;
         }
     }
 
+    if (!(currentStats.newSSTs <= toCompact.size())) {
+        printf("new SSTs %d > toCompact %ld\n", currentStats.newSSTs, toCompact.size());
+    }
+    assert(currentStats.newSSTs <= toCompact.size());
     return 0;
 }

@@ -2,12 +2,13 @@
 
 #include <atomic>
 #include <cstring>
-#include <mutex>
+#include <memory>
+#include <set>
 #include <sstream>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
+#include "../include/SST.h"
 #include "../include/config.h"
 
 class Manifest {
@@ -38,6 +39,8 @@ class Manifest {
      * @param id ID of SST file to add.
      */
     void AddToLevel(int level, int id);
+
+    void Update(std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>> ssts);
 
     /**
      * Get all identifiers of SST files.

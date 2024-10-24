@@ -89,6 +89,7 @@ class SST {
     int GetID();
     bool IsMarkedForCompaction();
     void MarkForCompaction();
+    void UnmarkForCompaction();
     bool IsFull();
     bool IsPersisted();
 

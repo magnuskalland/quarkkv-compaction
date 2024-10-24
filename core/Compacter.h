@@ -18,17 +18,27 @@ class Compacter {
         uint32_t compactions = 0;
         uint32_t newSSTs = 0;
         uint32_t merged = 0;
+        uint32_t deleted = 0;
         void Add(struct CompactionStats other)
         {
             compactions += other.compactions;
             newSSTs += other.newSSTs;
             merged += other.merged;
+            deleted += other.deleted;
+        }
+        void Clear()
+        {
+            compactions = 0;
+            newSSTs = 0;
+            merged = 0;
+            deleted = 0;
         }
         std::string ToString()
         {
             std::ostringstream oss;
             oss << "Compactions: " << compactions << "\n";
             oss << "New SSTs: " << newSSTs << "\n";
+            oss << "Deleted SSTs: " << deleted << "\n";
             oss << "Merged keys: " << merged << "\n";
             return oss.str();
         }
@@ -52,4 +62,5 @@ class Compacter {
 
    private:
     void markLevelForCompaction(uint32_t level);
+    void initEmptyLevel(uint32_t level);
 };

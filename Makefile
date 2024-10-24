@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -std=c++11 -Wall -Wno-unused-variable -I./fs -I./quark -I./utils -I./core -I./iterators
+CFLAGS = -std=c++11 -Wall -Wno-unused-variable -O3 -g -I./fs -I./quark -I./utils -I./core -I./iterators
 LIBS = -lpthread
 
 TARGET = main

@@ -215,7 +215,6 @@ int DBImpl::flush()
         ok = compact();
     }
 
-    printf("%s\n", ToString().c_str());
     return ok;
 }
 
@@ -231,12 +230,13 @@ int DBImpl::compact()
         return -1;
     }
 
+    manifest_->Update(ssts_);
     ok = manifest_->Persist();
     if (ok == -1) {
         return -1;
     }
 
-    printf("%s\n", ToString().c_str());
+    printf("Compacted\n%s\n", ToString().c_str());
     return 0;
 }
 

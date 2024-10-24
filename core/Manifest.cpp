@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 #include <cstring>
+#include <set>
 
 #include "../include/SSTManager.h"
 #include "io.h"
@@ -28,6 +29,21 @@ std::vector<std::vector<int>> Manifest::GetSSTs()
 void Manifest::AddToLevel(int level, int id)
 {
     sst_files_.at(level).emplace_back(id);
+}
+
+void Manifest::Update(
+    std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>> ssts)
+{
+    sst_files_.clear();
+    std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>::iterator outer;
+    std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator inner;
+    for (outer = ssts.begin(); outer != ssts.end(); outer++) {
+        std::vector<int> set;
+        for (inner = (*outer).begin(); inner != (*outer).end(); inner++) {
+            set.emplace_back((*inner).get()->GetID());
+        }
+        sst_files_.emplace_back(set);
+    }
 }
 
 std::vector<int> Manifest::FlattenSSTs()
@@ -81,7 +97,8 @@ void Manifest::serializeLevels(char* buf)
         }
     }
 
-    assert(offset == sizeof(uint32_t) + n_levels * sizeof(uint32_t) + getNumberOfLiveSSTs() * sizeof(uint32_t));
+    assert(offset == sizeof(uint32_t) + n_levels * sizeof(uint32_t) +
+                         getNumberOfLiveSSTs() * sizeof(uint32_t));
 }
 
 uint32_t Manifest::getNumberOfLiveSSTs()

@@ -9,10 +9,10 @@ class LevelIterator : public Iterator {
     LevelIterator(Config* config,
                   std::set<std::shared_ptr<SST>, SST::SSTComparator> ssts);
     void Next() override;
+    int SeekToFirst() override;
 
    private:
-    std::vector<KVIterator> iterators;
+    std::vector<KVIterator> iterators_;
     uint32_t level_;
-    uint32_t index = -1;
-    uint32_t counter = 1;
+    uint32_t index_ = 0;
 };

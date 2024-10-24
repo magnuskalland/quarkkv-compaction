@@ -15,10 +15,11 @@ class CompactionIterator : public Iterator {
         Config* config,
         std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>* ssts);
     void Next() override;
+    int SeekToFirst() override;
 
    private:
     std::priority_queue<std::shared_ptr<Iterator>, std::vector<std::shared_ptr<Iterator>>,
-                        std::greater<std::shared_ptr<Iterator>>>
+                        Comparator>
         heap_;
     void addLevel0SST(std::set<std::shared_ptr<SST>, SST::SSTComparator> vec);
     void addLevelNSST(std::set<std::shared_ptr<SST>, SST::SSTComparator> vec);

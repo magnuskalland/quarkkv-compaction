@@ -151,7 +151,14 @@ bool SST::IsMarkedForCompaction()
 
 void SST::MarkForCompaction()
 {
+    assert(!markedForCompaction_);
     markedForCompaction_ = true;
+}
+
+void SST::UnmarkForCompaction()
+{
+    assert(markedForCompaction_);
+    markedForCompaction_ = false;
 }
 
 bool SST::IsFull()

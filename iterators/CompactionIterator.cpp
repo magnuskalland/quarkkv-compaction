@@ -11,7 +11,6 @@ CompactionIterator::CompactionIterator(
         if ((*it).size() == 0) {
             continue;
         }
-
         if (it == ssts->begin()) {
             addLevel0SST(*it);
         }
@@ -19,7 +18,6 @@ CompactionIterator::CompactionIterator(
             addLevelNSST(*it);
         }
     }
-    ptr_ = heap_.top()->Get();
 }
 
 void CompactionIterator::Next()
@@ -30,9 +28,11 @@ void CompactionIterator::Next()
         return;
     }
 
+    KVPair* prev = ptr_;
     std::shared_ptr<Iterator> it = heap_.top();
     heap_.pop();
     it->Next();
+
     if (it->Get() != it->End()) {
         heap_.push(it);
     }
@@ -43,11 +43,20 @@ void CompactionIterator::Next()
     }
 
     ptr_ = heap_.top()->Get();
+    assert(*ptr_ > *prev);
+    iterations_++;
+}
+
+int CompactionIterator::SeekToFirst()
+{
+    ptr_ = heap_.top()->Get();
+    return 0;
 }
 
 void CompactionIterator::addLevel0SST(
     std::set<std::shared_ptr<SST>, SST::SSTComparator> vec)
 {
+    int ok;
     std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
     for (it = vec.begin(); it != vec.end(); it++) {
         if (!(*it).get()->IsMarkedForCompaction()) {
@@ -55,6 +64,9 @@ void CompactionIterator::addLevel0SST(
         }
         std::shared_ptr<KVIterator> kvIterator =
             std::make_shared<KVIterator>(config_, *it);
+        // seek to first before insertion to heap to enable comparison
+        ok = kvIterator.get()->SeekToFirst();
+        assert(ok != -1);
         heap_.push(kvIterator);
     }
 }
@@ -66,6 +78,10 @@ void CompactionIterator::addLevelNSST(
         return;
     }
 
+    int ok;
     std::shared_ptr<LevelIterator> it = std::make_shared<LevelIterator>(config_, vec);
+    // seek to first before insertion to heap to enable comparison
+    ok = it.get()->SeekToFirst();
+    assert(ok != -1);
     heap_.push(it);
 }
