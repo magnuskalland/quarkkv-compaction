@@ -6,6 +6,7 @@ class SSTFS : public SST {
     std::string GetName();
     static std::shared_ptr<SST> CreateNewEmpty(Config* config, uint32_t id);
     static std::shared_ptr<SST> OpenWithID(Config* config, uint32_t id);
+    int Remove() override;
 
    protected:
     SSTFS(Config* config, uint32_t handler, int id, std::string full_name_);
@@ -14,7 +15,7 @@ class SSTFS : public SST {
     int read(char* buf, size_t size, off_t offset) override;
 
    private:
-    std::string full_name_;
+    std::string fullName_;
     static std::string createNameFromID(uint32_t id)
     {
         std::ostringstream oss;

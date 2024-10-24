@@ -15,21 +15,20 @@ LevelIterator::LevelIterator(Config* config,
         iterators.emplace_back(kvIterator);
     }
 
+    printf("Level iterator has %ld internal iterators\n", iterators.size());
     ptr_ = iterators.at(0).Get();
 }
 
 void LevelIterator::Next()
 {
-    printf("Calling LevelIterator::Next()\n");
-
     // init
-    if (!ptr_ && (int)index == -1) {
+    if ((int)index == -1) {
         index = index + 1;
     }
 
     KVPair* prev = ptr_;
     while (index < iterators.size()) {
-        KVIterator iter = iterators.at(index);
+        KVIterator& iter = iterators.at(index);
 
         // exhausted current SST
         if (iter.Get() == iter.End()) {
@@ -37,9 +36,12 @@ void LevelIterator::Next()
             continue;
         }
 
-        ptr_ = iter.Get();
+        prev = ptr_;
         iter.Next();
-        assert((!ptr_ && !iter.Get()) || (ptr_->GetKey() > prev->GetKey()));
+        counter++;
+        ptr_ = iter.Get();
+
+        assert(*ptr_ > *prev);
         return;
     }
 

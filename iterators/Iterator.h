@@ -9,6 +9,7 @@ class Iterator {
    public:
     Iterator(Config* config) : config_(config) {}
     virtual void Next() = 0;
+
     bool operator>(const Iterator& other) const
     {
         assert(ptr_ && other.ptr_);

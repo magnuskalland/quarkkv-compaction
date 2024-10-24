@@ -14,7 +14,7 @@ void KVIterator::Next()
     KVPair* pair;
 
     if (!ptr_) {
-        assert(index == 0 || index == sst_.get()->GetEntries());
+        assert(index_ == 0 || index_ == sst_.get()->GetEntries());
     }
 
     if (ptr_ && ptr_->GetKey() == sst_.get()->GetLargestKey()) {
@@ -22,9 +22,10 @@ void KVIterator::Next()
         return;
     }
 
-    ok = sst_->GetKVAtIndex(index++, &pair);
+    ok = sst_->GetKVAtIndex(index_, &pair);
     assert(ok != -1);
+    index_ = index_ + 1;
 
     ptr_ = pair;
-    assert(!prev || ptr_->GetKey() > prev->GetKey());
+    assert(!prev || *ptr_ > *prev);
 }

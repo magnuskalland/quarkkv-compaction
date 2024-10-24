@@ -9,6 +9,11 @@ class ManifestFS : public Manifest {
 
    private:
     int openCurrent() override;
+
+    /**
+     * @return -1 on IO error, 0 if no error and CURRENT was read, 1 if CURRENT was empty
+     * and we created a new manifest file.
+     */
     int getCurrentManifestPath(char* dest);
     int createNewManifest(char* dest);
 };

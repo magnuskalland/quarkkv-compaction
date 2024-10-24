@@ -21,6 +21,7 @@ int SST::Persist()
     }
 
     // assert(verifyPersisted());
+    persisted_ = true;
     return 0;
 }
 
@@ -153,6 +154,16 @@ void SST::MarkForCompaction()
     markedForCompaction_ = true;
 }
 
+bool SST::IsFull()
+{
+    return entries_ == config_->sst_file_size / config_->kv_size();
+}
+
+bool SST::IsPersisted()
+{
+    return persisted_;
+}
+
 /* Protected */
 
 SST::SST(Config* config, uint32_t handler, int id)
@@ -210,7 +221,6 @@ int SST::writeNumberOfEntries()
     assert((int)indexBlockSize_ != -1);
 
     std::memcpy(&number_of_kv_pairs[0], &entries_, sizeof(uint32_t));
-    printf("Writing number of KV pairs: %d\n", entries_);
     ok = append(number_of_kv_pairs, BLOCK_SIZE);
     if (ok == -1) {
         return -1;

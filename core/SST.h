@@ -18,14 +18,12 @@ class SST {
         bool operator()(const std::shared_ptr<SST> s1,
                         const std::shared_ptr<SST> s2) const
         {
-            return s1 < s2;
+            return s1.get() < s2.get();
         }
     };
 
     virtual ~SST();
-
     virtual std::string GetName() = 0;
-
     virtual bool operator>(const SST& other) const;
 
     /**
@@ -44,6 +42,12 @@ class SST {
      * Persist SST file to disk.
      */
     int Persist();
+
+    /**
+     * Remove SST from underlying storage.
+     * @return -1 if error, 0 otherwise.
+     */
+    virtual int Remove() = 0;
 
     /**
      * Parse an SST file from disk.
@@ -85,6 +89,8 @@ class SST {
     int GetID();
     bool IsMarkedForCompaction();
     void MarkForCompaction();
+    bool IsFull();
+    bool IsPersisted();
 
    protected:
     /**
@@ -98,6 +104,7 @@ class SST {
      * Append to SST file. Must specify offset.
      * @param buf Data to append.
      * @param size Length of data to append
+     * @return -1 if error, 0 otherwise.
      */
     virtual int append(char* buf, size_t size) = 0;
 
@@ -106,6 +113,7 @@ class SST {
      * @param buf Destination buffer of read.
      * @param offset Offset of file to read from.
      * @param size Length of read.
+     * @return -1 if error, 0 otherwise.
      */
     virtual int read(char* buf, size_t size, off_t offset) = 0;
 
@@ -122,6 +130,7 @@ class SST {
 
     uint32_t entries_ = 0;
     uint32_t level_ = 0;
+    bool persisted_ = false;
     bool markedForCompaction_ = false;
 
     uint32_t indexBlockSize_ = -1;

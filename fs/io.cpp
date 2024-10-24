@@ -87,8 +87,14 @@ int Close(int fd)
     ok = close(fd);
     if (ok == -1) {
         perror("Close");
+        exit(0);
     }
     return ok;
+}
+
+int Unlink(std::string path)
+{
+    return unlink(path.c_str());
 }
 
 int Stat(std::string path, struct stat* dest)

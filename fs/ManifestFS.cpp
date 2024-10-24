@@ -12,6 +12,7 @@ int ManifestFS::Open()
     if (ok == -1) {
         return -1;
     }
+
     if (ok == 1) {
         return 0;
     }
@@ -132,7 +133,6 @@ int ManifestFS::createNewManifest(char* dest)
             continue;
         }
         memcpy(dest, name.c_str(), name.length());
-        printf("Created new manifest: %s\n", name.c_str());
         return fd;
     }
 }

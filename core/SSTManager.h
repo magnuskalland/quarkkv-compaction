@@ -49,6 +49,13 @@ class SSTManager {
      */
     int FlushToSST(MemTable* table, std::shared_ptr<SST>& sst);
 
+    /**
+     * Deletes the given SST from underlying storage.
+     * @param sst SST to delete.
+     * @return -1 if error, 0 otherwise.
+     */
+    int RemoveSST(std::shared_ptr<SST>& sst);
+
    private:
     Config* config_;
     KeyGenerator* keygen_;

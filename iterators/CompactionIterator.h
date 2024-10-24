@@ -18,7 +18,7 @@ class CompactionIterator : public Iterator {
 
    private:
     std::priority_queue<std::shared_ptr<Iterator>, std::vector<std::shared_ptr<Iterator>>,
-                        std::less<std::shared_ptr<Iterator>>>
+                        std::greater<std::shared_ptr<Iterator>>>
         heap_;
     void addLevel0SST(std::set<std::shared_ptr<SST>, SST::SSTComparator> vec);
     void addLevelNSST(std::set<std::shared_ptr<SST>, SST::SSTComparator> vec);

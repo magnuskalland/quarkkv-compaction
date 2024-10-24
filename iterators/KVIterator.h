@@ -12,5 +12,5 @@ class KVIterator : public Iterator {
    protected:
     std::shared_ptr<SST> sst_;
     KVPair* end_;
-    uint32_t index = 0;
+    uint32_t index_ = 0;
 };

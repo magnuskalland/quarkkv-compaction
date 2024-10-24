@@ -14,4 +14,5 @@ class LevelIterator : public Iterator {
     std::vector<KVIterator> iterators;
     uint32_t level_;
     uint32_t index = -1;
+    uint32_t counter = 1;
 };

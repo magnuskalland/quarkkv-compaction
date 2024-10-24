@@ -15,7 +15,7 @@ DBImpl::DBImpl(Config* config) : config_(config)
     manifest_ = new ManifestFS(config_);
     manager_ = new SSTManager(config_);
     memTable_ = new MemTable(config_);
-    compacter_ = new CompacterFS(config_, &ssts_);
+    compacter_ = new CompacterFS(config_, manager_, &ssts_);
 
     for (uint32_t level = 0; level < config_->n_levels; level++) {
         ssts_.emplace_back(std::set<std::shared_ptr<SST>, SST::SSTComparator>());
@@ -199,8 +199,6 @@ bool DBImpl::verifyConfig()
 
 int DBImpl::flush()
 {
-    printf("Triggered flush\n");
-
     std::shared_ptr<SST> sst;
     int ok;
 
@@ -216,19 +214,16 @@ int DBImpl::flush()
     if (ssts_.at(0).size() > 1) {
         ok = compact();
     }
-    else {
-        ok = manifest_->Persist();
-    }
 
     printf("%s\n", ToString().c_str());
-
     return ok;
 }
 
 int DBImpl::compact()
 {
-    printf("Triggered compaction\n");
     int ok;
+
+    printf("\nStarting compaction %d\n", compacter_->totalStats.compactions);
 
     ok = compacter_->Compact();
     if (ok == -1) {
@@ -241,6 +236,7 @@ int DBImpl::compact()
         return -1;
     }
 
+    printf("%s\n", ToString().c_str());
     return 0;
 }
 

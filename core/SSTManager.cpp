@@ -9,7 +9,10 @@
 #include "SSTFS.h"
 #include "io.h"
 
-SSTManager::SSTManager(Config* config) : config_(config), keygen_(new UniformKeyGenerator(config->key_size)), ctr_(0) {}
+SSTManager::SSTManager(Config* config)
+    : config_(config), keygen_(new UniformKeyGenerator(config->key_size)), ctr_(0)
+{
+}
 SSTManager::~SSTManager() {}
 
 std::shared_ptr<SST> SSTManager::NewEmptySST()
@@ -72,7 +75,8 @@ int SSTManager::FlushToSST(MemTable* table, std::shared_ptr<SST>& sst)
 
     assert(kvs->size() == config_->sst_file_size / config_->kv_size());
 
-    for (std::map<std::string, KVPair>::iterator it = kvs->begin(); it != kvs->end(); ++it) {
+    for (std::map<std::string, KVPair>::iterator it = kvs->begin(); it != kvs->end();
+         ++it) {
         ok = sst->AddKV(&(*it).second);
         if (ok == -1) {
             return -1;
@@ -80,6 +84,20 @@ int SSTManager::FlushToSST(MemTable* table, std::shared_ptr<SST>& sst)
     }
 
     ok = sst->Persist();
+    if (ok == -1) {
+        return -1;
+    }
+
+    return 0;
+}
+
+int SSTManager::RemoveSST(std::shared_ptr<SST>& sst)
+{
+    if (!sst.get()->IsPersisted()) {
+        return 0;
+    }
+
+    int ok = sst.get()->Remove();
     if (ok == -1) {
         return -1;
     }

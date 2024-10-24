@@ -62,12 +62,10 @@ void CompactionIterator::addLevel0SST(
 void CompactionIterator::addLevelNSST(
     std::set<std::shared_ptr<SST>, SST::SSTComparator> vec)
 {
-    printf("Adding level x SSTs\n");
     if (vec.size() == 0 || !vec.begin()->get()->IsMarkedForCompaction()) {
         return;
     }
 
     std::shared_ptr<LevelIterator> it = std::make_shared<LevelIterator>(config_, vec);
     heap_.push(it);
-    printf("Added level x SSTs\n");
 }
