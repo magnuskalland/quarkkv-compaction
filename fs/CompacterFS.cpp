@@ -25,9 +25,10 @@ int CompacterFS::doCompaction(
         c++;
 
         if (prev && prev->GetKey() == pair->GetKey()) {
-            printf("Merging keys\n");
             currentStats.merged++;
-            assert(prev->GetTimestamp() > pair->GetTimestamp());
+            assert(prev->GetTimestamp() < pair->GetTimestamp());
+            prev = pair;
+            ci->Next();
             continue;
         }
 

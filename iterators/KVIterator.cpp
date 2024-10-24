@@ -12,9 +12,16 @@ void KVIterator::Next()
     KVPair* prev = ptr_;
     assert(ptr_);
 
-    if (ptr_->GetKey() == sst_.get()->GetLargestKey()) {
+    if (ptr_->GetKey() == end_->GetKey()) {
         ptr_ = nullptr;
         return;
+    }
+
+    if (!(index_ >= 0 && index_ < sst_.get()->GetEntries())) {
+        printf(
+            "Failing with index_ %d and entries_ %d\nKey is %s and largest key is %s\n",
+            index_, sst_.get()->GetEntries(), ptr_->GetKey().c_str(),
+            sst_.get()->GetLargestKey().c_str());
     }
 
     ok = sst_->GetKVAtIndex(++index_, &ptr_);

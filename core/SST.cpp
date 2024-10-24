@@ -194,9 +194,11 @@ int SST::appendKV(KVPair* kv)
 int SST::writeIndexBlock()
 {
     uint32_t entries_per_block = BLOCK_SIZE / config_->index_block_entry_size();
-    uint32_t index_blocks = entries_ / entries_per_block;
+    uint32_t index_blocks = (entries_ % entries_per_block == 0)
+                                ? entries_ / entries_per_block
+                                : entries_ / entries_per_block + 1;
     uint32_t index_block_size = index_blocks * BLOCK_SIZE;
-    assert(entries_ % entries_per_block == 0);
+    // assert(entries_ % entries_per_block == 0);
     size_t offset = 0;
     char buf[index_block_size];
     std::map<std::string, uint64_t>::iterator it;
@@ -208,7 +210,7 @@ int SST::writeIndexBlock()
         offset = offset + config_->index_block_entry_size();
     }
 
-    assert(offset == index_block_size);
+    // assert(offset == index_block_size);
     int ok = append(buf, index_block_size);
     if (ok == -1) {
         return -1;

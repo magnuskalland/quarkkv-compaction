@@ -44,7 +44,8 @@ void parse_args(int argc, char *argv[], Config *dest)
         {0, 0, 0, 0},
     };
 
-    while ((opt = getopt_long(argc, argv, "e:m:d:w:l:s:k:f:h", long_options, nullptr)) != -1) {
+    while ((opt = getopt_long(argc, argv, "e:m:d:w:l:s:k:f:h", long_options, nullptr)) !=
+           -1) {
         switch (opt) {
             case 'e':
                 engine = true;
@@ -108,8 +109,8 @@ void parse_args(int argc, char *argv[], Config *dest)
     if (!(engine && ddir && wdir)) goto parse_args_err;
     return;
 parse_args_err:
-    fprintf(stderr, usage, argv[0], DEFAULT_LEVELS, DEFAULT_FANOUT, DEFAULT_KEY_SIZE, DEFAULT_LEVEL0_MAX_SIZE,
-            DEFAULT_SST_FILE_SIZE);
+    fprintf(stderr, usage, argv[0], DEFAULT_LEVELS, DEFAULT_FANOUT, DEFAULT_KEY_SIZE,
+            DEFAULT_LEVEL0_MAX_SIZE, DEFAULT_SST_FILE_SIZE);
     exit(EXIT_FAILURE);
 }
 
@@ -142,7 +143,7 @@ int main(int argc, char *argv[])
     DB db(&config);
     ok = db.Open();
 
-    UniformKeyGenerator gen(config.key_size);
+    ZipfianKeyGenerator gen(config.practical_key_size);
 
     while (1) {
         std::string key = gen.Generate();

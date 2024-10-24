@@ -13,11 +13,12 @@ std::string UniformKeyGenerator::Generate()
 }
 
 ZipfianKeyGenerator::ZipfianKeyGenerator(size_t length) : KeyGenerator(length) {}
+
 std::string ZipfianKeyGenerator::Generate()
 {
     std::vector<double> probabilities;
-    std::vector<int> weights;
-    int sum_weights = 0;
+    std::vector<double> weights;
+    double sum_weights = 0.0;
 
     for (size_t i = 1; i <= chars_.size(); ++i) {
         double weight = 1.0 / (i * i);
@@ -25,7 +26,7 @@ std::string ZipfianKeyGenerator::Generate()
         sum_weights += weight;
     }
 
-    for (auto& weight : weights) {
+    for (const auto& weight : weights) {
         probabilities.push_back(weight / sum_weights);
     }
 
@@ -40,7 +41,8 @@ std::string ZipfianKeyGenerator::Generate()
     std::uniform_real_distribution<> dist(0.0, 1.0);
     for (size_t i = 0; i < length_ - 4; ++i) {
         double random_value = dist(gen_);
-        auto it = std::lower_bound(cumulative_distribution.begin(), cumulative_distribution.end(), random_value);
+        auto it = std::lower_bound(cumulative_distribution.begin(),
+                                   cumulative_distribution.end(), random_value);
         size_t index = std::distance(cumulative_distribution.begin(), it);
         res += chars_[index];
     }
