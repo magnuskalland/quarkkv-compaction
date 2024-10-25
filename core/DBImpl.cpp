@@ -24,7 +24,6 @@ DBImpl::DBImpl(Config* config) : config_(config)
 
 int DBImpl::Open()
 {
-    printf("Opening DBImpl\n");
     assert(verifyConfig());
 
     int ok;
@@ -35,9 +34,8 @@ int DBImpl::Open()
 
     std::vector<std::vector<int>> ssts = manifest_->GetSSTs();
     for (uint32_t i = 0; i < ssts.size(); i++) {
-        std::vector<int>::iterator it;
         std::vector<int> level = ssts.at(i);
-        for (it = level.begin(); it != level.end(); it++) {
+        for (auto it = level.begin(); it != level.end(); it++) {
             std::shared_ptr<SST> sst = manager_->ReadSST(*it);
             if (sst == nullptr) {
                 return -1;
@@ -52,10 +50,8 @@ int DBImpl::Open()
 
 int DBImpl::Close()
 {
-    std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>::iterator outer;
-    std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
-    for (outer = ssts_.begin(); outer != ssts_.end(); ++outer) {
-        for (it = outer->begin(); it != outer->end(); ++it) {
+    for (auto outer = ssts_.begin(); outer != ssts_.end(); ++outer) {
+        for (auto it = outer->begin(); it != outer->end(); ++it) {
             delete (*it).get();
         }
     }
@@ -85,8 +81,7 @@ int DBImpl::Get(std::string key, std::string& dest)
     std::set<std::shared_ptr<SST>, SST::SSTComparator> level0 = ssts_.at(0);
 
     // search in level 0
-    std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
-    for (it = level0.begin(); it != level0.end(); ++it) {
+    for (auto it = level0.begin(); it != level0.end(); ++it) {
         sst = (*it).get();
         ok = manager_->Get(sst, key, &kv);
         if (ok == -1) {
@@ -110,7 +105,7 @@ int DBImpl::Get(std::string key, std::string& dest)
     outer++;
     int level = 1;
     for (; outer != ssts_.end(); ++outer) {
-        for (it = outer->begin(); it != outer->end(); ++it) {
+        for (auto it = outer->begin(); it != outer->end(); ++it) {
             sst = (*it).get();
             ok = manager_->Get(sst, key, &kv);
             if (ok == -1) {
@@ -150,16 +145,30 @@ std::string DBImpl::ToString()
 {
     int ok;
     std::ostringstream oss;
+    float avgSize = 0.0;
+    uint32_t ssts = 0;
 
     oss << manifest_->ToString();
+    for (uint32_t i = 0; i < ssts_.size(); i++) {
+        for (auto it = ssts_.at(i).begin(); it != ssts_.at(i).end(); it++) {
+            ssts++;
+            avgSize += (*it).get()->GetEntries();
+        }
+    }
+
+    avgSize = (avgSize * config_->kv_size()) / ssts;
+
+    oss << "Number of SSTs: " << ssts << "\n";
+    oss << "Average SST size: " << ((uint32_t)avgSize >> 20) << " MiB"
+        << "\n";
 
     for (uint32_t i = 0; i < ssts_.size(); i++) {
         oss << "Level " << i << ": ";
-        std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
-        for (it = ssts_.at(i).begin(); it != ssts_.at(i).end(); it++) {
+        for (auto it = ssts_.at(i).begin(); it != ssts_.at(i).end(); it++) {
             oss << (*it).get()->GetName() << " ";
         }
-        oss << "\n";
+        oss << "(" << ssts_.at(i).size() << "/" << pow(config_->fanout, i) << ")"
+            << "\n";
     }
 
     return oss.str();
@@ -192,8 +201,12 @@ int DBImpl::populate(int n)
 
 bool DBImpl::verifyConfig()
 {
+    assert(config_->mode == COMPACT || config_->mode == LOAD);
+    assert(config_->engine == FS || config_->engine == QUARKSTORE);
+    assert(config_->cp == ALL || config_->cp == ONE);
     assert(config_->sst_file_size % (uint64_t)config_->kv_size() == 0);
     assert(BLOCK_SIZE % config_->index_block_entry_size() == 0);
+    assert(BLOCK_SIZE == config_->kv_size());
     return true;
 }
 
@@ -222,8 +235,6 @@ int DBImpl::compact()
 {
     int ok;
 
-    printf("\nStarting compaction %d\n", compacter_->totalStats.compactions);
-
     ok = compacter_->Compact();
     if (ok == -1) {
         fprintf(stderr, "error during compaction\n");
@@ -236,7 +247,7 @@ int DBImpl::compact()
         return -1;
     }
 
-    printf("Compacted\n%s\n", ToString().c_str());
+    printf("%s\n", ToString().c_str());
     return 0;
 }
 

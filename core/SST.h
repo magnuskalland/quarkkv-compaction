@@ -18,7 +18,10 @@ class SST {
         bool operator()(const std::shared_ptr<SST> s1,
                         const std::shared_ptr<SST> s2) const
         {
-            return s1.get() < s2.get();
+            if ((s1.get()->GetSmallestKey().compare(s2.get()->GetSmallestKey()) == 0)) {
+                return s1.get()->GetID() < s2.get()->GetID();
+            }
+            return s1.get()->GetSmallestKey().compare(s2.get()->GetSmallestKey()) < 0;
         }
     };
 

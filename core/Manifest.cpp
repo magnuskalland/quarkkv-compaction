@@ -35,11 +35,9 @@ void Manifest::Update(
     std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>> ssts)
 {
     sst_files_.clear();
-    std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>::iterator outer;
-    std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator inner;
-    for (outer = ssts.begin(); outer != ssts.end(); outer++) {
+    for (auto outer = ssts.begin(); outer != ssts.end(); outer++) {
         std::vector<int> set;
-        for (inner = (*outer).begin(); inner != (*outer).end(); inner++) {
+        for (auto inner = (*outer).begin(); inner != (*outer).end(); inner++) {
             set.emplace_back((*inner).get()->GetID());
         }
         sst_files_.emplace_back(set);

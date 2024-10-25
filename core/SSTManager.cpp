@@ -75,8 +75,7 @@ int SSTManager::FlushToSST(MemTable* table, std::shared_ptr<SST>& sst)
 
     assert(kvs->size() == config_->sst_file_size / config_->kv_size());
 
-    for (std::map<std::string, KVPair>::iterator it = kvs->begin(); it != kvs->end();
-         ++it) {
+    for (auto it = kvs->begin(); it != kvs->end(); ++it) {
         ok = sst->AddKV(&(*it).second);
         if (ok == -1) {
             return -1;

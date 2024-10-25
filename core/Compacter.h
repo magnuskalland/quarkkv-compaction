@@ -39,7 +39,7 @@ class Compacter {
             oss << "Compactions: " << compactions << "\n";
             oss << "New SSTs: " << newSSTs << "\n";
             oss << "Deleted SSTs: " << deleted << "\n";
-            oss << "Merged keys: " << merged << "\n";
+            oss << "Merged keys: " << merged;
             return oss.str();
         }
     } currentStats, totalStats;
@@ -61,6 +61,8 @@ class Compacter {
     int finishSSTFile(std::shared_ptr<SST> sst, uint32_t level);
 
    private:
+    void markUpperLevelForCompaction(uint32_t level);
     void markLevelForCompaction(uint32_t level);
     void initEmptyLevel(uint32_t level);
+    bool verify(uint32_t level);
 };

@@ -13,6 +13,7 @@ void KVIterator::Next()
     assert(ptr_);
 
     if (ptr_->GetKey() == end_->GetKey()) {
+        // printf("KVIterator %d exhausted\n", sst_.get()->GetID());
         ptr_ = nullptr;
         return;
     }
@@ -33,7 +34,11 @@ void KVIterator::Next()
 
 int KVIterator::SeekToFirst()
 {
+    int ok;
     assert(index_ == 0);
     iterations_++;
-    return sst_->GetKVAtIndex(index_, &ptr_);
+    ok = sst_->GetKVAtIndex(index_, &ptr_);
+    // printf("KVIterator %d seeking to first, key is %s\n", sst_.get()->GetID(),
+    //        ptr_->GetKey().c_str());
+    return ok;
 }

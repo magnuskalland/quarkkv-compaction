@@ -6,8 +6,7 @@ CompactionIterator::CompactionIterator(
 {
     assert(ssts->size() == config_->n_levels);
 
-    std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>::iterator it;
-    for (it = ssts->begin(); it != ssts->end(); it++) {
+    for (auto it = ssts->begin(); it != ssts->end(); it++) {
         if ((*it).size() == 0) {
             continue;
         }
@@ -57,8 +56,7 @@ void CompactionIterator::addLevel0SST(
     std::set<std::shared_ptr<SST>, SST::SSTComparator> vec)
 {
     int ok;
-    std::set<std::shared_ptr<SST>, SST::SSTComparator>::iterator it;
-    for (it = vec.begin(); it != vec.end(); it++) {
+    for (auto it = vec.begin(); it != vec.end(); it++) {
         if (!(*it).get()->IsMarkedForCompaction()) {
             continue;
         }

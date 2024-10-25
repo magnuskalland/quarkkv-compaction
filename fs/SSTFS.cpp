@@ -107,21 +107,3 @@ int SSTFS::read(char* buf, size_t size, off_t offset)
 
     return ok;
 }
-
-// bool SSTFS::verifyPersisted()
-// {
-//     struct stat info;
-//     int ok = ::Stat(full_name_, &info);
-//     if (ok == -1) {
-//         return -1;
-//     }
-
-//     size_t data_block_size = config_->kv_size() * entries_;
-//     size_t index_block_size = config_->index_block_entry_size() * entries_;
-//     size_t size_block_size = BLOCK_SIZE;
-//     printf("Persisted %s with %ld MiBs (data block: %ld MiB, index block: %ld MiB)\n",
-//     createNameFromID(id_).c_str(),
-//            info.st_size >> 20, data_block_size >> 20, index_block_size >> 20);
-//     return (uint64_t)info.st_size == data_block_size + index_block_size +
-//     size_block_size;
-// }

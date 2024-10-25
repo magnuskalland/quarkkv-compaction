@@ -10,6 +10,8 @@ int SST::Persist()
 {
     int ok;
 
+    largestKey_ = indexTable_.rbegin()->first;
+
     ok = writeIndexBlock();
     if (ok == -1) {
         return -1;
@@ -20,7 +22,6 @@ int SST::Persist()
         return -1;
     }
 
-    // assert(verifyPersisted());
     persisted_ = true;
     return 0;
 }
@@ -45,6 +46,7 @@ int SST::Parse()
         return -1;
     }
 
+    largestKey_ = indexTable_.rbegin()->first;
     return 0;
 }
 
@@ -83,10 +85,6 @@ int SST::AddKV(KVPair* kv)
 
     indexTable_.insert({kv->GetKey(), entries_ * config_->kv_size()});
     entries_ = entries_ + 1;
-
-    if (indexTable_.size() == config_->sst_file_size / config_->kv_size()) {
-        largestKey_ = kv->GetKey();
-    }
 
     return 0;
 }
@@ -201,9 +199,8 @@ int SST::writeIndexBlock()
     // assert(entries_ % entries_per_block == 0);
     size_t offset = 0;
     char buf[index_block_size];
-    std::map<std::string, uint64_t>::iterator it;
 
-    for (it = indexTable_.begin(); it != indexTable_.end(); it++) {
+    for (auto it = indexTable_.begin(); it != indexTable_.end(); it++) {
         assert(it->first.size() == config_->key_size);
         memcpy(&buf[offset], it->first.c_str(), config_->key_size);
         memcpy(&buf[offset + config_->key_size], &it->second, sizeof(uint64_t));

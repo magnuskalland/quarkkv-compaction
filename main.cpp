@@ -22,6 +22,7 @@ static const char *usage = R"(usage %s [OPTIONS]
     -k, --key-size                  Key size                    (Default %d)
     -z, --level0-max                Level 0 max size            (Default %d)
     -f, --sst-file-size             SST file size               (Default %d)
+    -c, --compaction-picker         Compaction picker           (Default '%s')
     -h, --help                      Display this help message
 )";
 
@@ -40,12 +41,13 @@ void parse_args(int argc, char *argv[], Config *dest)
         {"key-size", required_argument, 0, 'k'},
         {"level0-max", required_argument, 0, 'z'},
         {"sst-file-size", required_argument, 0, 'f'},
+        {"compaction-picker", required_argument, 0, 'c'},
         {"help", 0, 0, 'h'},
         {0, 0, 0, 0},
     };
 
-    while ((opt = getopt_long(argc, argv, "e:m:d:w:l:s:k:f:h", long_options, nullptr)) !=
-           -1) {
+    while ((opt = getopt_long(argc, argv, "e:m:d:w:l:s:k:f:h:c", long_options,
+                              nullptr)) != -1) {
         switch (opt) {
             case 'e':
                 engine = true;
@@ -100,6 +102,17 @@ void parse_args(int argc, char *argv[], Config *dest)
                 dest->sst_file_size = atoi(optarg);
                 break;
 
+            case 'c':
+                if (std::string(optarg) == "all")
+                    dest->cp = ALL;
+                else if (std::string(optarg) == "one")
+                    dest->cp = ONE;
+                else {
+                    fprintf(stderr, "invalid compaction picker: %s\n", optarg);
+                    goto parse_args_err;
+                }
+                break;
+
             case 'h':
             case '?':
             default:
@@ -110,7 +123,7 @@ void parse_args(int argc, char *argv[], Config *dest)
     return;
 parse_args_err:
     fprintf(stderr, usage, argv[0], DEFAULT_LEVELS, DEFAULT_FANOUT, DEFAULT_KEY_SIZE,
-            DEFAULT_LEVEL0_MAX_SIZE, DEFAULT_SST_FILE_SIZE);
+            DEFAULT_LEVEL0_MAX_SIZE, DEFAULT_SST_FILE_SIZE, "all");
     exit(EXIT_FAILURE);
 }
 
@@ -149,7 +162,8 @@ int main(int argc, char *argv[])
         std::string key = gen.Generate();
         ok = db.Put(key, "-");
         if (ok == -1) {
-            fprintf(stderr, "error");
+            fprintf(stderr, "error\n");
+            exit(1);
         }
     }
 
