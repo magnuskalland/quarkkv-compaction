@@ -65,6 +65,11 @@ int CompacterFS::doCompaction(
         }
     }
 
+    if (!(currentStats.newSSTs <= toCompact.size())) {
+        printf("New SSTs: %d, SSTs to compact: %ld\n", currentStats.newSSTs,
+               toCompact.size());
+    }
+
     assert(currentStats.newSSTs <= toCompact.size());
     return 0;
 }

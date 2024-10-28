@@ -12,6 +12,7 @@ class Compacter {
    public:
     Compacter(Config* config, SSTManager* manager,
               std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>* ssts);
+    virtual ~Compacter() = default;
 
     int Compact();
     struct CompactionStats {

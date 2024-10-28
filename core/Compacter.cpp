@@ -25,11 +25,14 @@ int Compacter::Compact()
                                        *l2 = &ssts_->at(level + 1);
 
         // stop compaction if level is smaller than the fanout
-        if (l1->size() <= pow(config_->fanout, level)) {
+        if (l1->size() <= config_->maxSizeOfLevel(level)) {
             break;
         }
 
-        markLevelForCompaction(level);
+        printf("Compacting level %d (%ld SSTs) into level %d (%ld SSTs)\n", level,
+               ssts_->at(level).size(), level + 1, ssts_->at(level + 1).size());
+
+        markUpperLevelForCompaction(level);
 
         // if next level is empty, simply move SSTs
         if (level != 0 && l2->size() == 0) {
@@ -44,11 +47,18 @@ int Compacter::Compact()
         if (ok == -1) {
             return -1;
         }
-
         // do compaction
         std::set<std::shared_ptr<SST>, SST::SSTComparator> set;
-        set.insert(l1->begin(), l1->end());
-        set.insert(l2->begin(), l2->end());
+        std::copy_if(l1->begin(), l1->end(), std::inserter(set, set.end()),
+                     [](const std::shared_ptr<SST>& sst) {
+                         return sst.get()->IsMarkedForCompaction();
+                     });
+        std::copy_if(l2->begin(), l2->end(), std::inserter(set, set.end()),
+                     [](const std::shared_ptr<SST>& sst) {
+                         return sst.get()->IsMarkedForCompaction();
+                     });
+        // set.insert(l1->begin(), l1->end());
+        // set.insert(l2->begin(), l2->end());
         ok = doCompaction(&ci, set, level + 1);
         if (ok == -1) {
             fprintf(stderr, "error: compaction failed\n");
@@ -60,7 +70,6 @@ int Compacter::Compact()
             fprintf(stderr, "Compaction on level %d not verified\n", level + 1);
             return -1;
         }
-
         currentStats.compactions++;
         totalStats.Add(currentStats);
         currentStats.Clear();
@@ -73,21 +82,37 @@ int Compacter::Compact()
 
 void Compacter::markUpperLevelForCompaction(uint32_t level)
 {
+    auto ssts = ssts_->at(level);
     // compact all SSTs
     if (config_->cp == ALL) {
         markLevelForCompaction(level);
         return;
     }
 
-    // pick random key range to compact (fairness)
-    if (config_->cp == ONE) {
+    assert(config_->cp == ONE);
+
+    if (level > 0) {
+        // pick random key range to compact (fairness)
         std::srand(std::time(nullptr));
-        int index = std::rand() % ssts_->size();
-        auto it = ssts_->at(level).begin();
+        int index = std::rand() % ssts.size();
+        auto it = ssts.begin();
         std::advance(it, index);
         (*it)->MarkForCompaction();
         return;
     }
+
+    assert(level == 0);
+    SST* sst = nullptr;
+    std::chrono::system_clock::time_point oldest = std::chrono::system_clock::now();
+    for (auto it = ssts.begin(); it != ssts.end(); it++) {
+        assert(it->get()->IsPersisted());
+        if (it->get()->GetPersistTime() < oldest) {
+            sst = it->get();
+            oldest = it->get()->GetPersistTime();
+        }
+    }
+    assert(sst);
+    sst->MarkForCompaction();
 }
 
 void Compacter::markLevelForCompaction(uint32_t level)

@@ -1,5 +1,6 @@
 CC = g++
-CFLAGS = -std=c++11 -Wall -Wno-unused-variable -O3 -g -I./fs -I./quark -I./utils -I./core -I./iterators
+# ASAN = -fsanitize=address	
+CFLAGS = -std=c++11 -Wall $(ASAN) -Wno-unused-variable -O3 -g -I./fs -I./quark -I./utils -I./core -I./iterators
 LIBS = -lpthread
 
 TARGET = main
@@ -10,13 +11,12 @@ OBJS = $(SRCS:.cpp=.o)
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $(OBJS) $(LIBS)
+	$(CC) -o $@ $(OBJS) $(LIBS) $(ASAN)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -MMD -c $< -o $@
 
 -include $(SRCS:.cpp=.d)
-
 
 clean: del
 	rm -f $(OBJS) $(SRCS:.cpp=.d) $(TARGET) 

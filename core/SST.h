@@ -95,6 +95,7 @@ class SST {
     void UnmarkForCompaction();
     bool IsFull();
     bool IsPersisted();
+    std::chrono::system_clock::time_point GetPersistTime();
 
    protected:
     /**
@@ -131,6 +132,7 @@ class SST {
     std::string smallestKey_;
     std::string largestKey_;
     std::map<std::string, uint64_t> indexTable_;
+    std::chrono::system_clock::time_point ts_;
 
     uint32_t entries_ = 0;
     uint32_t level_ = 0;

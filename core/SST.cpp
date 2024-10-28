@@ -23,6 +23,7 @@ int SST::Persist()
     }
 
     persisted_ = true;
+    ts_ = std::chrono::system_clock::now();
     return 0;
 }
 
@@ -167,6 +168,11 @@ bool SST::IsFull()
 bool SST::IsPersisted()
 {
     return persisted_;
+}
+
+std::chrono::system_clock::time_point SST::GetPersistTime()
+{
+    return ts_;
 }
 
 /* Protected */

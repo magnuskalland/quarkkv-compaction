@@ -70,14 +70,26 @@ void CompactionIterator::addLevel0SST(
 }
 
 void CompactionIterator::addLevelNSST(
-    std::set<std::shared_ptr<SST>, SST::SSTComparator> vec)
+    std::set<std::shared_ptr<SST>, SST::SSTComparator> ssts)
 {
-    if (vec.size() == 0 || !vec.begin()->get()->IsMarkedForCompaction()) {
+    if (ssts.size() == 0) {
+        return;
+    }
+
+    std::set<std::shared_ptr<SST>, SST::SSTComparator> set;
+    for (auto it = ssts.begin(); it != ssts.end(); it++) {
+        if (!(*it).get()->IsMarkedForCompaction()) {
+            continue;
+        }
+        set.insert(*it);
+    }
+
+    if (set.size() == 0) {
         return;
     }
 
     int ok;
-    std::shared_ptr<LevelIterator> it = std::make_shared<LevelIterator>(config_, vec);
+    std::shared_ptr<LevelIterator> it = std::make_shared<LevelIterator>(config_, set);
     // seek to first before insertion to heap to enable comparison
     ok = it.get()->SeekToFirst();
     assert(ok != -1);

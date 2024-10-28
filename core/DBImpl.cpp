@@ -9,15 +9,24 @@
 #include "../fs/CompacterFS.h"
 #include "../fs/ManifestFS.h"
 #include "../include/CompactionIterator.h"
+#include "../quark/CompacterQuark.h"
+#include "../quark/ManifestQuark.h"
 
 DBImpl::DBImpl(Config* config) : config_(config)
 {
-    manifest_ = new ManifestFS(config_);
-    manager_ = new SSTManager(config_);
-    memTable_ = new MemTable(config_);
-    compacter_ = new CompacterFS(config_, manager_, &ssts_);
+    manager_ = new SSTManager(config);
+    memTable_ = new MemTable(config);
 
-    for (uint32_t level = 0; level < config_->n_levels; level++) {
+    if (config->engine == FS) {
+        manifest_ = new ManifestFS(config);
+        compacter_ = new CompacterFS(config, manager_, &ssts_);
+    }
+    else if (config->engine == QUARKSTORE) {
+        manifest_ = new ManifestQuark(config);
+        // compacter_ = new CompacterQuark(config, manager_, &ssts);
+    }
+
+    for (uint32_t level = 0; level < config->n_levels; level++) {
         ssts_.emplace_back(std::set<std::shared_ptr<SST>, SST::SSTComparator>());
     }
 };
@@ -50,21 +59,20 @@ int DBImpl::Open()
 
 int DBImpl::Close()
 {
-    for (auto outer = ssts_.begin(); outer != ssts_.end(); ++outer) {
-        for (auto it = outer->begin(); it != outer->end(); ++it) {
-            delete (*it).get();
-        }
+    int ok;
+
+    ok = manifest_->Persist();
+    if (ok == -1) {
+        return -1;
     }
-    delete manifest_;
-    delete manager_;
-    delete memTable_;
+
     return 0;
 }
 
 int DBImpl::Get(std::string key, std::string& dest)
 {
     int ok;
-    KVPair* kv;
+    KVPair* kv = nullptr;
 
     padKey(key);
 
@@ -138,6 +146,7 @@ int DBImpl::Put(std::string key, std::string _)
             return -1;
         }
     }
+
     return 0;
 }
 
@@ -167,7 +176,7 @@ std::string DBImpl::ToString()
         for (auto it = ssts_.at(i).begin(); it != ssts_.at(i).end(); it++) {
             oss << (*it).get()->GetName() << " ";
         }
-        oss << "(" << ssts_.at(i).size() << "/" << pow(config_->fanout, i) << ")"
+        oss << "(" << ssts_.at(i).size() << "/" << config_->maxSizeOfLevel(i) << ")"
             << "\n";
     }
 
@@ -207,6 +216,7 @@ bool DBImpl::verifyConfig()
     assert(config_->sst_file_size % (uint64_t)config_->kv_size() == 0);
     assert(BLOCK_SIZE % config_->index_block_entry_size() == 0);
     assert(BLOCK_SIZE == config_->kv_size());
+    assert((config_->populateSize * config_->kv_size()) % config_->sst_file_size == 0);
     return true;
 }
 
@@ -228,6 +238,7 @@ int DBImpl::flush()
         ok = compact();
     }
 
+    flushes_++;
     return ok;
 }
 

@@ -25,6 +25,7 @@ class DBImpl {
     Config* config_;
     MemTable* memTable_;
     Compacter* compacter_;
+    uint32_t flushes_ = 0;
     std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>> ssts_;
 
     int populate(int n);

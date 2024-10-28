@@ -17,6 +17,8 @@ SSTManager::~SSTManager() {}
 
 std::shared_ptr<SST> SSTManager::NewEmptySST()
 {
+    assert(config_);
+    assert(ctr_ >= 0);
     int id;
     while (true) {
         id = ctr_.fetch_add(1);

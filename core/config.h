@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cassert>
+#include <cmath>
+#include <cstdint>
 #include <format>
 #include <sstream>
 #include <string>
@@ -38,8 +40,9 @@ struct Config {
     uint32_t practical_key_size = DEFAULT_PRACTICAL_KEY_SIZE;
     uint32_t level0_max_size = DEFAULT_LEVEL0_MAX_SIZE;
     uint64_t sst_file_size = DEFAULT_SST_FILE_SIZE;
-    enum compaction_picker cp = ALL;
+    enum compaction_picker cp = ONE;
     uint32_t ts_size = 26;
+    uint32_t populateSize = 16 * (sst_file_size / kv_size());  // 16 full SSTs
 
     uint32_t value_size()
     {
@@ -60,6 +63,11 @@ struct Config {
     std::string cwd()
     {
         return mode == LOAD ? ddir : wdir;
+    }
+
+    uint32_t maxSizeOfLevel(uint32_t level)
+    {
+        return pow(fanout, level) * level0_max_size;
     }
 
     std::string ToString()
