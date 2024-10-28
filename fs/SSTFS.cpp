@@ -8,7 +8,7 @@
 #include <memory>
 
 #include "../include/config.h"
-#include "io.h"
+#include "io_fs.h"
 
 SSTFS::SSTFS(Config* config, uint32_t handler, int id, std::string full_name)
     : SST(config, handler, id), fullName_(full_name)

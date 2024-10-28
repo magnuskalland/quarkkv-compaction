@@ -6,7 +6,6 @@
 #include <set>
 
 #include "../include/SSTManager.h"
-#include "io.h"
 
 Manifest::Manifest(Config* config) : config_(config), ctr_(0)
 {

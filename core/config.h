@@ -44,6 +44,8 @@ struct Config {
     uint32_t ts_size = 26;
     uint32_t populateSize = 16 * (sst_file_size / kv_size());  // 16 full SSTs
 
+    int quark_current_id = 100;
+
     uint32_t value_size()
     {
         assert(key_size < BLOCK_SIZE);

@@ -7,7 +7,6 @@
 #include <string>
 
 #include "SSTFS.h"
-#include "io.h"
 
 SSTManager::SSTManager(Config* config)
     : config_(config), keygen_(new UniformKeyGenerator(config->key_size)), ctr_(0)
