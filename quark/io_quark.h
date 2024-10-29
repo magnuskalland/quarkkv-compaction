@@ -11,8 +11,10 @@ extern "C" {
 #define BLOCK_SIZE 4096
 
 // Function declarations
-ssize_t Read(int ah, void *buf, size_t len, loff_t off);
-ssize_t Write(int ah, const void *buf, size_t len, loff_t off);
-int InsertBlock(int ah_dst, loff_t off_dst, int ah_src, loff_t off_src, size_t len);
-int RemoveBlock(int ah, loff_t off, size_t len);
-int GetAtom(atom_id_t aid);
+int Init();
+int AtomGet(atom_id_t aid);
+int AtomRelease(int ah);
+ssize_t AtomRead(int ah, void *buf, size_t len, loff_t off);
+ssize_t AtomWrite(int ah, const void *buf, size_t len, loff_t off);
+int AtomRemove(atom_id_t aid);
+int AtomAppend(int dst, int src, size_t len, loff_t off);
