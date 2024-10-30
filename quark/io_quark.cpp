@@ -8,9 +8,9 @@ int Init()
     return quarklibio_client_init();
 }
 
-int AtomGet(atom_id_t aid)
+int AtomGet(atom_id_t* aid)
 {
-    int ah = quarklibio_atom_get(&aid, 0, 0, 0);
+    int ah = quarklibio_atom_get(aid, 0, 0, 0);
     if (ah < 0) {
         fprintf(stderr, "error: quarklibio_atom_get\n");
         return -1;
@@ -60,7 +60,7 @@ int AtomRemove(atom_id_t aid)
     return ok;
 }
 
-int AtomAppend(int dst, int src, size_t len, loff_t off)
+int AtomMoveAppend(int dst, int src, size_t len, loff_t off)
 {
     int ok = quarklibio_atom_move_append(dst, src, len, off);
     if (ok < 0) {

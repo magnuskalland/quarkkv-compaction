@@ -26,8 +26,7 @@ class SST {
     };
 
     virtual ~SST();
-    virtual std::string GetName() = 0;
-    virtual bool operator>(const SST& other) const;
+    bool operator>(const SST& other) const;
 
     /**
      * Factory method. Creates a new, empty SST file
@@ -90,6 +89,7 @@ class SST {
     std::string GetSmallestKey();
     std::string GetLargestKey();
     int GetID();
+    std::string GetName();
     bool IsMarkedForCompaction();
     void MarkForCompaction();
     void UnmarkForCompaction();
@@ -102,6 +102,8 @@ class SST {
      * Constructor.
      */
     SST(Config* config, uint32_t handler, int id);
+
+    static std::string createNameFromID(uint32_t id);
 
     // I/O wrappers
 

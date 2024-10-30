@@ -13,9 +13,6 @@
 SSTFS::SSTFS(Config* config, uint32_t handler, int id, std::string full_name)
     : SST(config, handler, id), fullName_(full_name)
 {
-    entries_ = 0;
-    smallestKey_ = "";
-    largestKey_ = "";
 }
 
 SSTFS::~SSTFS() {}
@@ -24,7 +21,7 @@ std::shared_ptr<SST> SSTFS::CreateNewEmpty(Config* config, uint32_t id)
 {
     int fd, ok;
 
-    std::string name = createNameFromID(id);
+    std::string name = SST::createNameFromID(id);
     std::string path = config->cwd() + "/" + name;
 
     fd = Create(path);
@@ -40,7 +37,7 @@ std::shared_ptr<SST> SSTFS::OpenWithID(Config* config, uint32_t id)
 {
     int fd, ok;
 
-    std::string name = createNameFromID(id);
+    std::string name = SST::createNameFromID(id);
     std::string path = config->cwd() + "/" + name;
 
     fd = Open(path);
@@ -67,11 +64,6 @@ int SSTFS::Remove()
         return -1;
     }
     return 0;
-}
-
-std::string SSTFS::GetName()
-{
-    return createNameFromID(id_);
 }
 
 int SSTFS::append(char* buf, size_t size)

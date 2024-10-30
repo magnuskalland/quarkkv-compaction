@@ -6,10 +6,13 @@
 #include <set>
 #include <string>
 
-#include "SSTFS.h"
+#include "../fs/SSTFS.h"
+#include "../quark/SSTQuark.h"
 
 SSTManager::SSTManager(Config* config)
-    : config_(config), keygen_(new UniformKeyGenerator(config->key_size)), ctr_(0)
+    : config_(config),
+      keygen_(new UniformKeyGenerator(config->key_size)),
+      ctr_(config->engine == FS ? 0 : config->quarkstore_sst_aid_start)
 {
 }
 SSTManager::~SSTManager() {}
@@ -21,9 +24,14 @@ std::shared_ptr<SST> SSTManager::NewEmptySST()
     int id;
     while (true) {
         id = ctr_.fetch_add(1);
-        std::shared_ptr<SST> sst = SSTFS::CreateNewEmpty(config_, id);
-        if (sst != nullptr) {
-            return sst;
+        if (config_->engine == FS) {
+            std::shared_ptr<SST> sst = SSTFS::CreateNewEmpty(config_, id);
+            if (sst != nullptr) {
+                return sst;
+            }
+        }
+        else if (config_->engine == QUARKSTORE) {
+            return SSTQuark::CreateNewEmpty(config_, id);
         }
     }
 }
@@ -58,7 +66,18 @@ int SSTManager::PopulateSST(SST& sst)
 
 std::shared_ptr<SST> SSTManager::ReadSST(uint32_t id)
 {
-    return SSTFS::OpenWithID(config_, id);
+    if (config_->engine == FS) {
+        return SSTFS::OpenWithID(config_, id);
+    }
+    else if (config_->engine == QUARKSTORE) {
+        // we don't care about atomicity
+        if ((int)id >= ctr_.load()) {
+            ctr_.store(id + 1);
+        }
+        return SSTQuark::OpenWithID(config_, id);
+    }
+    fprintf(stderr, "engine undefined");
+    return nullptr;
 }
 
 int SSTManager::Get(SST* sst, std::string key, KVPair** dest)

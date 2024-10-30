@@ -31,6 +31,8 @@ int SST::Parse()
 {
     int ok;
 
+    printf("Parsing SST atom (aid %d, handler %d)\n", id_, handler_);
+
     uint64_t entries = config_->sst_file_size / config_->kv_size();
     indexBlockSize_ = config_->index_block_entry_size() * entries;
     dataBlockOffset_ = 0;
@@ -143,6 +145,11 @@ int SST::GetID()
     return id_;
 }
 
+std::string SST::GetName()
+{
+    return createNameFromID(id_);
+}
+
 bool SST::IsMarkedForCompaction()
 {
     return markedForCompaction_;
@@ -180,6 +187,9 @@ std::chrono::system_clock::time_point SST::GetPersistTime()
 SST::SST(Config* config, uint32_t handler, int id)
     : config_(config), handler_(handler), id_(id)
 {
+    entries_ = 0;
+    smallestKey_ = "";
+    largestKey_ = "";
 }
 
 int SST::appendKV(KVPair* kv)
@@ -267,6 +277,8 @@ int SST::readIndexBlock()
     int ok;
     size_t offset = 0;
 
+    printf("Reading index block\n");
+
     assert(indexBlockOffset_ != -1);
     assert((int)indexBlockSize_ != -1);
 
@@ -298,11 +310,21 @@ int SST::readNumberOfEntries()
     int ok;
     char buf[BLOCK_SIZE] = {0};
 
+    printf("Reading number of entries\n");
+
     ok = read(buf, BLOCK_SIZE, numberOfEntriesOffset_);
     if (ok == -1) {
         return -1;
     }
 
     std::memcpy(&entries_, buf, sizeof(entries_));
+    printf("Read number of entries: %d\n", entries_);
     return 0;
+}
+
+std::string SST::createNameFromID(uint32_t id)
+{
+    std::ostringstream oss;
+    oss << std::setw(6) << std::setfill('0') << id << ".sst";
+    return oss.str();
 }

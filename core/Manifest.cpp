@@ -55,15 +55,18 @@ std::vector<int> Manifest::FlattenSSTs()
 void Manifest::deserializeLevels(char* buf, size_t bufsize)
 {
     uint32_t offset = 0;
-    uint32_t levels = (uint32_t)buf[offset];
+    uint32_t levels;
+    memcpy(&levels, &buf[offset], sizeof(uint32_t));
     offset += sizeof(uint32_t);
 
     for (uint32_t level = 0; level < levels; level++) {
-        uint32_t entries = (uint32_t)buf[offset];
+        uint32_t entries;
+        memcpy(&entries, &buf[offset], sizeof(uint32_t));
         offset += sizeof(uint32_t);
 
         for (uint32_t j = 0; j < entries; j++) {
-            uint32_t id = (uint32_t)buf[offset];
+            uint32_t id;
+            memcpy(&id, &buf[offset], sizeof(uint32_t));
             sst_files_.at(level).emplace_back(id);
             offset += sizeof(uint32_t);
         }
@@ -74,19 +77,15 @@ void Manifest::serializeLevels(char* buf)
 {
     uint32_t offset = 0;
     std::memset(buf, 0, BLOCK_SIZE);
-
-    // add number of levels: 4 bytes
     ssize_t n_levels = sst_files_.size();
     std::memcpy(&buf[offset], (void*)&n_levels, sizeof(uint32_t));
     offset = offset + sizeof(uint32_t);
 
-    // add number of levels on level i: 4 bytes each
     for (uint32_t level = 0; level < sst_files_.size(); level++) {
         uint32_t number = sst_files_.at(level).size();
         std::memcpy(&buf[offset], (void*)&number, sizeof(uint32_t));
         offset = offset + sizeof(uint32_t);
 
-        // add all IDs on level i: 4 bytes each
         for (uint32_t entry = 0; entry < sst_files_.at(level).size(); entry++) {
             uint32_t number = sst_files_.at(level).at(entry);
             std::memcpy(&buf[offset], (void*)&number, sizeof(uint32_t));

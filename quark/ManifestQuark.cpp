@@ -5,35 +5,44 @@
 ManifestQuark::ManifestQuark(Config* config)
     : Manifest(config, config->quarkstore_manifest_aid_start)
 {
+    current_ = -1;
+    handler_ = -1;
+}
+
+ManifestQuark::~ManifestQuark()
+{
+    if (current_ != -1) {
+        ::AtomRelease(current_);
+    }
+    if (handler_ != -1) {
+        ::AtomRelease(handler_);
+    }
 }
 
 int ManifestQuark::Open()
 {
-    int ok, manifest_aid, manifest_ah;
+    int ok, aid, ah;
 
     ok = ::Init();
     if (ok == -1) {
         return -1;
     }
+    printf("Initialized QuarkStore\n");
 
     ok = openCurrent();
     if (ok == -1) {
         return -1;
     }
 
-    ok = getCurrentManifest();
-
-    // I/O error
-    if (ok == -1) {
-        return -1;
-    }
+    aid = getCurrentManifest();
 
     // created new manifest, nothing to parse
-    if (ok == 0) {
+    if (aid == 0) {
         return 0;
     }
 
-    printf("Got manifest ID: %d\n", handler_);
+    printf("Returning without parsing persisted SSTs\n");
+    return 0;
 
     char buf[BLOCK_SIZE];
     ok = ::AtomRead(handler_, buf, BLOCK_SIZE, 0);
@@ -47,10 +56,10 @@ int ManifestQuark::Open()
 
 int ManifestQuark::Persist()
 {
-    int ok, aid;
+    int ok, manifest_aid;
 
-    aid = createNewManifest();
-    if (aid < 0) {
+    manifest_aid = createNewManifest();
+    if (manifest_aid < 0) {
         return -1;
     }
 
@@ -62,15 +71,11 @@ int ManifestQuark::Persist()
         return -1;
     }
 
-    ok = openCurrent();
-    if (ok == -1) {
-        fprintf(stderr, "failed to open current\n");
-        return -1;
-    }
-
     std::memset(buf, 0, BLOCK_SIZE);
-    std::memcpy(buf, &aid, sizeof(aid));
-    return 0;
+    std::memcpy(buf, &manifest_aid, sizeof(manifest_aid));
+
+    ok = ::AtomWrite(current_, buf, BLOCK_SIZE, 0);
+    return ok;
 }
 
 std::string ManifestQuark::ToString()
@@ -84,42 +89,45 @@ std::string ManifestQuark::ToString()
 
 int ManifestQuark::openCurrent()
 {
-    current_ = ::AtomGet(config_->quarkstore_current_aid);
-    if (current_ == -1) {
+    int ok;
+    ok = ::AtomGet(&config_->quarkstore_current_aid);
+    if (ok == -1) {
         return -1;
     }
+    current_ = ok;
     return 0;
 }
 
 int ManifestQuark::getCurrentManifest()
 {
     int ok;
-    int manifest;
+    uint64_t aid;
     char buf[BLOCK_SIZE];
 
     ok = ::AtomRead(current_, buf, BLOCK_SIZE, 0);
 
-    // read failed, create new manifest
-    if (ok == -2) {
-        return 1;
-    }
-    else if (ok < 0) {
-        ok = createNewManifest();
-        if (ok == -1) {
-            return -1;
-        }
+    // no manifest exists or read failed
+    if (ok < 0) {
         return 0;
     }
 
-    memcpy((void*)&manifest, buf, sizeof(manifest));
-    return manifest;
+    memcpy((void*)&aid, buf, sizeof(aid));
+    ctr_.store(aid + 1);
+
+    ok = ::AtomGet(&aid);
+    if (ok < 0) {
+        return -1;
+    }
+    handler_ = ok;
+    return aid;
 }
 
 int ManifestQuark::createNewManifest()
 {
-    int id, ah;
+    uint64_t id;
+    int ah;
     id = ctr_.fetch_add(1);
-    ah = ::AtomGet(id);
+    ah = ::AtomGet(&id);
     if (ah < 0) {
         return -1;
     }

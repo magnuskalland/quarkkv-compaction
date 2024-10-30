@@ -23,7 +23,7 @@ DBImpl::DBImpl(Config* config) : config_(config)
     }
     else if (config->engine == QUARKSTORE) {
         manifest_ = new ManifestQuark(config);
-        // compacter_ = new CompacterQuark(config, manager_, &ssts);
+        compacter_ = new CompacterQuark(config, manager_, &ssts_);
     }
 
     for (uint32_t level = 0; level < config->n_levels; level++) {
@@ -65,6 +65,8 @@ int DBImpl::Close()
     if (ok == -1) {
         return -1;
     }
+
+    manifest_->~Manifest();
 
     return 0;
 }
@@ -224,6 +226,8 @@ int DBImpl::flush()
 {
     std::shared_ptr<SST> sst;
     int ok;
+
+    printf("Flushing\n");
 
     ok = manager_->FlushToSST(memTable_, sst);
     if (ok == -1) {

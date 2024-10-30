@@ -57,8 +57,7 @@ int Compacter::Compact()
                      [](const std::shared_ptr<SST>& sst) {
                          return sst.get()->IsMarkedForCompaction();
                      });
-        // set.insert(l1->begin(), l1->end());
-        // set.insert(l2->begin(), l2->end());
+
         ok = doCompaction(&ci, set, level + 1);
         if (ok == -1) {
             fprintf(stderr, "error: compaction failed\n");

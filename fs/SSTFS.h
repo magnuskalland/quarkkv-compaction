@@ -3,7 +3,6 @@
 class SSTFS : public SST {
    public:
     ~SSTFS();
-    std::string GetName();
     static std::shared_ptr<SST> CreateNewEmpty(Config* config, uint32_t id);
     static std::shared_ptr<SST> OpenWithID(Config* config, uint32_t id);
     int Remove() override;
@@ -16,10 +15,4 @@ class SSTFS : public SST {
 
    private:
     std::string fullName_;
-    static std::string createNameFromID(uint32_t id)
-    {
-        std::ostringstream oss;
-        oss << std::setw(6) << std::setfill('0') << id << ".sst";
-        return oss.str();
-    }
 };
