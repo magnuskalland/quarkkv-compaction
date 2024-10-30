@@ -19,10 +19,8 @@ int CompacterFS::doCompaction(
     sst = manager_->NewEmptySST();
 
     // do compaction
-    int c = 0;
     while (ci->Get() != ci->End()) {
         pair = ci->Get();
-        c++;
 
         if (prev && prev->GetKey() == pair->GetKey()) {
             currentStats.merged++;
@@ -44,6 +42,9 @@ int CompacterFS::doCompaction(
         if (ok == -1) {
             return -1;
         }
+
+        currentStats.writeAmplificationKVs += 1;
+        currentStats.writeAmplificationBytes += config_->kv_size();
 
         prev = pair;
         ci->Next();

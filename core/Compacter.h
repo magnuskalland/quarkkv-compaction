@@ -20,12 +20,17 @@ class Compacter {
         uint32_t newSSTs = 0;
         uint32_t merged = 0;
         uint32_t deleted = 0;
+        uint32_t writeAmplificationKVs = 0;
+        uint64_t writeAmplificationBytes = 0;
+
         void Add(struct CompactionStats other)
         {
             compactions += other.compactions;
             newSSTs += other.newSSTs;
             merged += other.merged;
             deleted += other.deleted;
+            writeAmplificationKVs += other.writeAmplificationKVs;
+            writeAmplificationBytes += other.writeAmplificationBytes;
         }
         void Clear()
         {
@@ -33,6 +38,8 @@ class Compacter {
             newSSTs = 0;
             merged = 0;
             deleted = 0;
+            writeAmplificationKVs = 0;
+            writeAmplificationBytes = 0;
         }
         std::string ToString()
         {
@@ -40,7 +47,9 @@ class Compacter {
             oss << "Compactions: " << compactions << "\n";
             oss << "New SSTs: " << newSSTs << "\n";
             oss << "Deleted SSTs: " << deleted << "\n";
-            oss << "Merged keys: " << merged;
+            oss << "Merged keys: " << merged << "\n";
+            oss << "Write amplification of KV pairs: " << writeAmplificationKVs << "\n";
+            oss << "Write amplification in bytes: " << writeAmplificationBytes;
             return oss.str();
         }
     } currentStats, totalStats;

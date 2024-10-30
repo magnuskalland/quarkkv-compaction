@@ -227,8 +227,6 @@ int DBImpl::flush()
     std::shared_ptr<SST> sst;
     int ok;
 
-    printf("Flushing\n");
-
     ok = manager_->FlushToSST(memTable_, sst);
     if (ok == -1) {
         return -1;
