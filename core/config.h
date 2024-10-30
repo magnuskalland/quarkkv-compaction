@@ -44,7 +44,9 @@ struct Config {
     uint32_t ts_size = 26;
     uint32_t populateSize = 16 * (sst_file_size / kv_size());  // 16 full SSTs
 
-    int quark_current_id = 100;
+    int quarkstore_current_aid = 0;
+    int quarkstore_manifest_aid_start = 1;
+    int quarkstore_sst_aid_start = 1000;
 
     uint32_t value_size()
     {

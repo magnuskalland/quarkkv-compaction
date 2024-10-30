@@ -6,13 +6,28 @@ ManifestQuark::ManifestQuark(Config* config) : Manifest(config) {}
 
 int ManifestQuark::Open()
 {
-    int ok;
-    char buf[BLOCK_SIZE];
+    int ok, manifest_aid, manifest_ah;
+
+    ok = ::Init();
+    if (ok == -1) {
+        return -1;
+    }
 
     ok = getCurrentManifest();
     if (ok == -1) {
         return -1;
     }
+
+    manifest_aid = ok;
+    printf("Got manifest ID: %d\n", manifest_aid);
+
+    ok = AtomGet(manifest_aid);
+    if (ok == -1) {
+        return -1;
+    }
+
+    char buf[BLOCK_SIZE];
+    manifest_ah = ok;
 
     return 0;
 }
@@ -35,11 +50,25 @@ int ManifestQuark::openCurrent()
 int ManifestQuark::getCurrentManifest()
 {
     int ok;
+    int manifest;
     char buf[BLOCK_SIZE];
 
-    current_ = ::GetAtom(config_->quark_current_id);
+    current_ = ::AtomGet(config_->quarkstore_current_aid);
     if (current_ == -1) {
         return -1;
     }
-    return 0;
+
+    ok = ::AtomRead(current_, buf, BLOCK_SIZE, 0);
+
+    // read went wrong
+    if (ok == -1) {
+        return -1;
+    }
+
+    // read 0 bytes, create new manifest?
+    if (ok == 0) {
+    }
+
+    memcpy((void*)&manifest, buf, sizeof(manifest));
+    return manifest;
 }

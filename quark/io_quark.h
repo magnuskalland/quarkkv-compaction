@@ -10,7 +10,6 @@ extern "C" {
 
 #define BLOCK_SIZE 4096
 
-// Function declarations
 int Init();
 int AtomGet(atom_id_t aid);
 int AtomRelease(int ah);
