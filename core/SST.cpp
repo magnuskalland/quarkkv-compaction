@@ -268,7 +268,7 @@ int SST::readKV(off_t offset, KVPair** dest)
     std::string key(buf, config_->key_size);
     std::string ts(&buf[config_->kv_size() - config_->ts_size], config_->ts_size);
 
-    *dest = new KVPair(key, ts, config_->value_size());
+    *dest = new KVPair(key, ts, config_->value_size(), handler_, offset);
     return 0;
 }
 

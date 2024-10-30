@@ -47,6 +47,7 @@ int Compacter::Compact()
         if (ok == -1) {
             return -1;
         }
+
         // do compaction
         std::set<std::shared_ptr<SST>, SST::SSTComparator> set;
         std::copy_if(l1->begin(), l1->end(), std::inserter(set, set.end()),
@@ -112,6 +113,8 @@ void Compacter::markUpperLevelForCompaction(uint32_t level)
     }
     assert(sst);
     sst->MarkForCompaction();
+
+    printf("Compacting level 0 SST %d into level 1\n", sst->GetID());
 }
 
 void Compacter::markLevelForCompaction(uint32_t level)
@@ -131,6 +134,22 @@ int Compacter::finishSSTFile(std::shared_ptr<SST> sst, uint32_t level)
     ssts_->at(level).insert(sst);
     sst.get()->SetLevel(level);
     currentStats.newSSTs++;
+    return 0;
+}
+
+int Compacter::removeCompacted(
+    std::set<std::shared_ptr<SST>, SST::SSTComparator> toCompact)
+{
+    int ok;
+    for (auto it = toCompact.begin(); it != toCompact.end(); it++) {
+        auto sst = *it;
+        ssts_->at(sst.get()->GetLevel()).erase(sst);
+        ok = sst.get()->Remove();
+        currentStats.deleted++;
+        if (ok == -1) {
+            return -1;
+        }
+    }
     return 0;
 }
 

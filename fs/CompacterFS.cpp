@@ -18,9 +18,12 @@ int CompacterFS::doCompaction(
     std::shared_ptr<SST> sst;
     sst = manager_->NewEmptySST();
 
+    int c = 0;
+
     // do compaction
     while (ci->Get() != ci->End()) {
         pair = ci->Get();
+        c++;
 
         if (prev && prev->GetKey() == pair->GetKey()) {
             currentStats.merged++;
@@ -50,20 +53,16 @@ int CompacterFS::doCompaction(
         ci->Next();
     }
 
+    printf("Merged %d KVs\n", c);
+
     ok = finishSSTFile(sst, destLevel);
     if (ok == -1) {
         return -1;
     }
 
-    // remove compacted SST files
-    for (auto it = toCompact.begin(); it != toCompact.end(); it++) {
-        std::shared_ptr<SST> sst = *it;
-        ssts_->at(sst.get()->GetLevel()).erase(sst);
-        ok = sst.get()->Remove();
-        currentStats.deleted++;
-        if (ok == -1) {
-            return -1;
-        }
+    ok = removeCompacted(toCompact);
+    if (ok == -1) {
+        return -1;
     }
 
     if (!(currentStats.newSSTs <= toCompact.size())) {

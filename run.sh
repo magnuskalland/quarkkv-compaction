@@ -23,7 +23,7 @@ set -e
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 LIB_PATH=../Quark/quarkstore/quarklibio/build 
 
-ENGINE=fs
+ENGINE=quarkstore
 DATA_DIR=~/ssd/quarkkv_data
 WORK_DIR=~/ssd/quarkkv_work
 MODE=load

@@ -169,8 +169,8 @@ std::string DBImpl::ToString()
 
     avgSize = (avgSize * config_->kv_size()) / ssts;
 
-    oss << "Number of SSTs: " << ssts << "\n";
-    oss << "Average SST size: " << ((uint32_t)avgSize >> 20) << " MiB"
+    oss << "Number of live SSTs: " << ssts << "\n";
+    oss << "Average live SST size: " << ((uint32_t)avgSize >> 20) << " MiB"
         << "\n";
 
     for (uint32_t i = 0; i < ssts_.size(); i++) {
@@ -224,6 +224,7 @@ bool DBImpl::verifyConfig()
 
 int DBImpl::flush()
 {
+    printf("\nFlush %d\n", flushes_);
     std::shared_ptr<SST> sst;
     int ok;
 

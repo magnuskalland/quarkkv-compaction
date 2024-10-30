@@ -18,19 +18,14 @@ class KVPair {
     KVPair(std::string key, std::string ts, uint32_t value_size)
         : key_(key), value_size_(value_size)
     {
-        std::tm tm = {};
-        std::istringstream ss(ts);
-        ss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
-        auto base_time = std::chrono::system_clock::from_time_t(std::mktime(&tm));
+        parseTS(ts);
+    }
 
-        size_t dotPos = ts.find('.');
-        if (dotPos != std::string::npos) {
-            int microseconds = std::stoi(ts.substr(dotPos + 1, 6));
-            ts_ = base_time + std::chrono::microseconds(microseconds);
-        }
-        else {
-            ts_ = base_time;
-        }
+    KVPair(std::string key, std::string ts, uint32_t value_size, int handler,
+           off_t offset)
+        : key_(key), value_size_(value_size), handler_(handler), offset_(offset)
+    {
+        parseTS(ts);
     }
 
     std::string GetKey() const
@@ -67,12 +62,25 @@ class KVPair {
         return key_ + value + ts;
     }
 
+    int GetHandler()
+    {
+        return handler_;
+    }
+
+    off_t GetOffset()
+    {
+        return offset_;
+    }
+
    private:
     std::string key_;
     std::chrono::system_clock::time_point ts_;
     uint32_t value_size_;
 
-   private:
+    // info for QuarkStore
+    int handler_ = -1;
+    off_t offset_ = -1;
+
     std::string tsToString() const
     {
         auto in_time_t = std::chrono::system_clock::to_time_t(ts_);
@@ -85,5 +93,22 @@ class KVPair {
         oss << std::put_time(now_tm, "%Y-%m-%d %H:%M:%S");
         oss << "." << std::setw(6) << std::setfill('0') << microsec.count();
         return oss.str();
+    }
+
+    void parseTS(std::string ts)
+    {
+        std::tm tm = {};
+        std::istringstream ss(ts);
+        ss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
+        auto base_time = std::chrono::system_clock::from_time_t(std::mktime(&tm));
+
+        size_t dotPos = ts.find('.');
+        if (dotPos != std::string::npos) {
+            int microseconds = std::stoi(ts.substr(dotPos + 1, 6));
+            ts_ = base_time + std::chrono::microseconds(microseconds);
+        }
+        else {
+            ts_ = base_time;
+        }
     }
 };

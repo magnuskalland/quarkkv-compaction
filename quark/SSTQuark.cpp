@@ -41,15 +41,16 @@ int SSTQuark::Remove()
 {
     int ok;
 
-    ok = ::AtomRelease(id_);
-    if (ok < 0) {
-        return -1;
-    }
+    // ok = ::AtomRelease(handler_);
+    // if (ok < 0) {
+    //     return -1;
+    // }
 
-    ok = ::AtomRemove(id_);
-    if (ok < 0) {
-        return -1;
-    }
+    // ok = ::AtomRemove(id_);
+    // if (ok < 0) {
+    //     return -1;
+    // }
+
     return 0;
 }
 
@@ -76,4 +77,24 @@ int SSTQuark::read(char* buf, size_t size, off_t offset)
     }
 
     return ok;
+}
+
+int SSTQuark::MoveAndAddKV(KVPair* kv)
+{
+    int ok;
+    ok =
+        ::AtomMoveAppend(handler_, kv->GetHandler(), config_->kv_size(), kv->GetOffset());
+    if (ok == -1) {
+        return -1;
+    }
+
+    if (entries_ == 0) {
+        printf("Moving first KV pair from %d to %d\n", kv->GetHandler(), handler_);
+        smallestKey_ = kv->GetKey();
+    }
+
+    indexTable_.insert({kv->GetKey(), entries_ * config_->kv_size()});
+    entries_ = entries_ + 1;
+
+    return 0;
 }

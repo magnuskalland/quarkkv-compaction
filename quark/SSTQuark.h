@@ -8,6 +8,7 @@ class SSTQuark : public SST {
     static std::shared_ptr<SST> CreateNewEmpty(Config* config, uint32_t aid);
     static std::shared_ptr<SST> OpenWithID(Config* config, uint32_t aid);
     int Remove() override;
+    int MoveAndAddKV(KVPair* kv);
 
    protected:
     SSTQuark(Config* config, uint32_t handler, int aid);

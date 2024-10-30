@@ -28,6 +28,12 @@ void KVIterator::Next()
     ok = sst_->GetKVAtIndex(++index_, &ptr_);
     assert(ok != -1);
 
+    // TODO:
+    if (!(!prev || *ptr_ > *prev)) {
+        printf("Previous key: %s\nCurrent key: %s\n", prev->GetKey().c_str(),
+               ptr_->GetKey().c_str());
+    }
+
     assert(!prev || *ptr_ > *prev);
     iterations_++;
 }
@@ -38,7 +44,5 @@ int KVIterator::SeekToFirst()
     assert(index_ == 0);
     iterations_++;
     ok = sst_->GetKVAtIndex(index_, &ptr_);
-    // printf("KVIterator %d seeking to first, key is %s\n", sst_.get()->GetID(),
-    //        ptr_->GetKey().c_str());
     return ok;
 }

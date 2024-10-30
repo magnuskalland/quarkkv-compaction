@@ -48,8 +48,8 @@ class Compacter {
             oss << "New SSTs: " << newSSTs << "\n";
             oss << "Deleted SSTs: " << deleted << "\n";
             oss << "Merged keys: " << merged << "\n";
-            oss << "Write amplification of KV pairs: " << writeAmplificationKVs << "\n";
-            oss << "Write amplification in bytes: " << writeAmplificationBytes;
+            oss << "Write amplification: " << writeAmplificationKVs << " KV-pairs, "
+                << (writeAmplificationBytes >> 20) << " MiB\n";
             return oss.str();
         }
     } currentStats, totalStats;
@@ -69,6 +69,7 @@ class Compacter {
     SSTManager* manager_;
     std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>* ssts_;
     int finishSSTFile(std::shared_ptr<SST> sst, uint32_t level);
+    int removeCompacted(std::set<std::shared_ptr<SST>, SST::SSTComparator> toCompact);
 
    private:
     void markUpperLevelForCompaction(uint32_t level);
