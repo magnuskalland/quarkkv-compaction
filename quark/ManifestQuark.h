@@ -14,4 +14,5 @@ class ManifestQuark : public Manifest {
 
    private:
     int getCurrentManifest();
+    int createNewManifest();
 };

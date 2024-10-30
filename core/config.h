@@ -3,7 +3,6 @@
 #include <cassert>
 #include <cmath>
 #include <cstdint>
-#include <format>
 #include <sstream>
 #include <string>
 

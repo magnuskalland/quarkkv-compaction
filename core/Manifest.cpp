@@ -7,7 +7,7 @@
 
 #include "../include/SSTManager.h"
 
-Manifest::Manifest(Config* config) : config_(config), ctr_(0)
+Manifest::Manifest(Config* config, int ctr) : config_(config), ctr_(ctr)
 {
     for (uint32_t level = 0; level < config_->n_levels; level++) {
         sst_files_.emplace_back(std::vector<int>());

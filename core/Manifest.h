@@ -13,7 +13,7 @@
 
 class Manifest {
    public:
-    Manifest(Config* config);
+    Manifest(Config* config, int ctr);
     virtual ~Manifest() = default;
 
     /**
