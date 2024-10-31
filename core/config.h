@@ -10,7 +10,7 @@
 #define DEFAULT_LEVELS 7
 #define DEFAULT_FANOUT 10
 #define DEFAULT_KEY_SIZE 56
-#define DEFAULT_PRACTICAL_KEY_SIZE 12
+#define DEFAULT_PRACTICAL_KEY_SIZE 56
 #define DEFAULT_SST_FILE_SIZE ((long)1024 * 1024 * 64)  // 64 MiB
 #define DEFAULT_LEVEL0_MAX_SIZE 1
 
@@ -43,9 +43,9 @@ struct Config {
     uint32_t ts_size = 26;
     uint32_t populateSize = 16 * (sst_file_size / kv_size());  // 16 full SSTs
 
-    uint64_t quarkstore_current_aid = 100;
-    uint64_t quarkstore_manifest_aid_start = 101;
-    uint64_t quarkstore_sst_aid_start = 1000;
+    uint64_t quarkstore_current_aid = 1000;
+    uint64_t quarkstore_manifest_aid_start = 1001;
+    uint64_t quarkstore_sst_aid_start = 10000;
 
     uint32_t value_size()
     {
