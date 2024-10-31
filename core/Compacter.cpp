@@ -175,6 +175,7 @@ bool Compacter::verify(uint32_t level)
 {
     std::string smallest, largest;
     smallest = ssts_->at(level).begin()->get()->GetSmallestKey();
+
     for (auto it = ssts_->at(level).begin(); it != std::prev(ssts_->at(level).end());
          it++) {
         largest = (*it).get()->GetLargestKey();
@@ -183,6 +184,7 @@ bool Compacter::verify(uint32_t level)
                    (*it).get()->GetName().c_str(), smallest.c_str(), largest.c_str());
             return false;
         }
+
         smallest = std::next(it)->get()->GetSmallestKey();
         if (!(largest < smallest)) {
             printf("Largest key in %s larger than smallest key in %s\n%s\n%s\n",

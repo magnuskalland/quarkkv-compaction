@@ -31,7 +31,8 @@ std::shared_ptr<SST> SSTManager::NewEmptySST()
             }
         }
         else if (config_->engine == QUARKSTORE) {
-            return SSTQuark::CreateNewEmpty(config_, id);
+            uint64_t t = id;
+            return SSTQuark::CreateNewEmpty(config_, &t);
         }
     }
 }
@@ -74,7 +75,8 @@ std::shared_ptr<SST> SSTManager::ReadSST(uint32_t id)
         if ((int)id >= ctr_.load()) {
             ctr_.store(id + 1);
         }
-        return SSTQuark::OpenWithID(config_, id);
+        uint64_t t = id;
+        return SSTQuark::OpenWithID(config_, &t);
     }
     fprintf(stderr, "engine undefined");
     return nullptr;

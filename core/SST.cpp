@@ -24,6 +24,7 @@ int SST::Persist()
 
     persisted_ = true;
     ts_ = std::chrono::system_clock::now();
+
     return 0;
 }
 

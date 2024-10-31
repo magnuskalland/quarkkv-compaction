@@ -1,5 +1,9 @@
 #include "SSTQuark.h"
 
+#include <algorithm>
+#include <cctype>
+#include <cstring>
+
 #include "io_quark.h"
 
 SSTQuark::SSTQuark(Config* config, uint32_t handler, int aid) : SST(config, handler, aid)
@@ -7,29 +11,29 @@ SSTQuark::SSTQuark(Config* config, uint32_t handler, int aid) : SST(config, hand
 }
 SSTQuark::~SSTQuark()
 {
-    ::AtomRelease(handler_);
+    // ::AtomRelease(handler_);
 }
 
-std::shared_ptr<SST> SSTQuark::CreateNewEmpty(Config* config, uint32_t aid)
+std::shared_ptr<SST> SSTQuark::CreateNewEmpty(Config* config, uint64_t* aid)
 {
     int ah, ok;
-    ah = ::AtomGet((uint64_t*)&aid);
+    ah = ::AtomGet(aid);
     if (ah < 0) {
         return nullptr;
     }
-    std::shared_ptr<SST> sst(new SSTQuark(config, ah, aid));
+    std::shared_ptr<SST> sst(new SSTQuark(config, ah, *aid));
     return sst;
 }
 
-std::shared_ptr<SST> SSTQuark::OpenWithID(Config* config, uint32_t aid)
+std::shared_ptr<SST> SSTQuark::OpenWithID(Config* config, uint64_t* aid)
 {
-    printf("Opening atom %d\n", aid);
+    printf("Opening atom %lu\n", *aid);
     int ah, ok;
-    ah = ::AtomGet((uint64_t*)&aid);
+    ah = ::AtomGet(aid);
     if (ah < 0) {
         return nullptr;
     }
-    std::shared_ptr<SST> sst(new SSTQuark(config, ah, aid));
+    std::shared_ptr<SST> sst(new SSTQuark(config, ah, *aid));
     ok = sst->Parse();
     if (ok == -1) {
         return nullptr;
@@ -41,15 +45,15 @@ int SSTQuark::Remove()
 {
     int ok;
 
-    // ok = ::AtomRelease(handler_);
-    // if (ok < 0) {
-    //     return -1;
-    // }
+    ok = ::AtomRelease(handler_);
+    if (ok < 0) {
+        return -1;
+    }
 
-    // ok = ::AtomRemove(id_);
-    // if (ok < 0) {
-    //     return -1;
-    // }
+    ok = ::AtomRemove(id_);
+    if (ok < 0) {
+        return -1;
+    }
 
     return 0;
 }
@@ -89,12 +93,12 @@ int SSTQuark::MoveAndAddKV(KVPair* kv)
     }
 
     if (entries_ == 0) {
-        printf("Moving first KV pair from %d to %d\n", kv->GetHandler(), handler_);
         smallestKey_ = kv->GetKey();
     }
 
     indexTable_.insert({kv->GetKey(), entries_ * config_->kv_size()});
     entries_ = entries_ + 1;
+    atomSize_ = atomSize_ + config_->kv_size();
 
     return 0;
 }

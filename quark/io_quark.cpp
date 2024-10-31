@@ -1,7 +1,7 @@
-#include "io_quark.h"  // Includes the function declarations
+#include "io_quark.h"
 
-#include <cassert>  // For assert
-#include <cstdio>   // For fprintf
+#include <cassert>
+#include <cstdio>
 
 int Init()
 {
@@ -52,6 +52,7 @@ ssize_t AtomWrite(int ah, const void* buf, size_t len, loff_t off)
 
 int AtomRemove(atom_id_t aid)
 {
+    return 0;
     int ok = quarklibio_atom_remove(aid, 0);
     if (ok < 0) {
         fprintf(stderr, "error: quarklibio_atom_remove\n");
@@ -67,5 +68,6 @@ int AtomMoveAppend(int dst, int src, size_t len, loff_t off)
         fprintf(stderr, "error: quarklibio_atom_move_append\n");
         return -1;
     }
+
     return ok;
 }
