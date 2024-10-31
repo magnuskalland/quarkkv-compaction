@@ -113,8 +113,6 @@ void Compacter::markUpperLevelForCompaction(uint32_t level)
     }
     assert(sst);
     sst->MarkForCompaction();
-
-    printf("Compacting level 0 SST %d into level 1\n", sst->GetID());
 }
 
 void Compacter::markLevelForCompaction(uint32_t level)

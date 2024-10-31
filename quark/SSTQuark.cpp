@@ -27,7 +27,6 @@ std::shared_ptr<SST> SSTQuark::CreateNewEmpty(Config* config, uint64_t* aid)
 
 std::shared_ptr<SST> SSTQuark::OpenWithID(Config* config, uint64_t* aid)
 {
-    printf("Opening atom %lu\n", *aid);
     int ah, ok;
     ah = ::AtomGet(aid);
     if (ah < 0) {
