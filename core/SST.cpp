@@ -32,8 +32,6 @@ int SST::Parse()
 {
     int ok;
 
-    printf("Parsing SST atom (aid %d, handler %d)\n", id_, handler_);
-
     uint64_t entries = config_->sst_file_size / config_->kv_size();
     indexBlockSize_ = config_->index_block_entry_size() * entries;
     dataBlockOffset_ = 0;
@@ -51,6 +49,7 @@ int SST::Parse()
     }
 
     largestKey_ = indexTable_.rbegin()->first;
+    persisted_ = true;
     return 0;
 }
 
@@ -278,8 +277,6 @@ int SST::readIndexBlock()
     int ok;
     size_t offset = 0;
 
-    printf("Reading index block\n");
-
     assert(indexBlockOffset_ != -1);
     assert((int)indexBlockSize_ != -1);
 
@@ -311,15 +308,12 @@ int SST::readNumberOfEntries()
     int ok;
     char buf[BLOCK_SIZE] = {0};
 
-    printf("Reading number of entries\n");
-
     ok = read(buf, BLOCK_SIZE, numberOfEntriesOffset_);
     if (ok == -1) {
         return -1;
     }
 
     std::memcpy(&entries_, buf, sizeof(entries_));
-    printf("Read number of entries: %d\n", entries_);
     return 0;
 }
 

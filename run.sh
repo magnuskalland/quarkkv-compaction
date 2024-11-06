@@ -31,15 +31,17 @@ if [[ "$DIR" == "quarkstore" ]]; then
     InstallQuark
 else
     mkdir -p $DIR
+    rm -rf $DIR/*
 fi
 
 LD_LIBRARY_PATH=$LIB_PATH ./main \
     --engine=$ENGINE \
-    --db-directory=$DIR
+    --db-directory=$DIR \
+    --prepopulate-size=65536
 
 ret=0
 
-rm -rf $DIR $WORK_DIR
+rm -rf $DIR
 
 set +e
 
