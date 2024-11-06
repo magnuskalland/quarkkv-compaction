@@ -62,7 +62,7 @@ int SST::Lookup(std::string key, KVPair** dest)
     auto it = indexTable_.find(key);
     if (it == indexTable_.end()) {
         *dest = nullptr;
-        return -1;
+        return 0;
     }
 
     return readKV(it->second, dest);

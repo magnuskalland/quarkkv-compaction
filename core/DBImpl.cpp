@@ -33,8 +33,6 @@ DBImpl::DBImpl(Config* config) : config_(config)
 
 int DBImpl::Open()
 {
-    assert(verifyConfig());
-
     int ok;
     ok = manifest_->Open();
     if (ok != 0) {
@@ -53,6 +51,8 @@ int DBImpl::Open()
             ssts_.at(i).insert(sst);
         }
     }
+
+    printf("%s\n", ToString().c_str());
 
     return 0;
 }
@@ -81,7 +81,6 @@ int DBImpl::Get(std::string key, std::string& dest)
     // search in memtable
     kv = memTable_->Get(key);
     if (kv) {
-        printf("Found key in memtable\n");
         dest = kv->ToString();
         return 0;
     }
@@ -104,7 +103,6 @@ int DBImpl::Get(std::string key, std::string& dest)
     }
 
     if (latest) {
-        printf("Found KV at level 0\n");
         dest = latest->ToString();
         return 0;
     }
@@ -123,7 +121,6 @@ int DBImpl::Get(std::string key, std::string& dest)
             }
 
             if (kv) {
-                printf("Found KV at level %d\n", level);
                 dest = kv->ToString();
                 return 0;
             }
@@ -131,8 +128,7 @@ int DBImpl::Get(std::string key, std::string& dest)
         level++;
     }
 
-    printf("Failed to find key\n");
-    return 1;
+    return 0;
 }
 
 int DBImpl::Put(std::string key, std::string _)
@@ -208,16 +204,6 @@ int DBImpl::populate(int n)
 
     ok = manifest_->Persist();
     return 0;
-}
-
-bool DBImpl::verifyConfig()
-{
-    assert(config_->engine == FS || config_->engine == QUARKSTORE);
-    assert(config_->cp == ALL || config_->cp == ONE);
-    assert(config_->sst_file_size % (uint64_t)config_->kv_size() == 0);
-    assert(BLOCK_SIZE % config_->index_block_entry_size() == 0);
-    assert(BLOCK_SIZE == config_->kv_size());
-    return true;
 }
 
 int DBImpl::flush()

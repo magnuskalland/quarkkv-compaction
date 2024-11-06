@@ -128,7 +128,7 @@ void parse_args(int argc, char *argv[], Config *dest)
                 break;
 
             case 'k':
-                dest->key_size = atoi(optarg);
+                dest->practical_key_size = atoi(optarg);
                 break;
 
             case 'z':

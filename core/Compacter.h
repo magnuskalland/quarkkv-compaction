@@ -48,7 +48,7 @@ class Compacter {
             oss << "New SSTs: " << newSSTs << "\n";
             oss << "Deleted SSTs: " << deleted << "\n";
             oss << "Duplicate keys merged: " << duplicate << "\n";
-            oss << "Write amplification: " << writeAmplificationKVs << " KV-pairs, "
+            oss << "Write amplification: " << writeAmplificationKVs << " KV pairs, "
                 << (writeAmplificationBytes >> 20) << " MiB\n";
             return oss.str();
         }

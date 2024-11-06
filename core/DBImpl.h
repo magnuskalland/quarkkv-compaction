@@ -29,7 +29,6 @@ class DBImpl {
     std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>> ssts_;
 
     int populate(int n);
-    bool verifyConfig();
     int compact();
     int flush();
     void padKey(std::string& key);
