@@ -50,7 +50,6 @@ int run_manual(Config* config)
               : static_cast<KeyGenerator*>(
                     new ZipfianKeyGenerator(config->practical_key_size));
 
-    int count = 0;
     for (uint64_t i = 0; i < config->prepopulate_size; i++) {
         std::string key = gen->Generate();
         ok = db.Put(key, "-");
@@ -84,9 +83,6 @@ int run_manual(Config* config)
             return -1;
         }
     }
-
-    printf("Read %ld values (found %d) and wrote %ld values\n", reads, keys_found,
-           writes);
 
     assert(reads == config->read_size && writes == config->write_size);
 
