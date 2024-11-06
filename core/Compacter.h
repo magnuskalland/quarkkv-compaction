@@ -18,7 +18,7 @@ class Compacter {
     struct CompactionStats {
         uint32_t compactions = 0;
         uint32_t newSSTs = 0;
-        uint32_t merged = 0;
+        uint32_t duplicate = 0;
         uint32_t deleted = 0;
         uint32_t writeAmplificationKVs = 0;
         uint64_t writeAmplificationBytes = 0;
@@ -27,7 +27,7 @@ class Compacter {
         {
             compactions += other.compactions;
             newSSTs += other.newSSTs;
-            merged += other.merged;
+            duplicate += other.duplicate;
             deleted += other.deleted;
             writeAmplificationKVs += other.writeAmplificationKVs;
             writeAmplificationBytes += other.writeAmplificationBytes;
@@ -36,7 +36,7 @@ class Compacter {
         {
             compactions = 0;
             newSSTs = 0;
-            merged = 0;
+            duplicate = 0;
             deleted = 0;
             writeAmplificationKVs = 0;
             writeAmplificationBytes = 0;
@@ -47,7 +47,7 @@ class Compacter {
             oss << "Compactions: " << compactions << "\n";
             oss << "New SSTs: " << newSSTs << "\n";
             oss << "Deleted SSTs: " << deleted << "\n";
-            oss << "Merged keys: " << merged << "\n";
+            oss << "Duplicate keys merged: " << duplicate << "\n";
             oss << "Write amplification: " << writeAmplificationKVs << " KV-pairs, "
                 << (writeAmplificationBytes >> 20) << " MiB\n";
             return oss.str();

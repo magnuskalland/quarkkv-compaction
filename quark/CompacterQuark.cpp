@@ -24,7 +24,7 @@ int CompacterQuark::doCompaction(
 
         // skip duplicate old KV-pair
         if (prev && prev->GetKey() == pair->GetKey()) {
-            currentStats.merged++;
+            currentStats.duplicate++;
             assert(prev->GetTimestamp() < pair->GetTimestamp());
             prev = pair;
             ci->Next();
