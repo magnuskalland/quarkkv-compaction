@@ -60,9 +60,11 @@ class Compacter {
      * @param destLevel Level to compact to.
      * @param dest Vector of SSTs to insert compacted SST files to.
      */
-    virtual int doCompaction(CompactionIterator* ci,
-                             std::set<std::shared_ptr<SST>, SST::SSTComparator> toCompact,
-                             uint32_t destLevel) = 0;
+    int doCompaction(CompactionIterator* ci,
+                     std::set<std::shared_ptr<SST>, SST::SSTComparator> toCompact,
+                     uint32_t destLevel);
+
+    virtual int merge(std::shared_ptr<SST> sst, KVPair* pair) = 0;
 
    protected:
     Config* config_;

@@ -9,7 +9,5 @@ class CompacterFS : public Compacter {
                 std::vector<std::set<std::shared_ptr<SST>, SST::SSTComparator>>* ssts);
 
    protected:
-    int doCompaction(CompactionIterator* ci,
-                     std::set<std::shared_ptr<SST>, SST::SSTComparator> toCompact,
-                     uint32_t destLevel) override;
+    int merge(std::shared_ptr<SST> sst, KVPair* pair) override;
 };
