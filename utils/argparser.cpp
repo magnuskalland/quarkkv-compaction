@@ -20,6 +20,11 @@ static const char *usage = R"(usage %s [OPTIONS]
     -h, --help                              Display this help message
 )";
 
+int round_up(uint64_t from, uint64_t to)
+{
+    return ((from + to - 1) / to) * to;
+}
+
 void parse_args(int argc, char *argv[], Config *dest)
 {
     int opt;
@@ -143,6 +148,11 @@ void parse_args(int argc, char *argv[], Config *dest)
     if (!(engine && (dest->mode == MANUAL || ycsb_workload) &&
           (dest->engine == QUARKSTORE || fs_dbdir)))
         goto parse_args_err;
+
+    dest->prepopulate_size =
+        round_up(dest->prepopulate_size, dest->sst_file_size / BLOCK_SIZE);
+    dest->write_size = round_up(dest->write_size, dest->sst_file_size / BLOCK_SIZE);
+
     return;
 parse_args_err:
     fprintf(stderr, usage, argv[0], DEFAULT_PREPOPULATE_SIZE,

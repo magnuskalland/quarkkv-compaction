@@ -58,9 +58,9 @@ struct Config {
 
     /* immutable */
     uint32_t ts_size = 26;
-    uint64_t quarkstore_current_aid = 1000;
-    uint64_t quarkstore_manifest_aid_start = 1001;
-    uint64_t quarkstore_sst_aid_start = 10000;
+    uint64_t quarkstore_current_aid = 100000;
+    uint64_t quarkstore_manifest_aid_start = 100001;
+    uint64_t quarkstore_sst_aid_start = 1000000;
 
     uint32_t value_size()
     {
