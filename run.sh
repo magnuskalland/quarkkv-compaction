@@ -17,30 +17,29 @@ InstallQuark() {
     bash quarkcontroller_uninstall.sh
     bash quarkcontroller_install.sh
     cd $SCRIPT_DIR
+    clear
 }
 
 set -e
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-LIB_PATH=../Quark/quarkstore/quarklibio/build 
+LIB_PATH=../Quark/quarkstore/quarklibio/build
 
-ENGINE=quarkstore
-DATA_DIR=~/ssd/quarkkv_data
-WORK_DIR=~/ssd/quarkkv_work
-MODE=load
+ENGINE=fs
+DIR=./dbdir
 
-mkdir -p $DATA_DIR $WORK_DIR
+if [[ "$DIR" == "quarkstore" ]]; then
+    InstallQuark
+else
+    mkdir -p $DIR
+fi
 
-InstallQuark
-
-clear
-
-LD_LIBRARY_PATH=$LIB_PATH ./main    \
-    --engine=$ENGINE                \
-    --data-directory=$DATA_DIR      \
-    --working-directory=$WORK_DIR   \
-    --mode=$MODE
+LD_LIBRARY_PATH=$LIB_PATH ./main \
+    --engine=$ENGINE \
+    --db-directory=$DIR
 
 ret=0
+
+rm -rf $DIR $WORK_DIR
 
 set +e
 

@@ -3,20 +3,21 @@
 #include <getopt.h>
 
 static const char *usage = R"(usage %s [OPTIONS]
-    -e, --engine <fs|quarkstore>    Specify storage engine      (REQUIRED)
-    -m, --mode <manual|ycsb>        Specify mode                (Default 'manual')
-    -y, --ycsb-workload             YCSB workload path          (Required if mode=ycsb)
-    -d, --db-directory              DB directory                (Required if engine=fs)
-    -p, --prepopulate-size          Number of initial DB size   (Default %d KVs (~%ld SSTs))
-    -r, --read-size                 Number of KVs to read       (Default %ld)
-    -w, --write-size                Number of KVs to write      (Default %ld)
-    -c, --compaction-picker         Compaction picker           (Default '%s')
-    -l, --levels                    Number of SST file levels   (Default %d)
-    -f, --fanout                    Fanout                      (Default %d)
-    -k, --key-size                  Key size                    (Default %d)
-    -z, --level0-max                Level 0 max size            (Default %d)
-    -s, --sst-file-size             SST file size               (Default %d MiB)
-    -h, --help                      Display this help message
+    -e, --engine <fs|quarkstore>            Specify storage engine      (REQUIRED)
+    -m, --mode <manual|ycsb>                Specify mode                (Default 'manual')
+    -y, --ycsb-workload                     YCSB workload path          (Required if mode=ycsb)
+    -d, --db-directory                      DB directory                (Required if engine=fs)
+    -p, --prepopulate-size                  Number of initial DB size   (Default %d KVs (~%ld SSTs))
+    -r, --read-size                         Number of KVs to read       (Default %ld)
+    -w, --write-size                        Number of KVs to write      (Default %ld)
+    -u, --distribution <uniform|zipfian>    Workload distribution       (Default '%s')
+    -c, --compaction-picker                 Compaction picker           (Default '%s')
+    -l, --levels                            Number of SST file levels   (Default %d)
+    -f, --fanout                            Fanout                      (Default %d)
+    -k, --key-size                          Key size                    (Default %d)
+    -z, --level0-max                        Level 0 max size            (Default %d)
+    -s, --sst-file-size                     SST file size               (Default %d MiB)
+    -h, --help                              Display this help message
 )";
 
 void parse_args(int argc, char *argv[], Config *dest)
@@ -32,6 +33,7 @@ void parse_args(int argc, char *argv[], Config *dest)
         {"prepopulate-size", required_argument, 0, 'p'},
         {"read-size", required_argument, 0, 'r'},
         {"write-size", required_argument, 0, 'w'},
+        {"workload-distribution", required_argument, 0, 'u'},
         {"compaction-picker", required_argument, 0, 'c'},
         {"levels", required_argument, 0, 'l'},
         {"fanout", required_argument, 0, 'f'},
@@ -90,6 +92,17 @@ void parse_args(int argc, char *argv[], Config *dest)
                 dest->write_size = atoi(optarg);
                 break;
 
+            case 'u':
+                if (std::string(optarg) == "uniform")
+                    dest->distribution = UNIFORM;
+                else if (std::string(optarg) == "zipfian")
+                    dest->distribution = ZIPFIAN;
+                else {
+                    fprintf(stderr, "invalid compaction picker: %s\n", optarg);
+                    goto parse_args_err;
+                }
+                break;
+
             case 'c':
                 if (std::string(optarg) == "all")
                     dest->cp = ALL;
@@ -134,8 +147,8 @@ void parse_args(int argc, char *argv[], Config *dest)
 parse_args_err:
     fprintf(stderr, usage, argv[0], DEFAULT_PREPOPULATE_SIZE,
             (DEFAULT_PREPOPULATE_SIZE * BLOCK_SIZE) / DEFAULT_SST_FILE_SIZE,
-            DEFAULT_READ_SIZE, DEFAULT_WRITE_SIZE, "One", DEFAULT_LEVELS, DEFAULT_FANOUT,
-            DEFAULT_PRACTICAL_KEY_SIZE, DEFAULT_LEVEL0_MAX_SIZE,
+            DEFAULT_READ_SIZE, DEFAULT_WRITE_SIZE, "Uniform", "One", DEFAULT_LEVELS,
+            DEFAULT_FANOUT, DEFAULT_PRACTICAL_KEY_SIZE, DEFAULT_LEVEL0_MAX_SIZE,
             DEFAULT_SST_FILE_SIZE >> 20);
     exit(EXIT_FAILURE);
 }

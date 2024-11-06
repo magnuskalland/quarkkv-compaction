@@ -32,15 +32,22 @@ enum compaction_picker {
     ONE,
 };
 
+enum distribution {
+    UNIFORM = 0,
+    ZIPFIAN,
+};
+
 struct Config {
     /* mutable */
     enum storage_engine engine;
     enum mode mode = MANUAL;
     std::string ycsb_workload_path;
     std::string fs_dbdir;
+    enum distribution distribution = UNIFORM;
     uint64_t prepopulate_size = DEFAULT_PREPOPULATE_SIZE;
     uint64_t read_size = DEFAULT_READ_SIZE;
     uint64_t write_size = DEFAULT_WRITE_SIZE;
+
     enum compaction_picker cp = ONE;
     uint32_t n_levels = DEFAULT_LEVELS;
     uint32_t fanout = DEFAULT_FANOUT;
@@ -79,34 +86,36 @@ struct Config {
     std::string ToString()
     {
         char buffer[1024];
-        std::sprintf(buffer,
-                     R"(Config
-    %-20s %s
-    %-20s %s
-    %-20s %s
-    %-20s %s
-    %-20s %ld (~%ld SSTs)
-    %-20s %ld KV pairs
-    %-20s %ld KV pairs
-    %-20s %s
-    %-20s %d
-    %-20s %d
-    %-20s %d bytes
-    %-20s %d bytes
-    %-20s %d SST file
-    %-20s %lu MiB
+        std::sprintf(
+            buffer,
+            R"(Config
+    %-30s %s
+    %-30s %s
+    %-30s %s
+    %-30s %s
+    %-30s %ld (~%ld SSTs)
+    %-30s %ld KV pairs
+    %-30s %ld KV pairs
+    %-30s %s
+    %-30s %s
+    %-30s %d
+    %-30s %d
+    %-30s %d bytes
+    %-30s %d bytes
+    %-30s %d SST file
+    %-30s %lu MiB
     )",
-                     "Engine:", engine == FS ? "FS" : "QuarkStore",
-                     "Mode:", mode == MANUAL ? "Manual" : "YCSB",
-                     "YCSB workload:", ycsb_workload_path.c_str(),
-                     "File system DB directory:", fs_dbdir.c_str(),
-                     "Prepopulate size:", prepopulate_size,
-                     ((prepopulate_size * kv_size()) / sst_file_size),
-                     "Read size:", read_size, "Write size:", write_size,
-                     "Compaction picker:", cp == ALL ? "All" : "One", "Levels:", n_levels,
-                     "Fanout:", fanout, "Key size:", key_size,
-                     "Value size:", value_size(), "Level 0 max size:", level0_max_size,
-                     "SST file size:", sst_file_size >> 20);
+            "Engine:", engine == FS ? "FS" : "QuarkStore",
+            "Mode:", mode == MANUAL ? "Manual" : "YCSB",
+            "YCSB workload:", ycsb_workload_path.c_str(),
+            "File system DB directory:", fs_dbdir.c_str(),
+            "Prepopulate size:", prepopulate_size,
+            ((prepopulate_size * kv_size()) / sst_file_size), "Read size:", read_size,
+            "Write size:", write_size,
+            "Workload distribution:", distribution == UNIFORM ? "Uniform" : "Zipfian",
+            "Compaction picker:", cp == ALL ? "All" : "One", "Levels:", n_levels,
+            "Fanout:", fanout, "Key size:", key_size, "Value size:", value_size(),
+            "Level 0 max size:", level0_max_size, "SST file size:", sst_file_size >> 20);
         return std::string(buffer);
     }
 };
