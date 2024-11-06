@@ -33,7 +33,6 @@
 
 .idea*
 .vscode*
-*wdir*
-*ddir*
+*dbdir*
 main
 *quarklibio*
