@@ -22,7 +22,7 @@ std::shared_ptr<SST> SSTFS::CreateNewEmpty(Config* config, uint32_t id)
     int fd, ok;
 
     std::string name = SST::createNameFromID(id);
-    std::string path = config->cwd() + "/" + name;
+    std::string path = config->fs_dbdir + "/" + name;
 
     fd = Create(path);
     if (fd == -1) {
@@ -38,7 +38,7 @@ std::shared_ptr<SST> SSTFS::OpenWithID(Config* config, uint32_t id)
     int fd, ok;
 
     std::string name = SST::createNameFromID(id);
-    std::string path = config->cwd() + "/" + name;
+    std::string path = config->fs_dbdir + "/" + name;
 
     fd = Open(path);
     if (fd == -1) {

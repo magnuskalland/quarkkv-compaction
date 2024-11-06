@@ -108,5 +108,5 @@ uint32_t Manifest::getNumberOfLiveSSTs()
 
 std::string Manifest::getFullPath(std::string name)
 {
-    return config_->cwd() + "/" + name;
+    return config_->fs_dbdir + "/" + name;
 }

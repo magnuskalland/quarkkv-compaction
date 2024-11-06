@@ -16,11 +16,11 @@
 
 int load(DB* db, Config* c)
 {
-    printf("Populating DB with %d KV pairs\n", c->populateSize);
+    printf("Populating DB with %ld KV pairs\n", c->prepopulate_size);
     int ok;
     uint32_t count = 0;
     ZipfianKeyGenerator gen(c->practical_key_size);
-    while (count++ < c->populateSize) {
+    while (count++ < c->prepopulate_size) {
         std::string key = gen.Generate();
         ok = db->Put(key, "-");
         if (ok == -1) {
@@ -50,15 +50,6 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
     printf("%s\n", config.ToString().c_str());
-
-    if (config.mode == LOAD) {
-        ok = load(&db, &config);
-        if (ok == -1) {
-            return EXIT_FAILURE;
-        }
-    }
-    else if (config.mode == COMPACT) {
-    }
 
     db.Close();
     return EXIT_SUCCESS;

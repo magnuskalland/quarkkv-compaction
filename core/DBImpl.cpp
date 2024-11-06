@@ -212,13 +212,11 @@ int DBImpl::populate(int n)
 
 bool DBImpl::verifyConfig()
 {
-    assert(config_->mode == COMPACT || config_->mode == LOAD);
     assert(config_->engine == FS || config_->engine == QUARKSTORE);
     assert(config_->cp == ALL || config_->cp == ONE);
     assert(config_->sst_file_size % (uint64_t)config_->kv_size() == 0);
     assert(BLOCK_SIZE % config_->index_block_entry_size() == 0);
     assert(BLOCK_SIZE == config_->kv_size());
-    assert((config_->populateSize * config_->kv_size()) % config_->sst_file_size == 0);
     return true;
 }
 
