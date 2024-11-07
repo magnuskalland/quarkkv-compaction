@@ -35,10 +35,12 @@ int run_ycsb(Config* config)
     ycsbc::Client client(config);
     ok = client.Load();
     if (ok == -1) {
+        fprintf(stderr, "error during loading\n");
         return -1;
     }
     ok = client.Work();
     if (ok == -1) {
+        fprintf(stderr, "error during work\n");
         return -1;
     }
     return 0;

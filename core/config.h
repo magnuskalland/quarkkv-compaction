@@ -85,37 +85,92 @@ struct Config {
 
     std::string ToString()
     {
-        char buffer[1024];
-        std::sprintf(
-            buffer,
-            R"(Config
+        std::string s;
+
+        char buf[1024];
+        std::sprintf(buf, R"(Config
     %-30s %s
-    %-30s %s
-    %-30s %s
-    %-30s %s
+    %-30s %s)",
+                     "Engine:", engine == FS ? "FS" : "QuarkStore",
+                     "Mode:", mode == MANUAL ? "Manual" : "YCSB");
+
+        s = s + std::string(buf);
+
+        if (engine == FS) {
+            std::sprintf(buf, R"(
+    %-30s %s)",
+                         "File system DB directory:", fs_dbdir.c_str());
+            s = s + std::string(buf);
+        }
+
+        if (mode == MANUAL) {
+            std::sprintf(buf, R"(
     %-30s %ld (~%ld SSTs)
     %-30s %ld KV pairs
     %-30s %ld KV pairs
-    %-30s %s
+    %-30s %s)",
+                         "Prepopulate size:", prepopulate_size,
+                         ((prepopulate_size * kv_size()) / sst_file_size),
+                         "Read size:", read_size, "Write size:", write_size,
+                         "Workload distribution:",
+                         distribution == UNIFORM ? "Uniform" : "Zipfian");
+            s = s + std::string(buf);
+        }
+        else if (mode == YCSB) {
+            std::sprintf(buf, R"(
+    %-30s %s)",
+                         "YCSB workload:", ycsb_workload_path.c_str());
+            s = s + std::string(buf);
+        }
+
+        std::sprintf(buf, R"(
     %-30s %s
     %-30s %d
     %-30s %d
     %-30s %d bytes
     %-30s %d bytes
     %-30s %d SST file
-    %-30s %lu MiB
-    )",
-            "Engine:", engine == FS ? "FS" : "QuarkStore",
-            "Mode:", mode == MANUAL ? "Manual" : "YCSB",
-            "YCSB workload:", ycsb_workload_path.c_str(),
-            "File system DB directory:", fs_dbdir.c_str(),
-            "Prepopulate size:", prepopulate_size,
-            ((prepopulate_size * kv_size()) / sst_file_size), "Read size:", read_size,
-            "Write size:", write_size,
-            "Workload distribution:", distribution == UNIFORM ? "Uniform" : "Zipfian",
-            "Compaction picker:", cp == ALL ? "All" : "One", "Levels:", n_levels,
-            "Fanout:", fanout, "Key size:", key_size, "Value size:", value_size(),
-            "Level 0 max size:", level0_max_size, "SST file size:", sst_file_size >> 20);
-        return std::string(buffer);
+    %-30s %lu MiB)",
+                     "Compaction picker:", cp == ALL ? "All" : "One", "Levels:", n_levels,
+                     "Fanout:", fanout, "Key size:", key_size,
+                     "Value size:", value_size(), "Level 0 max size:", level0_max_size,
+                     "SST file size:", sst_file_size >> 20);
+        s = s + std::string(buf);
+        s = s + "\n";
+
+        return s;
+
+        //     char buffer[1024];
+        //     std::sprintf(
+        //         buffer,
+        //         R"(Config
+        // %-30s %s
+        // %-30s %s
+        // %-30s %s
+        // %-30s %s
+        // %-30s %ld (~%ld SSTs)
+        // %-30s %ld KV pairs
+        // %-30s %ld KV pairs
+        // %-30s %s
+        // %-30s %s
+        // %-30s %d
+        // %-30s %d
+        // %-30s %d bytes
+        // %-30s %d bytes
+        // %-30s %d SST file
+        // %-30s %lu MiB
+        // )",
+        //         "Engine:", engine == FS ? "FS" : "QuarkStore",
+        //         "Mode:", mode == MANUAL ? "Manual" : "YCSB",
+        //         "YCSB workload:", ycsb_workload_path.c_str(),
+        //         "File system DB directory:", fs_dbdir.c_str(),
+        //         "Prepopulate size:", prepopulate_size,
+        //         ((prepopulate_size * kv_size()) / sst_file_size), "Read size:",
+        //         read_size, "Write size:", write_size, "Workload distribution:",
+        //         distribution == UNIFORM ? "Uniform" : "Zipfian", "Compaction picker:",
+        //         cp == ALL ? "All" : "One", "Levels:", n_levels, "Fanout:", fanout, "Key
+        //         size:", key_size, "Value size:", value_size(), "Level 0 max size:",
+        //         level0_max_size, "SST file size:", sst_file_size >> 20);
+        // return std::string(buffer);
     }
 };

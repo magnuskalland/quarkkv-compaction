@@ -35,7 +35,10 @@ int Client::Load()
         stoull(props_[ycsbc::CoreWorkload::RECORD_COUNT_PROPERTY]),
         config_->sst_file_size / BLOCK_SIZE);
 
-    printf("Starting load of %ld KV pairs...\n", record_count);
+    printf("Starting load of %ld KV pairs (~%ld MiB)...\n", record_count,
+           (record_count * config_->kv_size()) >> 20);
+
+    auto work_start = TIME_NOW;
 
     for (uint64_t i = 0; i < record_count; i++) {
         WorkloadProducer::Request* req = producer_->GetLoadRequest();
@@ -46,7 +49,9 @@ int Client::Load()
         }
     }
 
-    printf("Finished loading.\n\n%s\n", db_->ToString().c_str());
+    double load_time = TIME_DURATION(work_start, TIME_NOW);
+    printf("Finished loading in %.3lf s.\n\n%s\n", load_time / 1000000.0,
+           db_->ToString().c_str());
 
     return 0;
 }
@@ -56,28 +61,37 @@ int Client::Work()
     int ok;
     uint64_t operation_count;
 
-    uint64_t reads = 0, updates = 0, inserts = 0, readmodifywrites = 0;
+    uint64_t read_ops = 0, update_ops = 0, insert_ops = 0, readmodifywrite_ops = 0;
+    uint64_t reads = 0, writes = 0;
 
     operation_count = stoull(props_[ycsbc::CoreWorkload::OPERATION_COUNT_PROPERTY]);
 
     printf("Starting work (%ld operations)...\n", operation_count);
+    printf("Start time: %s\n", GetDayTime().c_str());
+    auto work_start = TIME_NOW;
+
+    TimePoint op_start;
+    double op_time;
 
     for (uint64_t i = 0; i < operation_count; i++) {
         WorkloadProducer::Request* req = producer_->GetRequest();
         std::string dest;
         assert(req);
+
+        op_start = TIME_NOW;
+
         switch (req->Type()) {
             case READ:
                 ok = db_->Get(req->Key(), dest);
-                reads++;
+                read_ops++;
                 break;
             case UPDATE:
                 ok = db_->Put(req->Key(), "-");
-                updates++;
+                update_ops++;
                 break;
             case INSERT:
                 ok = db_->Put(req->Key(), "-");
-                inserts++;
+                insert_ops++;
                 break;
             case READMODIFYWRITE:
                 ok = db_->Get(req->Key(), dest);
@@ -85,22 +99,92 @@ int Client::Work()
                     return -1;
                 }
                 ok = db_->Put(req->Key(), "-");
-                readmodifywrites++;
+                readmodifywrite_ops++;
                 break;
             default:
                 fprintf(stderr, "unknown request type %d\n", req->Type());
                 return -1;
         }
+
+        op_time = TIME_DURATION(op_start, TIME_NOW);
+
         if (ok == -1) {
             return -1;
         }
+
+        request_time_.Insert(op_time);
+
+        switch (req->Type()) {
+            case READ:
+                reads++;
+                // printf("Inserting read time: %.3lf us\n", op_time);
+                read_time_.Insert(op_time);
+                break;
+            case UPDATE:
+            case INSERT:
+            case READMODIFYWRITE:
+                writes++;
+                // printf("Inserting write time: %.3lf us\n", op_time);
+                write_time_.Insert(op_time);
+                break;
+            default:
+                return -1;
+        }
     }
 
-    printf("Finished work (%ld reads, %ld updates, %ld inserts, %ld readmodifywrites)\n",
-           reads, updates, inserts, readmodifywrites);
+    double work_time = TIME_DURATION(work_start, TIME_NOW);
+    printf("End time:   %s\n", GetDayTime().c_str());
+    printf("Work time:  %.3lf s", work_time / 1000000.0);
+    printf("\n\n");
 
     printf("%s\n", db_->ToString().c_str());
 
+    printf(
+        "Finished work: %ld read operations, %ld update operations, %ld insert "
+        "operations, %ld "
+        "readmodifywrite operations\n",
+        read_ops, update_ops, insert_ops, readmodifywrite_ops);
+
+    // Reads
+    if (read_time_.Size() > 0) {
+        printf(
+            "READS (%ld)\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
+            "µs\n\t%-25s "
+            "%10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n",
+            read_time_.Size(), "Average latency:", read_time_.Sum() / read_time_.Size(),
+            "Median latency:", read_time_.Tail(0.5), "P75:", read_time_.Tail(0.75),
+            "P90:", read_time_.Tail(0.90), "P99", read_time_.Tail(0.99),
+            "P999:", read_time_.Tail(0.999));
+    }
+    else {
+        printf("No reads");
+    }
+
+    // Writes
+    if (write_time_.Size() > 0) {
+        printf(
+            "WRITES (%ld)\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
+            "µs\n\t%-25s "
+            "%10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
+            "µs\n\t%-25s "
+            "%10.3lf ms\n",
+            write_time_.Size(),
+            "Average latency:", write_time_.Sum() / write_time_.Size(),
+            "Median latency:", write_time_.Tail(0.5), "P75:", write_time_.Tail(0.75),
+            "P90:", write_time_.Tail(0.90), "P99", write_time_.Tail(0.99),
+            "P999:", write_time_.Tail(0.999), "P9999:", write_time_.Tail(0.9999),
+            "P99999:", write_time_.Tail(0.99999) / 1000.0);
+    }
+    else {
+        printf("No writes");
+    }
+
+    printf("Average operation latency: %.3lf us\n",
+           request_time_.Sum() / request_time_.Size());
+    printf("Operations per second: %.3lf K\n",
+           operation_count / work_time * 1000 * 1000 / 1000);
+
     return 0;
 }
+
 }  // namespace ycsbc

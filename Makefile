@@ -27,6 +27,6 @@ clean: del
 	rm -f $(OBJS) $(SRCS:.cpp=.d) $(TARGET) *perf*
 
 del:
-	rm -f ddir/*.sst ddir/MANIFEST-* ddir/CURRENT
+	rm -f dbdir/*.sst dbdir/MANIFEST-* dbdir/CURRENT
 
 .PHONY: all clean

@@ -170,6 +170,8 @@ std::string DBImpl::ToString()
     oss << "Number of live SSTs: " << ssts << "\n";
     oss << "Average live SST size: " << ((uint32_t)avgSize >> 20) << " MiB"
         << "\n";
+    oss << "Database size: " << ((uint32_t)(avgSize * ssts) >> 30) << " GiB"
+        << "\n";
 
     for (uint32_t i = 0; i < ssts_.size(); i++) {
         oss << "Level " << i << ": ";

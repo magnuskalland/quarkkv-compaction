@@ -26,7 +26,7 @@ LIB_PATH=../Quark/quarkstore/quarklibio/build
 
 ENGINE=fs
 MODE=ycsb
-WORKLOAD=ycsb/workloads/workloada
+WORKLOAD=ycsb/workloads/workloadb8gb
 DIR=./dbdir
 DISTRIBUTION=zipfian
 PREPOPULATE=1048576
