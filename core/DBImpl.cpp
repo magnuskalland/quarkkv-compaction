@@ -170,7 +170,7 @@ std::string DBImpl::ToString()
     oss << "Number of live SSTs: " << ssts << "\n";
     oss << "Average live SST size: " << ((uint32_t)avgSize >> 20) << " MiB"
         << "\n";
-    oss << "Database size: " << ((uint32_t)(avgSize * ssts) >> 30) << " GiB"
+    oss << "Database size: " << ((uint64_t)(avgSize * ssts) >> 30) << " GiB"
         << "\n";
 
     for (uint32_t i = 0; i < ssts_.size(); i++) {
@@ -225,7 +225,7 @@ int DBImpl::flush()
     manifest_->AddToLevel(0, sst.get()->GetID());
     ssts_.at(0).insert(sst);
 
-    if (ssts_.at(0).size() > 1) {
+    if (ssts_.at(0).size() > config_->level0_max_size) {
         ok = compact();
     }
 
@@ -236,6 +236,8 @@ int DBImpl::flush()
 int DBImpl::compact()
 {
     int ok;
+
+    printf("Compacting\n");
 
     ok = compacter_->Compact();
     if (ok == -1) {
@@ -249,7 +251,7 @@ int DBImpl::compact()
         return -1;
     }
 
-    // printf("%s\n", ToString().c_str());
+    printf("%s\n", ToString().c_str());
     return 0;
 }
 
