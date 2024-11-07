@@ -155,6 +155,8 @@ std::string DBImpl::ToString()
     float avgSize = 0.0;
     uint32_t ssts = 0;
 
+    oss << "Total compaction stats:\n" << compacter_->totalStats.ToString() << "\n";
+
     oss << manifest_->ToString();
     for (uint32_t i = 0; i < ssts_.size(); i++) {
         for (auto it = ssts_.at(i).begin(); it != ssts_.at(i).end(); it++) {
@@ -208,7 +210,7 @@ int DBImpl::populate(int n)
 
 int DBImpl::flush()
 {
-    printf("\nFlush %d\n", flushes_);
+    // printf("\nFlush %d\n", flushes_);
     std::shared_ptr<SST> sst;
     int ok;
 
@@ -245,7 +247,7 @@ int DBImpl::compact()
         return -1;
     }
 
-    printf("%s\n", ToString().c_str());
+    // printf("%s\n", ToString().c_str());
     return 0;
 }
 

@@ -14,6 +14,7 @@
 #include "include/config.h"
 #include "utils/argparser.h"
 #include "utils/prepare.h"
+#include "ycsb/Client.h"
 
 void verify_config(Config* c)
 {
@@ -30,6 +31,16 @@ void verify_config(Config* c)
 
 int run_ycsb(Config* config)
 {
+    int ok;
+    ycsbc::Client client(config);
+    ok = client.Load();
+    if (ok == -1) {
+        return -1;
+    }
+    ok = client.Work();
+    if (ok == -1) {
+        return -1;
+    }
     return 0;
 }
 

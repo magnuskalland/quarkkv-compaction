@@ -29,8 +29,8 @@ int Compacter::Compact()
             break;
         }
 
-        printf("Compacting level %d (%ld SSTs) into level %d (%ld SSTs)\n", level,
-               ssts_->at(level).size(), level + 1, ssts_->at(level + 1).size());
+        // printf("Compacting level %d (%ld SSTs) into level %d (%ld SSTs)\n", level,
+        //        ssts_->at(level).size(), level + 1, ssts_->at(level + 1).size());
 
         markUpperLevelForCompaction(level);
 
@@ -75,7 +75,7 @@ int Compacter::Compact()
         currentStats.Clear();
     }
 
-    printf("Total compaction stats:\n%s\n", totalStats.ToString().c_str());
+    // printf("Total compaction stats:\n%s\n", totalStats.ToString().c_str());
 
     return 0;
 }
@@ -122,7 +122,7 @@ int Compacter::doCompaction(CompactionIterator* ci,
         ci->Next();
     }
 
-    printf("Merged %d KVs\n", c);
+    // printf("Merged %d KVs\n", c);
 
     ok = finishSSTFile(sst, destLevel);
     if (ok == -1) {
@@ -132,11 +132,6 @@ int Compacter::doCompaction(CompactionIterator* ci,
     ok = removeCompacted(toCompact);
     if (ok == -1) {
         return -1;
-    }
-
-    if (!(currentStats.newSSTs <= toCompact.size())) {
-        printf("New SSTs: %d, SSTs to compact: %ld\n", currentStats.newSSTs,
-               toCompact.size());
     }
 
     assert(currentStats.newSSTs <= toCompact.size());
