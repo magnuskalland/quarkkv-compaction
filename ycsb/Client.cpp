@@ -3,7 +3,7 @@
 #include "../utils/utils.h"
 
 namespace ycsbc {
-Client::Client(Config* config) : config_(config), db_(new DB(config))
+Client::Client(Config* config) : config_(config)
 {
     bool ok;
     std::ifstream input(config->ycsb_workload_path);
@@ -19,6 +19,11 @@ Client::Client(Config* config) : config_(config), db_(new DB(config))
     wl_->Init(props_);
     proxy_ = new WorkloadProxy(wl_);
     producer_ = new WorkloadProducer(proxy_);
+    db_ = new DB(config_);
+    ok = db_->Open() == 0;
+    if (!ok) {
+        fprintf(stderr, "failed to open DB\n");
+    }
 }
 
 Client::~Client()
