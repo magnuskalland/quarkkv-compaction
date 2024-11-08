@@ -58,6 +58,8 @@ int Client::Load()
     printf("Finished loading in %.3lf s.\n\n%s\n", load_time / 1000000.0,
            db_->ToString().c_str());
 
+    db_->ClearStats();
+
     return 0;
 }
 
@@ -179,6 +181,26 @@ int Client::Work()
             "P90:", write_time_.Tail(0.90), "P99", write_time_.Tail(0.99),
             "P999:", write_time_.Tail(0.999), "P9999:", write_time_.Tail(0.9999),
             "P99999:", write_time_.Tail(0.99999) / 1000.0);
+    }
+    else {
+        printf("No writes");
+    }
+
+    // Compactions
+    TimeRecord compactions = db_->GetStats().compactionTimes;
+    if (compactions.Size() > 0) {
+        printf(
+            "COMPACTIONS (%ld)\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
+            "µs\n\t%-25s "
+            "%10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
+            "µs\n\t%-25s "
+            "%10.3lf ms\n",
+            compactions.Size(),
+            "Average latency:", compactions.Sum() / compactions.Size(),
+            "Median latency:", compactions.Tail(0.5), "P75:", compactions.Tail(0.75),
+            "P90:", compactions.Tail(0.90), "P99", compactions.Tail(0.99),
+            "P999:", compactions.Tail(0.999), "P9999:", compactions.Tail(0.9999),
+            "P99999:", compactions.Tail(0.99999) / 1000.0);
     }
     else {
         printf("No writes");

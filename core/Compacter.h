@@ -7,6 +7,7 @@
 #include "../include/SST.h"
 #include "../include/SSTManager.h"
 #include "../include/config.h"
+#include "../utils/utils.h"
 
 class Compacter {
    public:
@@ -22,6 +23,7 @@ class Compacter {
         uint32_t deleted = 0;
         uint32_t writeAmplificationKVs = 0;
         uint64_t writeAmplificationBytes = 0;
+        TimeRecord time;
 
         void Add(struct CompactionStats other)
         {
@@ -31,6 +33,7 @@ class Compacter {
             deleted += other.deleted;
             writeAmplificationKVs += other.writeAmplificationKVs;
             writeAmplificationBytes += other.writeAmplificationBytes;
+            time.Join(other.time);
         }
         void Clear()
         {
@@ -40,6 +43,7 @@ class Compacter {
             deleted = 0;
             writeAmplificationKVs = 0;
             writeAmplificationBytes = 0;
+            time.Data().clear();
         }
         std::string ToString()
         {

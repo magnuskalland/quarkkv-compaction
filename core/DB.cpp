@@ -35,3 +35,13 @@ std::string DB::ToString()
 {
     return db_.ToString();
 }
+
+DBImpl::stats DB::GetStats()
+{
+    return db_.GetStats();
+}
+
+void DB::ClearStats()
+{
+    db_.ClearStats();
+}

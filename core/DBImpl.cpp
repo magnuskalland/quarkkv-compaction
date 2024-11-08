@@ -185,6 +185,16 @@ std::string DBImpl::ToString()
     return oss.str();
 }
 
+void DBImpl::ClearStats()
+{
+    stats_.compactionTimes.Clear();
+}
+
+DBImpl::stats DBImpl::GetStats()
+{
+    return stats_;
+}
+
 int DBImpl::populate(int n)
 {
     printf("Populating DBImpl with %d entries\n", n);
@@ -237,7 +247,11 @@ int DBImpl::compact()
 {
     int ok;
 
+    auto compactionStart = TIME_NOW;
     ok = compacter_->Compact();
+    auto compactionEnd = TIME_DURATION(compactionStart, TIME_NOW);
+    stats_.compactionTimes.Insert(compactionEnd);
+
     if (ok == -1) {
         fprintf(stderr, "error during compaction\n");
         return -1;
