@@ -36,3 +36,5 @@
 *dbdir*
 main
 *quarklibio*
+*.svg
+*perf*
