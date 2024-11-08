@@ -170,7 +170,7 @@ std::string DBImpl::ToString()
     oss << "Number of live SSTs: " << ssts << "\n";
     oss << "Average live SST size: " << ((uint32_t)avgSize >> 20) << " MiB"
         << "\n";
-    oss << "Database size: " << ((uint64_t)(avgSize * ssts) >> 30) << " GiB"
+    oss << "Database size: " << ((uint64_t)(avgSize * ssts) >> 20) << " MiB"
         << "\n";
 
     for (uint32_t i = 0; i < ssts_.size(); i++) {
@@ -236,8 +236,6 @@ int DBImpl::flush()
 int DBImpl::compact()
 {
     int ok;
-
-    printf("Compacting\n");
 
     ok = compacter_->Compact();
     if (ok == -1) {
