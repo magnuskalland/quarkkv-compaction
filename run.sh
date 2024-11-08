@@ -25,17 +25,17 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 LIB_PATH=../Quark/quarkstore/quarklibio/build
 
 ENGINE=fs
-MODE=ycsb
+MODE=manual
 WORKLOAD=ycsb/workloads/workloadb8gb
 DIR=./dbdir
 DISTRIBUTION=zipfian
-PREPOPULATE=1048576
+PREPOPULATE=524288
 WRITE_SIZE=0
 READ_SIZE=100000
-KEY_SIZE=12
+KEY_SIZE=56
 PICKER=all
 
-if [[ "$DIR" == "quarkstore" ]]; then
+if [[ "$ENGINE" == "quarkstore" ]]; then
     InstallQuark
 else
     mkdir -p $DIR
