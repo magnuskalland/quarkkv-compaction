@@ -160,7 +160,7 @@ int Client::Work()
             "%10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n",
             read_time_.Size(), "Average latency:", read_time_.Sum() / read_time_.Size(),
             "Median latency:", read_time_.Tail(0.5), "P75:", read_time_.Tail(0.75),
-            "P90:", read_time_.Tail(0.90), "P99", read_time_.Tail(0.99),
+            "P90:", read_time_.Tail(0.90), "P99:", read_time_.Tail(0.99),
             "P999:", read_time_.Tail(0.999));
     }
     else {
@@ -178,38 +178,34 @@ int Client::Work()
             write_time_.Size(),
             "Average latency:", write_time_.Sum() / write_time_.Size(),
             "Median latency:", write_time_.Tail(0.5), "P75:", write_time_.Tail(0.75),
-            "P90:", write_time_.Tail(0.90), "P99", write_time_.Tail(0.99),
+            "P90:", write_time_.Tail(0.90), "P99:", write_time_.Tail(0.99),
             "P99.9:", write_time_.Tail(0.999), "P99.99:", write_time_.Tail(0.9999),
             "P99.999:", write_time_.Tail(0.99999) / 1000.0);
     }
     else {
         printf("No writes\n");
     }
+    printf("Average operation latency: %.3lf µs\n",
+           request_time_.Sum() / request_time_.Size());
+    printf("Operations per second: %.3lf K\n",
+           operation_count / work_time * 1000 * 1000 / 1000);
 
     // Compactions
     TimeRecord compactions = db_->GetStats().compactionTimes;
     if (compactions.Size() > 0) {
         printf(
-            "COMPACTIONS (%ld)\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
-            "µs\n\t%-25s "
-            "%10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
-            "µs\n\t%-25s "
-            "%10.3lf ms\n",
+            "COMPACTIONS (%ld)\n\t%-25s %10.3lf s\n\t%-25s %10.3lf s\n\t%-25s %10.3lf "
+            "s\n\t%-25s "
+            "%10.3lf s\n\t%-25s %10.3lf s\n",
             compactions.Size(),
-            "Average latency:", compactions.Sum() / compactions.Size(),
-            "Median latency:", compactions.Tail(0.5), "P75:", compactions.Tail(0.75),
-            "P90:", compactions.Tail(0.90), "P99", compactions.Tail(0.99),
-            "P99.9:", compactions.Tail(0.999), "P99.99:", compactions.Tail(0.9999),
-            "P99.999:", compactions.Tail(0.99999) / 1000.0);
+            "Average latency:", (compactions.Sum() / compactions.Size()) / 1000000.0,
+            "Median latency:", compactions.Tail(0.5) / 1000000.0, "P75:", compactions.Tail(0.75) / 1000000.0,
+            "P90:", compactions.Tail(0.90) / 1000000.0, "P99:", compactions.Tail(0.99) / 1000000.0);
     }
     else {
         printf("No compactions\n");
     }
 
-    printf("Average operation latency: %.3lf µs\n",
-           request_time_.Sum() / request_time_.Size());
-    printf("Operations per second: %.3lf K\n",
-           operation_count / work_time * 1000 * 1000 / 1000);
 
     return 0;
 }
