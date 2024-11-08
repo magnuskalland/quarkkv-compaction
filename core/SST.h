@@ -43,7 +43,7 @@ class SST {
     /**
      * Persist SST file to disk.
      */
-    int Persist();
+    int Persist(uint64_t ts);
 
     /**
      * Remove SST from underlying storage.
@@ -70,7 +70,7 @@ class SST {
      * @param key Key to insert.
      * @return -1 if error, 0 otherwise.
      */
-    int AddKey(std::string key);
+    int AddKey(std::string key, uint64_t ts);
 
     /**
      * Add KV-pair to SST. Used during compaction and flushing to
@@ -95,7 +95,7 @@ class SST {
     void UnmarkForCompaction();
     bool IsFull();
     bool IsPersisted();
-    std::chrono::system_clock::time_point GetPersistTime();
+    uint64_t GetPersistTime();
 
    protected:
     /**
@@ -134,7 +134,7 @@ class SST {
     std::string smallestKey_;
     std::string largestKey_;
     std::map<std::string, uint64_t> indexTable_;
-    std::chrono::system_clock::time_point ts_;
+    uint64_t ts_;
 
     uint32_t entries_ = 0;
     uint32_t level_ = 0;

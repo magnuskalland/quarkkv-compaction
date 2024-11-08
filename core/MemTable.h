@@ -10,7 +10,7 @@ class MemTable {
    public:
     MemTable(Config* config);
     KVPair* Get(std::string key);
-    void Put(std::string key, std::string val);
+    void Put(std::string key, uint64_t ts, std::string val);
     bool Full();
     std::map<std::string, KVPair>* GetTable();
     void Flush();

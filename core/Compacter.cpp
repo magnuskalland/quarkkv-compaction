@@ -161,7 +161,7 @@ void Compacter::markUpperLevelForCompaction(uint32_t level)
 
     assert(level == 0);
     SST* sst = nullptr;
-    std::chrono::system_clock::time_point oldest = std::chrono::system_clock::now();
+    uint64_t oldest = manager_->ClockGetAndIncrement();
     for (auto it = ssts.begin(); it != ssts.end(); it++) {
         assert(it->get()->IsPersisted());
         if (it->get()->GetPersistTime() < oldest) {
@@ -183,7 +183,7 @@ void Compacter::markLevelForCompaction(uint32_t level)
 int Compacter::finishSSTFile(std::shared_ptr<SST> sst, uint32_t level)
 {
     int ok;
-    ok = sst.get()->Persist();
+    ok = sst.get()->Persist(manager_->ClockGetAndIncrement());
     if (ok == -1) {
         return -1;
     }

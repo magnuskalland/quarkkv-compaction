@@ -6,7 +6,7 @@
 
 SST::~SST() {}
 
-int SST::Persist()
+int SST::Persist(uint64_t ts)
 {
     int ok;
 
@@ -23,7 +23,7 @@ int SST::Persist()
     }
 
     persisted_ = true;
-    ts_ = std::chrono::system_clock::now();
+    ts_ = ts;
 
     return 0;
 }
@@ -68,9 +68,9 @@ int SST::Lookup(std::string key, KVPair** dest)
     return readKV(it->second, dest);
 }
 
-int SST::AddKey(std::string key)
+int SST::AddKey(std::string key, uint64_t ts)
 {
-    KVPair kv(key, config_->value_size());
+    KVPair kv(key, ts, config_->value_size());
     return AddKV(&kv);
 }
 
@@ -177,7 +177,7 @@ bool SST::IsPersisted()
     return persisted_;
 }
 
-std::chrono::system_clock::time_point SST::GetPersistTime()
+uint64_t SST::GetPersistTime()
 {
     return ts_;
 }
@@ -266,7 +266,11 @@ int SST::readKV(off_t offset, KVPair** dest)
     }
 
     std::string key(buf, config_->key_size);
-    std::string ts(&buf[config_->kv_size() - config_->ts_size], config_->ts_size);
+    size_t ts_index = config_->kv_size() - (config_->ts_size - 2);
+    char hex_str[17] = {0};
+
+    std::strncpy(hex_str, buf + ts_index, 16);
+    uint64_t ts = std::stoull(hex_str, nullptr, 16);
 
     *dest = new KVPair(key, ts, config_->value_size(), handler_, offset);
     return 0;

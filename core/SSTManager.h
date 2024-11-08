@@ -56,8 +56,11 @@ class SSTManager {
      */
     int RemoveSST(std::shared_ptr<SST>& sst);
 
+    uint64_t ClockGetAndIncrement();
+
    private:
     Config* config_;
     KeyGenerator* keygen_;
     std::atomic<int> ctr_;
+    uint64_t clock_; /* monotonically increasing, "atomic" */
 };

@@ -137,7 +137,7 @@ int DBImpl::Put(std::string key, std::string _)
 
     padKey(key);
 
-    memTable_->Put(key, _);
+    memTable_->Put(key, manager_->ClockGetAndIncrement(), _);
     if (memTable_->Full()) {
         ok = flush();
         if (ok == -1) {

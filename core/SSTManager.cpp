@@ -12,7 +12,8 @@
 SSTManager::SSTManager(Config* config)
     : config_(config),
       keygen_(new UniformKeyGenerator(config->key_size)),
-      ctr_(config->engine == FS ? 0 : config->quarkstore_sst_aid_start)
+      ctr_(config->engine == FS ? 0 : config->quarkstore_sst_aid_start),
+      clock_(0)
 {
 }
 SSTManager::~SSTManager() {}
@@ -51,13 +52,13 @@ int SSTManager::PopulateSST(SST& sst)
 
     // add keys to SST file
     for (const std::string& key : keys) {
-        ok = sst.AddKey(key);
+        ok = sst.AddKey(key, ClockGetAndIncrement());
         if (ok == -1) {
             return -1;
         }
     }
 
-    ok = sst.Persist();
+    ok = sst.Persist(ClockGetAndIncrement());
     if (ok == -1) {
         return -1;
     }
@@ -107,7 +108,7 @@ int SSTManager::FlushToSST(MemTable* table, std::shared_ptr<SST>& sst)
         }
     }
 
-    ok = sst->Persist();
+    ok = sst->Persist(ClockGetAndIncrement());
     if (ok == -1) {
         return -1;
     }
@@ -127,4 +128,9 @@ int SSTManager::RemoveSST(std::shared_ptr<SST>& sst)
     }
 
     return 0;
+}
+
+uint64_t SSTManager::ClockGetAndIncrement()
+{
+    return clock_++;
 }

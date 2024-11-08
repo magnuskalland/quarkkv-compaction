@@ -57,7 +57,7 @@ struct Config {
     uint64_t sst_file_size = DEFAULT_SST_FILE_SIZE;
 
     /* immutable */
-    uint32_t ts_size = 26;
+    uint32_t ts_size = 18;
     uint64_t quarkstore_current_aid = 100000;
     uint64_t quarkstore_manifest_aid_start = 100001;
     uint64_t quarkstore_sst_aid_start = 1000000;

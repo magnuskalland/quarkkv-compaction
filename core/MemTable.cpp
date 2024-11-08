@@ -15,9 +15,9 @@ KVPair* MemTable::Get(std::string key)
     return it == table_.end() ? nullptr : &it->second;
 }
 
-void MemTable::Put(std::string key, std::string val)
+void MemTable::Put(std::string key, uint64_t ts, std::string val)
 {
-    KVPair kv(key, config_->value_size());
+    KVPair kv(key, ts, config_->value_size());
     table_.insert({key, kv});
 }
 
