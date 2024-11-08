@@ -10,6 +10,10 @@
 
 class DBImpl {
    public:
+    struct stats {
+        TimeRecord compactionTimes;
+    } stats_;
+
     // Public interface
     DBImpl(Config* config);
     int Open();
@@ -18,6 +22,8 @@ class DBImpl {
     int Put(std::string key, std::string _);
 
     std::string ToString();
+    struct stats GetStats();
+    void ClearStats();
 
    private:
     Manifest* manifest_;

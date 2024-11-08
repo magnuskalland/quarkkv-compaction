@@ -20,6 +20,7 @@ int Compacter::Compact()
 
     int ok;
     bool verified;
+
     for (uint32_t level = 0; level < ssts_->size() - 1; level++) {
         std::set<std::shared_ptr<SST>, SST::SSTComparator>*l1 = &ssts_->at(level),
                                        *l2 = &ssts_->at(level + 1);

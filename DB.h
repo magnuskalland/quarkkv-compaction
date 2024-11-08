@@ -13,6 +13,9 @@ class DB {
     int Put(std::string key, std::string _);
     std::string ToString();
 
+    DBImpl::stats GetStats();
+    void ClearStats();
+
    private:
     DBImpl db_;
 };
