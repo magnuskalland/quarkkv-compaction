@@ -165,7 +165,7 @@ std::string DBImpl::ToString()
         }
     }
 
-    avgSize = (avgSize * config_->kv_size()) / ssts;
+    avgSize = avgSize == 0.0 ? 0.0 : (avgSize * config_->kv_size()) / ssts;
 
     oss << "Number of live SSTs: " << ssts << "\n";
     oss << "Average live SST size: " << ((uint32_t)avgSize >> 20) << " MiB"
