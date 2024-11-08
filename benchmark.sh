@@ -7,10 +7,10 @@ FlushDisk() {
     sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"
 }
 
-# if [ "$EUID" -ne 0 ]; then
-#     echo "Please run as root"
-#     exit
-# fi
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root"
+    exit
+fi
 
 InstallQuark() {
     cd ../Quark/experiments/tests
@@ -25,20 +25,26 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 LIB_PATH=../Quark/quarkstore/quarklibio/build
 
 WORKLOAD_BASE=ycsb/workloads
-FS_DBDIR=./dbdir
+FS_DBDIR=/mnt/ramfs/quarkkv
+ARGS="--mode=ycsb --compaction-picker=all"
 
 mkdir -p $FS_DBDIR
 
-workloads=("workloada8gb" "workloadb8gb" "workloadc8gb" "workloadd8gb" "workloadf8gb")
+workloads=("workloada8gb") #"workloadb8gb" "workloadc8gb" "workloadd8gb" "workloadf8gb")
+
+# for wl in "${workloads[@]}"; do
+#     InstallQuark
+#     echo "Starting QuarkStore $wl"
+#     LD_LIBRARY_PATH=$LIB_PATH ./main --engine=quarkstore --ycsb-workload=$WORKLOAD_BASE/$wl $ARGS
+# done
+
+cd ../Quark/experiments/tests
+bash quarkcontroller_uninstall.sh
+cd $SCRIPT_DIR
 
 for wl in "${workloads[@]}"; do
     rm -rf $FS_DBDIR/*
     echo "Starting FS $wl"
-    LD_LIBRARY_PATH=$LIB_PATH ./main --engine=fs --mode=ycsb --compaction-picker=all --ycsb-workload=$WORKLOAD_BASE/$wl
+    LD_LIBRARY_PATH=$LIB_PATH ./main --engine=fs --ycsb-workload=$WORKLOAD_BASE/$wl --db-directory=$FS_DBDIR $ARGS
 done
 
-for wl in "${workloads[@]}"; do
-    InstallQuark
-    echo "Starting QuarkStore $wl"
-    LD_LIBRARY_PATH=$LIB_PATH ./main --engine=quarkstore --mode=ycsb --compaction-picker=all --ycsb-workload=$WORKLOAD_BASE/$wl
-done
