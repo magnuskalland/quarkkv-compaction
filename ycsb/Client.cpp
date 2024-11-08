@@ -184,7 +184,7 @@ int Client::Work()
         printf("No writes");
     }
 
-    printf("Average operation latency: %.3lf us\n",
+    printf("Average operation latency: %.3lf µs\n",
            request_time_.Sum() / request_time_.Size());
     printf("Operations per second: %.3lf K\n",
            operation_count / work_time * 1000 * 1000 / 1000);
