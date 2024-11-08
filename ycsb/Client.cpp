@@ -164,7 +164,7 @@ int Client::Work()
             "P999:", read_time_.Tail(0.999));
     }
     else {
-        printf("No reads");
+        printf("No reads\n");
     }
 
     // Writes
@@ -179,11 +179,11 @@ int Client::Work()
             "Average latency:", write_time_.Sum() / write_time_.Size(),
             "Median latency:", write_time_.Tail(0.5), "P75:", write_time_.Tail(0.75),
             "P90:", write_time_.Tail(0.90), "P99", write_time_.Tail(0.99),
-            "P999:", write_time_.Tail(0.999), "P9999:", write_time_.Tail(0.9999),
-            "P99999:", write_time_.Tail(0.99999) / 1000.0);
+            "P99.9:", write_time_.Tail(0.999), "P99.99:", write_time_.Tail(0.9999),
+            "P99.999:", write_time_.Tail(0.99999) / 1000.0);
     }
     else {
-        printf("No writes");
+        printf("No writes\n");
     }
 
     // Compactions
@@ -199,11 +199,11 @@ int Client::Work()
             "Average latency:", compactions.Sum() / compactions.Size(),
             "Median latency:", compactions.Tail(0.5), "P75:", compactions.Tail(0.75),
             "P90:", compactions.Tail(0.90), "P99", compactions.Tail(0.99),
-            "P999:", compactions.Tail(0.999), "P9999:", compactions.Tail(0.9999),
-            "P99999:", compactions.Tail(0.99999) / 1000.0);
+            "P99.9:", compactions.Tail(0.999), "P99.99:", compactions.Tail(0.9999),
+            "P99.999:", compactions.Tail(0.99999) / 1000.0);
     }
     else {
-        printf("No writes");
+        printf("No compactions\n");
     }
 
     printf("Average operation latency: %.3lf µs\n",
