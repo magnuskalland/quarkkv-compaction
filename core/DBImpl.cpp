@@ -52,7 +52,7 @@ int DBImpl::Open()
         }
     }
 
-    printf("%s\n", ToString().c_str());
+    // printf("%s\n", ToString().c_str());
 
     return 0;
 }
@@ -263,7 +263,7 @@ int DBImpl::compact()
         return -1;
     }
 
-    printf("%s\n", ToString().c_str());
+    // printf("%s\n", ToString().c_str());
     return 0;
 }
 

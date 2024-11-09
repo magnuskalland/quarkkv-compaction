@@ -196,11 +196,11 @@ int Client::Work()
         printf(
             "COMPACTIONS (%ld)\n\t%-25s %10.3lf s\n\t%-25s %10.3lf s\n\t%-25s %10.3lf "
             "s\n\t%-25s "
-            "%10.3lf s\n\t%-25s %10.3lf s\n",
+            "%10.3lf s\n\t%-25s %10.3lf s\n\t%-25s %10.3lf s\n",
             compactions.Size(),
             "Average latency:", (compactions.Sum() / compactions.Size()) / 1000000.0,
             "Median latency:", compactions.Tail(0.5) / 1000000.0, "P75:", compactions.Tail(0.75) / 1000000.0,
-            "P90:", compactions.Tail(0.90) / 1000000.0, "P99:", compactions.Tail(0.99) / 1000000.0);
+            "P90:", compactions.Tail(0.90) / 1000000.0, "P99:", compactions.Tail(0.99) / 1000000.0, "Last:", compactions.Last() / 1000000.0);
     }
     else {
         printf("No compactions\n");

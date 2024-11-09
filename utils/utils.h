@@ -71,4 +71,11 @@ struct TimeRecord {
         }
         return data_[(uint64_t)(data_.size() * f)];
     }
+    double Last() {
+        if (!sorted_) {
+            std::sort(data_.begin(), data_.end());
+            sorted_ = true;
+        }
+        return data_[(uint64_t)(data_.size() - 1)];
+    }
 };

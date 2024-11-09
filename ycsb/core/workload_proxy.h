@@ -79,7 +79,7 @@ class WorkloadProxy {
                        std::vector<ycsbc::CoreWorkload::KVPair> &values)
     {
         table = workload_->NextTable();
-        key = workload_->NextTransactionKey();
+        key = workload_->NextSequenceKey();
         workload_->BuildValues(values);
     }
 };
