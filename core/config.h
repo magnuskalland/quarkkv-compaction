@@ -25,6 +25,7 @@ enum mode { MANUAL = 0, YCSB };
 enum storage_engine {
     FS = 0,
     QUARKSTORE,
+    QUARKSTORE_COPY,
 };
 
 enum compaction_picker {
@@ -139,38 +140,5 @@ struct Config {
         s = s + "\n";
 
         return s;
-
-        //     char buffer[1024];
-        //     std::sprintf(
-        //         buffer,
-        //         R"(Config
-        // %-30s %s
-        // %-30s %s
-        // %-30s %s
-        // %-30s %s
-        // %-30s %ld (~%ld SSTs)
-        // %-30s %ld KV pairs
-        // %-30s %ld KV pairs
-        // %-30s %s
-        // %-30s %s
-        // %-30s %d
-        // %-30s %d
-        // %-30s %d bytes
-        // %-30s %d bytes
-        // %-30s %d SST file
-        // %-30s %lu MiB
-        // )",
-        //         "Engine:", engine == FS ? "FS" : "QuarkStore",
-        //         "Mode:", mode == MANUAL ? "Manual" : "YCSB",
-        //         "YCSB workload:", ycsb_workload_path.c_str(),
-        //         "File system DB directory:", fs_dbdir.c_str(),
-        //         "Prepopulate size:", prepopulate_size,
-        //         ((prepopulate_size * kv_size()) / sst_file_size), "Read size:",
-        //         read_size, "Write size:", write_size, "Workload distribution:",
-        //         distribution == UNIFORM ? "Uniform" : "Zipfian", "Compaction picker:",
-        //         cp == ALL ? "All" : "One", "Levels:", n_levels, "Fanout:", fanout, "Key
-        //         size:", key_size, "Value size:", value_size(), "Level 0 max size:",
-        //         level0_max_size, "SST file size:", sst_file_size >> 20);
-        // return std::string(buffer);
     }
 };
