@@ -1,0 +1,832 @@
+[H[JStarting QuarkStore workloada8gb
+Config
+    Engine:                        QuarkStore
+    Mode:                          YCSB
+    YCSB workload:                 ycsb/workloads/workloada8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Initialized QuarkStore
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 71.787 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 73
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001152.sst 001153.sst 001154.sst 001155.sst 001156.sst 001157.sst 001158.sst 001159.sst (8/10)
+Level 2: 001116.sst 001117.sst 001118.sst 001119.sst 001120.sst 001121.sst 001122.sst 001123.sst 001124.sst 001125.sst 001126.sst 001127.sst (12/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-08:47:46.930042
+End time:   2024/11/09-08:48:10.177638
+Work time:  23.246 s
+
+Total compaction stats:
+Compactions: 90
+New SSTs: 1175
+Deleted SSTs: 1181
+Duplicate keys merged: 110089
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 87
+Number of live SSTs: 152
+Average live SST size: 63 MiB
+Database size: 9681 MiB
+Level 0: (0/1)
+Level 1: 001410.sst 001411.sst (2/10)
+Level 2: 001365.sst 001366.sst 001367.sst 001368.sst 001369.sst 001370.sst 001371.sst 001372.sst 001373.sst 001374.sst 001375.sst 001376.sst 001377.sst 001378.sst 001379.sst 001380.sst 001381.sst 001382.sst 001383.sst 001384.sst 001385.sst 001386.sst 001387.sst 001388.sst 001389.sst 001390.sst 001391.sst 001392.sst 001393.sst 001394.sst 001395.sst 001396.sst 001397.sst 001398.sst 001399.sst 001400.sst 001401.sst 001402.sst 001403.sst 001404.sst 001405.sst 001406.sst (42/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 499369 read operations, 500631 update operations, 0 insert operations, 0 readmodifywrite operations
+READS (499369)
+	Average latency:              14.641 µs
+	Median latency:               14.459 µs
+	P75:                          16.867 µs
+	P90:                          19.214 µs
+	P99:                          25.182 µs
+	P999:                         29.223 µs
+WRITES (500631)
+	Average latency:              30.521 µs
+	Median latency:                1.314 µs
+	P75:                           1.574 µs
+	P90:                           1.869 µs
+	P99:                           2.531 µs
+	P99.9:                         4.073 µs
+	P99.99:                      876.287 µs
+	P99.999:                     652.858 ms
+Average operation latency: 22.591 µs
+Operations per second: 43.019 K
+COMPACTIONS (15)
+	Average latency:               0.822 s
+	Median latency:                0.468 s
+	P75:                           0.612 s
+	P90:                           2.697 s
+	P99:                           3.239 s
+	Last:                          3.239 s
+[H[JStarting QuarkStore workloadb8gb
+Config
+    Engine:                        QuarkStore
+    Mode:                          YCSB
+    YCSB workload:                 ycsb/workloads/workloadb8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Initialized QuarkStore
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 71.629 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 73
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001152.sst 001153.sst 001154.sst 001155.sst 001156.sst 001157.sst 001158.sst 001159.sst (8/10)
+Level 2: 001116.sst 001117.sst 001118.sst 001119.sst 001120.sst 001121.sst 001122.sst 001123.sst 001124.sst 001125.sst 001126.sst 001127.sst (12/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-08:49:22.276870
+End time:   2024/11/09-08:49:36.323630
+Work time:  14.045 s
+
+Total compaction stats:
+Compactions: 73
+New SSTs: 978
+Deleted SSTs: 978
+Duplicate keys merged: 2190
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 74
+Number of live SSTs: 131
+Average live SST size: 63 MiB
+Database size: 8375 MiB
+Level 0: 001174.sst (1/1)
+Level 1: 001163.sst 001164.sst 001165.sst 001166.sst 001167.sst 001168.sst 001169.sst 001170.sst 001171.sst 001172.sst (10/10)
+Level 2: 001116.sst 001117.sst 001118.sst 001119.sst 001120.sst 001121.sst 001122.sst 001123.sst 001124.sst 001125.sst 001126.sst 001127.sst (12/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 950061 read operations, 49939 update operations, 0 insert operations, 0 readmodifywrite operations
+READS (950061)
+	Average latency:              13.346 µs
+	Median latency:               13.494 µs
+	P75:                          15.692 µs
+	P90:                          17.447 µs
+	P99:                          20.270 µs
+	P999:                         24.306 µs
+WRITES (49939)
+	Average latency:              17.510 µs
+	Median latency:                1.304 µs
+	P75:                           1.501 µs
+	P90:                           1.736 µs
+	P99:                           4.424 µs
+	P99.9:                         5.969 µs
+	P99.99:                       17.234 µs
+	P99.999:                     666.221 ms
+Average operation latency: 13.554 µs
+Operations per second: 71.201 K
+COMPACTIONS (1)
+	Average latency:               0.596 s
+	Median latency:                0.596 s
+	P75:                           0.596 s
+	P90:                           0.596 s
+	P99:                           0.596 s
+	Last:                          0.596 s
+[H[JStarting QuarkStore workloadc8gb
+Config
+    Engine:                        QuarkStore
+    Mode:                          YCSB
+    YCSB workload:                 ycsb/workloads/workloadc8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Initialized QuarkStore
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 72.599 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 73
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001152.sst 001153.sst 001154.sst 001155.sst 001156.sst 001157.sst 001158.sst 001159.sst (8/10)
+Level 2: 001116.sst 001117.sst 001118.sst 001119.sst 001120.sst 001121.sst 001122.sst 001123.sst 001124.sst 001125.sst 001126.sst 001127.sst (12/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-08:50:49.359666
+End time:   2024/11/09-08:51:02.116280
+Work time:  12.755 s
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 73
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001152.sst 001153.sst 001154.sst 001155.sst 001156.sst 001157.sst 001158.sst 001159.sst (8/10)
+Level 2: 001116.sst 001117.sst 001118.sst 001119.sst 001120.sst 001121.sst 001122.sst 001123.sst 001124.sst 001125.sst 001126.sst 001127.sst (12/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 1000000 read operations, 0 update operations, 0 insert operations, 0 readmodifywrite operations
+READS (1000000)
+	Average latency:              12.241 µs
+	Median latency:               12.418 µs
+	P75:                          14.376 µs
+	P90:                          15.899 µs
+	P99:                          18.446 µs
+	P999:                         21.705 µs
+No writes
+Average operation latency: 12.241 µs
+Operations per second: 78.402 K
+No compactions
+[H[JStarting QuarkStore workloadd8gb
+Config
+    Engine:                        QuarkStore
+    Mode:                          YCSB
+    YCSB workload:                 ycsb/workloads/workloadd8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Initialized QuarkStore
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 72.366 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 73
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001152.sst 001153.sst 001154.sst 001155.sst 001156.sst 001157.sst 001158.sst 001159.sst (8/10)
+Level 2: 001116.sst 001117.sst 001118.sst 001119.sst 001120.sst 001121.sst 001122.sst 001123.sst 001124.sst 001125.sst 001126.sst 001127.sst (12/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-08:52:14.998463
+End time:   2024/11/09-08:52:22.869707
+Work time:  7.869 s
+
+Total compaction stats:
+Compactions: 73
+New SSTs: 978
+Deleted SSTs: 978
+Duplicate keys merged: 0
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 74
+Number of live SSTs: 131
+Average live SST size: 64 MiB
+Database size: 8384 MiB
+Level 0: 001174.sst (1/1)
+Level 1: 001163.sst 001164.sst 001165.sst 001166.sst 001167.sst 001168.sst 001169.sst 001170.sst 001171.sst 001172.sst (10/10)
+Level 2: 001116.sst 001117.sst 001118.sst 001119.sst 001120.sst 001121.sst 001122.sst 001123.sst 001124.sst 001125.sst 001126.sst 001127.sst (12/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 950081 read operations, 49919 update operations, 0 insert operations, 0 readmodifywrite operations
+READS (950081)
+	Average latency:               6.751 µs
+	Median latency:                5.360 µs
+	P75:                           6.792 µs
+	P90:                          13.879 µs
+	P99:                          23.197 µs
+	P999:                         27.810 µs
+WRITES (49919)
+	Average latency:              18.205 µs
+	Median latency:                1.225 µs
+	P75:                           1.401 µs
+	P90:                           1.608 µs
+	P99:                           4.125 µs
+	P99.9:                         6.025 µs
+	P99.99:                       16.845 µs
+	P99.999:                     703.021 ms
+Average operation latency: 7.323 µs
+Operations per second: 127.076 K
+COMPACTIONS (1)
+	Average latency:               0.606 s
+	Median latency:                0.606 s
+	P75:                           0.606 s
+	P90:                           0.606 s
+	P99:                           0.606 s
+	Last:                          0.606 s
+[H[JStarting QuarkStore workloadf8gb
+Config
+    Engine:                        QuarkStore
+    Mode:                          YCSB
+    YCSB workload:                 ycsb/workloads/workloadf8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Initialized QuarkStore
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 72.471 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 73
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001152.sst 001153.sst 001154.sst 001155.sst 001156.sst 001157.sst 001158.sst 001159.sst (8/10)
+Level 2: 001116.sst 001117.sst 001118.sst 001119.sst 001120.sst 001121.sst 001122.sst 001123.sst 001124.sst 001125.sst 001126.sst 001127.sst (12/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-08:53:35.777486
+End time:   2024/11/09-08:54:05.476315
+Work time:  29.697 s
+
+Total compaction stats:
+Compactions: 90
+New SSTs: 1175
+Deleted SSTs: 1181
+Duplicate keys merged: 110089
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: 87
+Number of live SSTs: 152
+Average live SST size: 63 MiB
+Database size: 9681 MiB
+Level 0: (0/1)
+Level 1: 001410.sst 001411.sst (2/10)
+Level 2: 001365.sst 001366.sst 001367.sst 001368.sst 001369.sst 001370.sst 001371.sst 001372.sst 001373.sst 001374.sst 001375.sst 001376.sst 001377.sst 001378.sst 001379.sst 001380.sst 001381.sst 001382.sst 001383.sst 001384.sst 001385.sst 001386.sst 001387.sst 001388.sst 001389.sst 001390.sst 001391.sst 001392.sst 001393.sst 001394.sst 001395.sst 001396.sst 001397.sst 001398.sst 001399.sst 001400.sst 001401.sst 001402.sst 001403.sst 001404.sst 001405.sst 001406.sst (42/100)
+Level 3: 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst 001014.sst 001015.sst 001016.sst 001017.sst 001018.sst 001019.sst 001020.sst 001021.sst 001022.sst 001023.sst 001024.sst 001025.sst 001026.sst 001027.sst 001028.sst 001029.sst 001030.sst 001031.sst 001032.sst 001033.sst 001034.sst 001035.sst 001036.sst 001037.sst 001038.sst 001039.sst 001040.sst 001041.sst 001042.sst 001043.sst 001044.sst 001045.sst 001046.sst 001047.sst 001048.sst 001049.sst 001050.sst 001051.sst 001052.sst 001053.sst 001054.sst 001055.sst 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 499369 read operations, 0 update operations, 0 insert operations, 500631 readmodifywrite operations
+READS (499369)
+	Average latency:              13.919 µs
+	Median latency:               14.136 µs
+	P75:                          16.367 µs
+	P90:                          18.295 µs
+	P99:                          21.301 µs
+	P999:                         27.401 µs
+WRITES (500631)
+	Average latency:              44.105 µs
+	Median latency:               15.135 µs
+	P75:                          17.393 µs
+	P90:                          19.338 µs
+	P99:                          22.459 µs
+	P99.9:                        29.418 µs
+	P99.99:                     1323.067 µs
+	P99.999:                     653.886 ms
+Average operation latency: 29.031 µs
+Operations per second: 33.674 K
+COMPACTIONS (15)
+	Average latency:               0.820 s
+	Median latency:                0.465 s
+	P75:                           0.606 s
+	P90:                           2.701 s
+	P99:                           3.239 s
+	Last:                          3.239 s
+Starting FS workloada8gb
+Config
+    Engine:                        FS
+    Mode:                          YCSB
+    File system DB directory:      /mnt/ramfs/quarkkv
+    YCSB workload:                 ycsb/workloads/workloada8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 149.480 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 15859712 KV pairs, 61952 MiB
+
+Manifest: MANIFEST-64
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001088.sst 001089.sst 001090.sst 001091.sst 001092.sst 001093.sst 001094.sst 001095.sst (8/10)
+Level 2: 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (12/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-08:56:36.222092
+End time:   2024/11/09-08:57:16.853202
+Work time:  40.628 s
+
+Total compaction stats:
+Compactions: 90
+New SSTs: 1175
+Deleted SSTs: 1181
+Duplicate keys merged: 110089
+Write amplification: 19177224 KV pairs, 74911 MiB
+
+Manifest: MANIFEST-79
+Number of live SSTs: 152
+Average live SST size: 63 MiB
+Database size: 9681 MiB
+Level 0: (0/1)
+Level 1: 001331.sst 001332.sst (2/10)
+Level 2: 001287.sst 001288.sst 001289.sst 001290.sst 001291.sst 001292.sst 001293.sst 001294.sst 001295.sst 001296.sst 001297.sst 001298.sst 001299.sst 001300.sst 001301.sst 001302.sst 001303.sst 001304.sst 001305.sst 001306.sst 001307.sst 001308.sst 001309.sst 001310.sst 001311.sst 001312.sst 001313.sst 001314.sst 001315.sst 001316.sst 001317.sst 001318.sst 001319.sst 001320.sst 001321.sst 001322.sst 001323.sst 001324.sst 001325.sst 001326.sst 001327.sst 001328.sst (42/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 499369 read operations, 500631 update operations, 0 insert operations, 0 readmodifywrite operations
+READS (499369)
+	Average latency:              15.548 µs
+	Median latency:               15.531 µs
+	P75:                          17.983 µs
+	P90:                          20.219 µs
+	P99:                          24.393 µs
+	P999:                         30.313 µs
+WRITES (500631)
+	Average latency:              64.091 µs
+	Median latency:                1.445 µs
+	P75:                           1.782 µs
+	P90:                           2.163 µs
+	P99:                           3.064 µs
+	P99.9:                         4.189 µs
+	P99.99:                     1147.848 µs
+	P99.999:                    1439.239 ms
+Average operation latency: 39.850 µs
+Operations per second: 24.614 K
+COMPACTIONS (15)
+	Average latency:               1.890 s
+	Median latency:                1.080 s
+	P75:                           1.426 s
+	P90:                           6.206 s
+	P99:                           7.383 s
+	Last:                          7.383 s
+Starting FS workloadb8gb
+Config
+    Engine:                        FS
+    Mode:                          YCSB
+    File system DB directory:      /mnt/ramfs/quarkkv
+    YCSB workload:                 ycsb/workloads/workloadb8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 146.464 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 15859712 KV pairs, 61952 MiB
+
+Manifest: MANIFEST-64
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001088.sst 001089.sst 001090.sst 001091.sst 001092.sst 001093.sst 001094.sst 001095.sst (8/10)
+Level 2: 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (12/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-08:59:44.809521
+End time:   2024/11/09-09:00:00.896574
+Work time:  16.084 s
+
+Total compaction stats:
+Compactions: 73
+New SSTs: 978
+Deleted SSTs: 978
+Duplicate keys merged: 2190
+Write amplification: 16021362 KV pairs, 62583 MiB
+
+Manifest: MANIFEST-65
+Number of live SSTs: 131
+Average live SST size: 63 MiB
+Database size: 8375 MiB
+Level 0: 001108.sst (1/1)
+Level 1: 001098.sst 001099.sst 001100.sst 001101.sst 001102.sst 001103.sst 001104.sst 001105.sst 001106.sst 001107.sst (10/10)
+Level 2: 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (12/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 950061 read operations, 49939 update operations, 0 insert operations, 0 readmodifywrite operations
+READS (950061)
+	Average latency:              14.567 µs
+	Median latency:               14.806 µs
+	P75:                          16.997 µs
+	P90:                          18.970 µs
+	P99:                          22.783 µs
+	P999:                         26.828 µs
+WRITES (49939)
+	Average latency:              34.167 µs
+	Median latency:                1.449 µs
+	P75:                           1.675 µs
+	P90:                           1.955 µs
+	P99:                           4.447 µs
+	P99.9:                         6.307 µs
+	P99.99:                       13.898 µs
+	P99.999:                    1447.523 ms
+Average operation latency: 15.545 µs
+Operations per second: 62.175 K
+COMPACTIONS (1)
+	Average latency:               1.359 s
+	Median latency:                1.359 s
+	P75:                           1.359 s
+	P90:                           1.359 s
+	P99:                           1.359 s
+	Last:                          1.359 s
+Starting FS workloadc8gb
+Config
+    Engine:                        FS
+    Mode:                          YCSB
+    File system DB directory:      /mnt/ramfs/quarkkv
+    YCSB workload:                 ycsb/workloads/workloadc8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 139.807 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 15859712 KV pairs, 61952 MiB
+
+Manifest: MANIFEST-64
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001088.sst 001089.sst 001090.sst 001091.sst 001092.sst 001093.sst 001094.sst 001095.sst (8/10)
+Level 2: 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (12/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-09:02:22.042677
+End time:   2024/11/09-09:02:34.398388
+Work time:  12.354 s
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 15859712 KV pairs, 61952 MiB
+
+Manifest: MANIFEST-64
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001088.sst 001089.sst 001090.sst 001091.sst 001092.sst 001093.sst 001094.sst 001095.sst (8/10)
+Level 2: 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (12/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 1000000 read operations, 0 update operations, 0 insert operations, 0 readmodifywrite operations
+READS (1000000)
+	Average latency:              11.898 µs
+	Median latency:               11.992 µs
+	P75:                          14.053 µs
+	P90:                          15.736 µs
+	P99:                          19.206 µs
+	P999:                         24.218 µs
+No writes
+Average operation latency: 11.898 µs
+Operations per second: 80.947 K
+No compactions
+Starting FS workloadd8gb
+Config
+    Engine:                        FS
+    Mode:                          YCSB
+    File system DB directory:      /mnt/ramfs/quarkkv
+    YCSB workload:                 ycsb/workloads/workloadd8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 148.096 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 15859712 KV pairs, 61952 MiB
+
+Manifest: MANIFEST-64
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001088.sst 001089.sst 001090.sst 001091.sst 001092.sst 001093.sst 001094.sst 001095.sst (8/10)
+Level 2: 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (12/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-09:05:03.895817
+End time:   2024/11/09-09:05:12.968352
+Work time:  9.070 s
+
+Total compaction stats:
+Compactions: 73
+New SSTs: 978
+Deleted SSTs: 978
+Duplicate keys merged: 0
+Write amplification: 16023552 KV pairs, 62592 MiB
+
+Manifest: MANIFEST-65
+Number of live SSTs: 131
+Average live SST size: 64 MiB
+Database size: 8384 MiB
+Level 0: 001108.sst (1/1)
+Level 1: 001098.sst 001099.sst 001100.sst 001101.sst 001102.sst 001103.sst 001104.sst 001105.sst 001106.sst 001107.sst (10/10)
+Level 2: 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (12/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 950081 read operations, 49919 update operations, 0 insert operations, 0 readmodifywrite operations
+READS (950081)
+	Average latency:               7.100 µs
+	Median latency:                5.461 µs
+	P75:                           7.004 µs
+	P90:                          15.295 µs
+	P99:                          23.202 µs
+	P999:                         27.585 µs
+WRITES (49919)
+	Average latency:              34.614 µs
+	Median latency:                1.307 µs
+	P75:                           1.512 µs
+	P90:                           1.758 µs
+	P99:                           4.111 µs
+	P99.9:                         6.089 µs
+	P99.99:                       12.808 µs
+	P99.999:                    1478.602 ms
+Average operation latency: 8.474 µs
+Operations per second: 110.253 K
+COMPACTIONS (1)
+	Average latency:               1.391 s
+	Median latency:                1.391 s
+	P75:                           1.391 s
+	P90:                           1.391 s
+	P99:                           1.391 s
+	Last:                          1.391 s
+Starting FS workloadf8gb
+Config
+    Engine:                        FS
+    Mode:                          YCSB
+    File system DB directory:      /mnt/ramfs/quarkkv
+    YCSB workload:                 ycsb/workloads/workloadf8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Finished loading in 146.065 s.
+
+Total compaction stats:
+Compactions: 72
+New SSTs: 968
+Deleted SSTs: 968
+Duplicate keys merged: 0
+Write amplification: 15859712 KV pairs, 61952 MiB
+
+Manifest: MANIFEST-64
+Number of live SSTs: 128
+Average live SST size: 64 MiB
+Database size: 8192 MiB
+Level 0: (0/1)
+Level 1: 001088.sst 001089.sst 001090.sst 001091.sst 001092.sst 001093.sst 001094.sst 001095.sst (8/10)
+Level 2: 001056.sst 001057.sst 001058.sst 001059.sst 001060.sst 001061.sst 001062.sst 001063.sst 001064.sst 001065.sst 001066.sst 001067.sst (12/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting work (1000000 operations)...
+Start time: 2024/11/09-09:07:40.332200
+End time:   2024/11/09-09:08:27.158018
+Work time:  46.823 s
+
+Total compaction stats:
+Compactions: 90
+New SSTs: 1175
+Deleted SSTs: 1181
+Duplicate keys merged: 110089
+Write amplification: 19177224 KV pairs, 74911 MiB
+
+Manifest: MANIFEST-79
+Number of live SSTs: 152
+Average live SST size: 63 MiB
+Database size: 9681 MiB
+Level 0: (0/1)
+Level 1: 001331.sst 001332.sst (2/10)
+Level 2: 001287.sst 001288.sst 001289.sst 001290.sst 001291.sst 001292.sst 001293.sst 001294.sst 001295.sst 001296.sst 001297.sst 001298.sst 001299.sst 001300.sst 001301.sst 001302.sst 001303.sst 001304.sst 001305.sst 001306.sst 001307.sst 001308.sst 001309.sst 001310.sst 001311.sst 001312.sst 001313.sst 001314.sst 001315.sst 001316.sst 001317.sst 001318.sst 001319.sst 001320.sst 001321.sst 001322.sst 001323.sst 001324.sst 001325.sst 001326.sst 001327.sst 001328.sst (42/100)
+Level 3: 000906.sst 000907.sst 000908.sst 000909.sst 000910.sst 000911.sst 000912.sst 000913.sst 000914.sst 000915.sst 000916.sst 000917.sst 000918.sst 000919.sst 000920.sst 000921.sst 000922.sst 000923.sst 000924.sst 000925.sst 000926.sst 000927.sst 000928.sst 000929.sst 000930.sst 000931.sst 000932.sst 000933.sst 000934.sst 000935.sst 000936.sst 000937.sst 000938.sst 000939.sst 000940.sst 000941.sst 000942.sst 000943.sst 000944.sst 000945.sst 000946.sst 000947.sst 000948.sst 000949.sst 000950.sst 000951.sst 000952.sst 000953.sst 000954.sst 000955.sst 000956.sst 000957.sst 000958.sst 000959.sst 000960.sst 000961.sst 000962.sst 000963.sst 000964.sst 000965.sst 000966.sst 000967.sst 000968.sst 000969.sst 000970.sst 000971.sst 000972.sst 000973.sst 000974.sst 000975.sst 000976.sst 000977.sst 000978.sst 000979.sst 000980.sst 000981.sst 000982.sst 000983.sst 000984.sst 000985.sst 000986.sst 000987.sst 000988.sst 000989.sst 000990.sst 000991.sst 000992.sst 000993.sst 000994.sst 000995.sst 000996.sst 000997.sst 000998.sst 000999.sst 001000.sst 001001.sst 001002.sst 001003.sst 001004.sst 001005.sst 001006.sst 001007.sst 001008.sst 001009.sst 001010.sst 001011.sst 001012.sst 001013.sst (108/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Finished work: 499369 read operations, 0 update operations, 0 insert operations, 500631 readmodifywrite operations
+READS (499369)
+	Average latency:              15.103 µs
+	Median latency:               15.277 µs
+	P75:                          17.667 µs
+	P90:                          19.752 µs
+	P99:                          23.712 µs
+	P999:                         29.391 µs
+WRITES (500631)
+	Average latency:              77.074 µs
+	Median latency:               16.401 µs
+	P75:                          18.815 µs
+	P90:                          20.935 µs
+	P99:                          24.963 µs
+	P99.9:                        31.876 µs
+	P99.99:                     1982.361 µs
+	P99.999:                    1397.266 ms
+Average operation latency: 46.128 µs
+Operations per second: 21.357 K
+COMPACTIONS (15)
+	Average latency:               1.844 s
+	Median latency:                1.048 s
+	P75:                           1.382 s
+	P90:                           6.063 s
+	P99:                           7.215 s
+	Last:                          7.215 s

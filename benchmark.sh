@@ -30,13 +30,13 @@ ARGS="--mode=ycsb --compaction-picker=all"
 
 mkdir -p $FS_DBDIR
 
-workloads=("workloada8gb") #"workloadb8gb" "workloadc8gb" "workloadd8gb" "workloadf8gb")
+workloads=("workloada16gb" "workloadb16gb" "workloadc16gb" "workloadd16gb" "workloadf16gb")
 
-# for wl in "${workloads[@]}"; do
-#     InstallQuark
-#     echo "Starting QuarkStore $wl"
-#     LD_LIBRARY_PATH=$LIB_PATH ./main --engine=quarkstore --ycsb-workload=$WORKLOAD_BASE/$wl $ARGS
-# done
+#for wl in "${workloads[@]}"; do
+#    InstallQuark
+#    echo "Starting QuarkStore $wl"
+#    LD_LIBRARY_PATH=$LIB_PATH ./main --engine=quarkstore --ycsb-workload=$WORKLOAD_BASE/$wl $ARGS
+#done
 
 cd ../Quark/experiments/tests
 bash quarkcontroller_uninstall.sh
