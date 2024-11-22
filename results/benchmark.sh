@@ -15,36 +15,40 @@ fi
 InstallQuark() {
     cd ../Quark/experiments/tests
     bash quarkcontroller_uninstall.sh
-    bash quarkcontroller_install.sh
+    bash quarkcontroller_install.sh $1
     cd $SCRIPT_DIR
     clear
 }
 
 set -e
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-LIB_PATH=../Quark/quarkstore/quarklibio/build
+LIB_PATH=../../Quark/quarkstore/quarklibio/build
 
-WORKLOAD_BASE=ycsb/workloads
+WORKLOAD_BASE=../ycsb/workloads
+BASE_CMD="LD_LIBRARY_PATH=$LIB_PATH ../main"
+ARGS="--mode=ycsb --compaction-picker=one"
 FS_DBDIR=/mnt/ramfs/quarkkv
-ARGS="--mode=ycsb --compaction-picker=all"
+# mkdir -p $FS_DBDIR
 
-mkdir -p $FS_DBDIR
+sizes=("8" "64" "512")
+workloads=("a" "b" "c" "d" "f")
 
-workloads=("workloada16gb" "workloadb16gb" "workloadc16gb" "workloadd16gb" "workloadf16gb")
-
-for wl in "${workloads[@]}"; do
-   InstallQuark
-   echo "Starting QuarkStore $wl"
-   LD_LIBRARY_PATH=$LIB_PATH ./main --engine=quarkstore --ycsb-workload=$WORKLOAD_BASE/$wl $ARGS
+# InstallQuark
+for s in "${sizes[@]}"; do
+    for w in "${workloads[@]}"; do
+        cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/workload${w}${s}gb --engine=quarkstore $ARGS"
+        echo $cmd
+        # eval $cmd
+        # InstallQuark
+    done
 done
 
-cd ../Quark/experiments/tests
-bash quarkcontroller_uninstall.sh
-cd $SCRIPT_DIR
-
-for wl in "${workloads[@]}"; do
-    rm -rf $FS_DBDIR/*
-    echo "Starting FS $wl"
-    LD_LIBRARY_PATH=$LIB_PATH ./main --engine=fs --ycsb-workload=$WORKLOAD_BASE/$wl --db-directory=$FS_DBDIR $ARGS
+# rm -rf $FS_DBDIR/*
+for s in "${sizes[@]}"; do
+    for w in "${workloads[@]}"; do
+        cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/workload${w}${s}gb --engine=fs --db-directory=$FS_DBDIR $ARGS"
+        echo $cmd
+        # eval $cmd
+        # rm -rf $FS_DBDIR/*
+    done
 done
-
