@@ -25,7 +25,7 @@ enum mode { MANUAL = 0, YCSB };
 enum storage_engine {
     FS = 0,
     QUARKSTORE,
-    QUARKSTORE_COPY,
+    QUARKSTORE_APPEND,
 };
 
 enum compaction_picker {

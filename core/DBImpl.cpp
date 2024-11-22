@@ -24,11 +24,11 @@ DBImpl::DBImpl(Config* config) : config_(config)
     }
     else if (config->engine == QUARKSTORE) {
         manifest_ = new ManifestQuark(config);
-        compacter_ = new CompacterQuark(config, manager_, &ssts_);
-    }
-    else if (config->engine == QUARKSTORE_COPY) {
-        manifest_ = new ManifestQuark(config);
         compacter_ = new CopyCompacterQuark(config, manager_, &ssts_);
+    }
+    else if (config->engine == QUARKSTORE_APPEND) {
+        manifest_ = new ManifestQuark(config);
+        compacter_ = new CompacterQuark(config, manager_, &ssts_);
     }
 
     for (uint32_t level = 0; level < config->n_levels; level++) {

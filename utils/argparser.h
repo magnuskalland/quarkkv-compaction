@@ -6,21 +6,21 @@
 #include "utils.h"
 
 static const char *usage = R"(usage %s [OPTIONS]
-    -e, --engine <fs|quarkstore>            Specify storage engine      (REQUIRED)
-    -m, --mode <manual|ycsb>                Specify mode                (Default 'manual')
-    -y, --ycsb-workload                     YCSB workload path          (Required if mode=ycsb)
-    -d, --db-directory                      DB directory                (Required if engine=fs)
-    -p, --prepopulate-size                  Number of initial DB size   (Default %d KVs (~%ld SSTs))
-    -r, --read-size                         Number of KVs to read       (Default %ld)
-    -w, --write-size                        Number of KVs to write      (Default %ld)
-    -u, --distribution <uniform|zipfian>    Workload distribution       (Default '%s')
-    -c, --compaction-picker                 Compaction picker           (Default '%s')
-    -l, --levels                            Number of SST file levels   (Default %d)
-    -f, --fanout                            Fanout                      (Default %d)
-    -k, --key-size                          Key size                    (Default %d)
-    -z, --level0-max                        Level 0 max size            (Default %d)
-    -s, --sst-file-size                     SST file size               (Default %d MiB)
-    -h, --help                              Display this help message
+    -e, --engine <fs|quarkstore|quarkstore_append>  Specify storage engine      (REQUIRED)
+    -m, --mode <manual|ycsb>                        Specify mode                (Default 'manual')
+    -y, --ycsb-workload                             YCSB workload path          (Required if mode=ycsb)
+    -d, --db-directory                              DB directory                (Required if engine=fs)
+    -p, --prepopulate-size                          Number of initial DB size   (Default %d KVs (~%ld SSTs))
+    -r, --read-size                                 Number of KVs to read       (Default %ld)
+    -w, --write-size                                Number of KVs to write      (Default %ld)
+    -u, --distribution <uniform|zipfian>            Workload distribution       (Default '%s')
+    -c, --compaction-picker                         Compaction picker           (Default '%s')
+    -l, --levels                                    Number of SST file levels   (Default %d)
+    -f, --fanout                                    Fanout                      (Default %d)
+    -k, --key-size                                  Key size                    (Default %d)
+    -z, --level0-max                                Level 0 max size            (Default %d)
+    -s, --sst-file-size                             SST file size               (Default %d MiB)
+    -h, --help                                      Display this help message
 )";
 
 void parse_args(int argc, char *argv[], Config *dest)
@@ -56,6 +56,8 @@ void parse_args(int argc, char *argv[], Config *dest)
                     dest->engine = FS;
                 else if (std::string(optarg) == "quarkstore")
                     dest->engine = QUARKSTORE;
+                else if (std::string(optarg) == "quarkstore_append")
+                    dest->engine = QUARKSTORE_APPEND;
                 else {
                     fprintf(stderr, "invalid engine: %s\n", optarg);
                     goto parse_args_err;
