@@ -57,7 +57,7 @@ int DBImpl::Open()
         }
     }
 
-    // printf("%s\n", ToString().c_str());
+    printf("%s\n", ToString().c_str());
 
     return 0;
 }
@@ -227,9 +227,9 @@ int DBImpl::populate(int n)
 
 int DBImpl::flush()
 {
-    // printf("\nFlush %d\n", flushes_);
     std::shared_ptr<SST> sst;
     int ok;
+
 
     ok = manager_->FlushToSST(memTable_, sst);
     if (ok == -1) {
@@ -237,6 +237,7 @@ int DBImpl::flush()
     }
 
     memTable_->Flush();
+
     manifest_->AddToLevel(0, sst.get()->GetID());
     ssts_.at(0).insert(sst);
 
@@ -268,7 +269,7 @@ int DBImpl::compact()
         return -1;
     }
 
-    // printf("%s\n", ToString().c_str());
+    printf("%s\n", ToString().c_str());
     return 0;
 }
 

@@ -5,7 +5,14 @@
 
 int Init()
 {
-    return quarklibio_client_init();
+    int ok;
+    ok = quarklibio_client_init();
+    if (ok < 0) {
+        return -1;
+    }
+
+    ok = quarklibio_task_ctx_reg(QUARKSTORE_TASK_MAIN);
+    return ok;
 }
 
 int AtomGet(atom_id_t* aid)

@@ -18,7 +18,7 @@
 
 void verify_config(Config* c)
 {
-    assert(c->engine == FS || c->engine == QUARKSTORE);
+    assert(c->engine == FS || c->engine == QUARKSTORE || c->engine == QUARKSTORE_APPEND);
     assert(c->mode == MANUAL || c->mode == YCSB);
     assert(c->cp == ALL || c->cp == ONE);
     assert(c->distribution == UNIFORM || c->distribution == ZIPFIAN);
@@ -63,6 +63,7 @@ int run_manual(Config* config)
               : static_cast<KeyGenerator*>(
                     new ZipfianKeyGenerator(config->practical_key_size));
 
+    printf("Populating %ld\n", config->prepopulate_size);
     for (uint64_t i = 0; i < config->prepopulate_size; i++) {
         std::string key = gen->Generate();
         ok = db.Put(key, "-");

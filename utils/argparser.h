@@ -146,7 +146,7 @@ void parse_args(int argc, char *argv[], Config *dest)
         }
     }
     if (!(engine && (dest->mode == MANUAL || ycsb_workload) &&
-          (dest->engine == QUARKSTORE || fs_dbdir)))
+          (dest->engine == QUARKSTORE || dest->engine == QUARKSTORE_APPEND || fs_dbdir)))
         goto parse_args_err;
 
     dest->prepopulate_size = round_up_to_nearest_multiple(

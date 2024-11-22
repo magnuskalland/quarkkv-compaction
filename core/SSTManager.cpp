@@ -31,7 +31,7 @@ std::shared_ptr<SST> SSTManager::NewEmptySST()
                 return sst;
             }
         }
-        else if (config_->engine == QUARKSTORE) {
+        else if (config_->engine == QUARKSTORE || config_->engine == QUARKSTORE_APPEND) {
             uint64_t t = id;
             return SSTQuark::CreateNewEmpty(config_, &t);
         }
@@ -71,7 +71,7 @@ std::shared_ptr<SST> SSTManager::ReadSST(uint32_t id)
     if (config_->engine == FS) {
         return SSTFS::OpenWithID(config_, id);
     }
-    else if (config_->engine == QUARKSTORE) {
+    else if (config_->engine == QUARKSTORE || config_->engine == QUARKSTORE_APPEND) {
         // we don't care about atomicity
         if ((int)id >= ctr_.load()) {
             ctr_.store(id + 1);
