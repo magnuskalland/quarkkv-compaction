@@ -53,13 +53,13 @@ Level 5: (0/100000)
 Level 6: (0/1000000)
 
 Starting work (2097152 operations)...
-Start time: 2024/11/23-12:58:39.997057
+Start time: 2024/11/23-13:03:41.016111
 Total compaction stats:
 Compactions: 1
 New SSTs: 2
 Deleted SSTs: 2
 Duplicate keys merged: 0
-Write amplification: 32768 KV pairs, 128 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 1
 Number of live SSTs: 2
@@ -78,7 +78,7 @@ Compactions: 2
 New SSTs: 6
 Deleted SSTs: 6
 Duplicate keys merged: 0
-Write amplification: 98304 KV pairs, 384 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 2
 Number of live SSTs: 4
@@ -97,7 +97,7 @@ Compactions: 3
 New SSTs: 12
 Deleted SSTs: 12
 Duplicate keys merged: 0
-Write amplification: 196608 KV pairs, 768 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 3
 Number of live SSTs: 6
@@ -116,7 +116,7 @@ Compactions: 4
 New SSTs: 20
 Deleted SSTs: 20
 Duplicate keys merged: 0
-Write amplification: 327680 KV pairs, 1280 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 4
 Number of live SSTs: 8
@@ -135,7 +135,7 @@ Compactions: 5
 New SSTs: 30
 Deleted SSTs: 30
 Duplicate keys merged: 0
-Write amplification: 491520 KV pairs, 1920 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 5
 Number of live SSTs: 10
@@ -154,7 +154,7 @@ Compactions: 6
 New SSTs: 42
 Deleted SSTs: 42
 Duplicate keys merged: 0
-Write amplification: 688128 KV pairs, 2688 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 6
 Number of live SSTs: 12
@@ -173,7 +173,7 @@ Compactions: 7
 New SSTs: 44
 Deleted SSTs: 44
 Duplicate keys merged: 0
-Write amplification: 720896 KV pairs, 2816 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 7
 Number of live SSTs: 14
@@ -192,7 +192,7 @@ Compactions: 8
 New SSTs: 48
 Deleted SSTs: 48
 Duplicate keys merged: 0
-Write amplification: 786432 KV pairs, 3072 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 10
 Number of live SSTs: 16
@@ -211,7 +211,7 @@ Compactions: 9
 New SSTs: 54
 Deleted SSTs: 54
 Duplicate keys merged: 0
-Write amplification: 884736 KV pairs, 3456 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 11
 Number of live SSTs: 18
@@ -230,7 +230,7 @@ Compactions: 10
 New SSTs: 62
 Deleted SSTs: 62
 Duplicate keys merged: 0
-Write amplification: 1015808 KV pairs, 3968 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 12
 Number of live SSTs: 20
@@ -249,7 +249,7 @@ Compactions: 11
 New SSTs: 72
 Deleted SSTs: 72
 Duplicate keys merged: 0
-Write amplification: 1179648 KV pairs, 4608 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 13
 Number of live SSTs: 22
@@ -268,7 +268,7 @@ Compactions: 13
 New SSTs: 108
 Deleted SSTs: 108
 Duplicate keys merged: 0
-Write amplification: 1769472 KV pairs, 6912 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 8
 Number of live SSTs: 24
@@ -287,7 +287,7 @@ Compactions: 14
 New SSTs: 110
 Deleted SSTs: 110
 Duplicate keys merged: 0
-Write amplification: 1802240 KV pairs, 7040 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 9
 Number of live SSTs: 26
@@ -306,7 +306,7 @@ Compactions: 15
 New SSTs: 114
 Deleted SSTs: 114
 Duplicate keys merged: 0
-Write amplification: 1867776 KV pairs, 7296 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 15
 Number of live SSTs: 28
@@ -325,7 +325,7 @@ Compactions: 16
 New SSTs: 120
 Deleted SSTs: 120
 Duplicate keys merged: 0
-Write amplification: 1966080 KV pairs, 7680 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 16
 Number of live SSTs: 30
@@ -344,7 +344,7 @@ Compactions: 17
 New SSTs: 128
 Deleted SSTs: 128
 Duplicate keys merged: 0
-Write amplification: 2097152 KV pairs, 8192 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 17
 Number of live SSTs: 32
@@ -363,7 +363,7 @@ Compactions: 18
 New SSTs: 138
 Deleted SSTs: 138
 Duplicate keys merged: 0
-Write amplification: 2260992 KV pairs, 8832 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 18
 Number of live SSTs: 34
@@ -382,7 +382,7 @@ Compactions: 20
 New SSTs: 186
 Deleted SSTs: 186
 Duplicate keys merged: 0
-Write amplification: 3047424 KV pairs, 11904 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 14
 Number of live SSTs: 36
@@ -401,7 +401,7 @@ Compactions: 21
 New SSTs: 188
 Deleted SSTs: 188
 Duplicate keys merged: 0
-Write amplification: 3080192 KV pairs, 12032 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 20
 Number of live SSTs: 38
@@ -420,7 +420,7 @@ Compactions: 22
 New SSTs: 192
 Deleted SSTs: 192
 Duplicate keys merged: 0
-Write amplification: 3145728 KV pairs, 12288 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 22
 Number of live SSTs: 40
@@ -439,7 +439,7 @@ Compactions: 23
 New SSTs: 198
 Deleted SSTs: 198
 Duplicate keys merged: 0
-Write amplification: 3244032 KV pairs, 12672 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 23
 Number of live SSTs: 42
@@ -458,7 +458,7 @@ Compactions: 24
 New SSTs: 206
 Deleted SSTs: 206
 Duplicate keys merged: 0
-Write amplification: 3375104 KV pairs, 13184 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 24
 Number of live SSTs: 44
@@ -477,7 +477,7 @@ Compactions: 25
 New SSTs: 216
 Deleted SSTs: 216
 Duplicate keys merged: 0
-Write amplification: 3538944 KV pairs, 13824 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 25
 Number of live SSTs: 46
@@ -496,7 +496,7 @@ Compactions: 27
 New SSTs: 276
 Deleted SSTs: 276
 Duplicate keys merged: 0
-Write amplification: 4521984 KV pairs, 17664 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 19
 Number of live SSTs: 48
@@ -515,7 +515,7 @@ Compactions: 28
 New SSTs: 278
 Deleted SSTs: 278
 Duplicate keys merged: 0
-Write amplification: 4554752 KV pairs, 17792 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 21
 Number of live SSTs: 50
@@ -534,7 +534,7 @@ Compactions: 29
 New SSTs: 282
 Deleted SSTs: 282
 Duplicate keys merged: 0
-Write amplification: 4620288 KV pairs, 18048 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 26
 Number of live SSTs: 52
@@ -553,7 +553,7 @@ Compactions: 30
 New SSTs: 288
 Deleted SSTs: 288
 Duplicate keys merged: 0
-Write amplification: 4718592 KV pairs, 18432 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 27
 Number of live SSTs: 54
@@ -572,7 +572,7 @@ Compactions: 31
 New SSTs: 296
 Deleted SSTs: 296
 Duplicate keys merged: 0
-Write amplification: 4849664 KV pairs, 18944 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 28
 Number of live SSTs: 56
@@ -591,7 +591,7 @@ Compactions: 32
 New SSTs: 306
 Deleted SSTs: 306
 Duplicate keys merged: 0
-Write amplification: 5013504 KV pairs, 19584 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 29
 Number of live SSTs: 58
@@ -610,7 +610,7 @@ Compactions: 34
 New SSTs: 378
 Deleted SSTs: 378
 Duplicate keys merged: 0
-Write amplification: 6193152 KV pairs, 24192 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 30
 Number of live SSTs: 60
@@ -629,7 +629,7 @@ Compactions: 35
 New SSTs: 380
 Deleted SSTs: 380
 Duplicate keys merged: 0
-Write amplification: 6225920 KV pairs, 24320 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 31
 Number of live SSTs: 62
@@ -648,7 +648,7 @@ Compactions: 36
 New SSTs: 384
 Deleted SSTs: 384
 Duplicate keys merged: 0
-Write amplification: 6291456 KV pairs, 24576 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 34
 Number of live SSTs: 64
@@ -667,7 +667,7 @@ Compactions: 37
 New SSTs: 390
 Deleted SSTs: 390
 Duplicate keys merged: 0
-Write amplification: 6389760 KV pairs, 24960 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 35
 Number of live SSTs: 66
@@ -686,7 +686,7 @@ Compactions: 38
 New SSTs: 398
 Deleted SSTs: 398
 Duplicate keys merged: 0
-Write amplification: 6520832 KV pairs, 25472 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 36
 Number of live SSTs: 68
@@ -705,7 +705,7 @@ Compactions: 39
 New SSTs: 408
 Deleted SSTs: 408
 Duplicate keys merged: 0
-Write amplification: 6684672 KV pairs, 26112 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 37
 Number of live SSTs: 70
@@ -724,7 +724,7 @@ Compactions: 41
 New SSTs: 492
 Deleted SSTs: 492
 Duplicate keys merged: 0
-Write amplification: 8060928 KV pairs, 31488 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 32
 Number of live SSTs: 72
@@ -743,7 +743,7 @@ Compactions: 42
 New SSTs: 494
 Deleted SSTs: 494
 Duplicate keys merged: 0
-Write amplification: 8093696 KV pairs, 31616 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 33
 Number of live SSTs: 74
@@ -762,7 +762,7 @@ Compactions: 43
 New SSTs: 498
 Deleted SSTs: 498
 Duplicate keys merged: 0
-Write amplification: 8159232 KV pairs, 31872 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 40
 Number of live SSTs: 76
@@ -781,7 +781,7 @@ Compactions: 44
 New SSTs: 504
 Deleted SSTs: 504
 Duplicate keys merged: 0
-Write amplification: 8257536 KV pairs, 32256 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 41
 Number of live SSTs: 78
@@ -800,7 +800,7 @@ Compactions: 45
 New SSTs: 512
 Deleted SSTs: 512
 Duplicate keys merged: 0
-Write amplification: 8388608 KV pairs, 32768 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 42
 Number of live SSTs: 80
@@ -819,7 +819,7 @@ Compactions: 46
 New SSTs: 522
 Deleted SSTs: 522
 Duplicate keys merged: 0
-Write amplification: 8552448 KV pairs, 33408 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 43
 Number of live SSTs: 82
@@ -838,7 +838,7 @@ Compactions: 48
 New SSTs: 618
 Deleted SSTs: 618
 Duplicate keys merged: 0
-Write amplification: 10125312 KV pairs, 39552 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 38
 Number of live SSTs: 84
@@ -857,7 +857,7 @@ Compactions: 49
 New SSTs: 620
 Deleted SSTs: 620
 Duplicate keys merged: 0
-Write amplification: 10158080 KV pairs, 39680 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 39
 Number of live SSTs: 86
@@ -876,7 +876,7 @@ Compactions: 50
 New SSTs: 624
 Deleted SSTs: 624
 Duplicate keys merged: 0
-Write amplification: 10223616 KV pairs, 39936 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 46
 Number of live SSTs: 88
@@ -895,7 +895,7 @@ Compactions: 51
 New SSTs: 630
 Deleted SSTs: 630
 Duplicate keys merged: 0
-Write amplification: 10321920 KV pairs, 40320 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 47
 Number of live SSTs: 90
@@ -914,7 +914,7 @@ Compactions: 52
 New SSTs: 638
 Deleted SSTs: 638
 Duplicate keys merged: 0
-Write amplification: 10452992 KV pairs, 40832 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 48
 Number of live SSTs: 92
@@ -933,7 +933,7 @@ Compactions: 53
 New SSTs: 648
 Deleted SSTs: 648
 Duplicate keys merged: 0
-Write amplification: 10616832 KV pairs, 41472 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 49
 Number of live SSTs: 94
@@ -952,7 +952,7 @@ Compactions: 55
 New SSTs: 756
 Deleted SSTs: 756
 Duplicate keys merged: 0
-Write amplification: 12386304 KV pairs, 48384 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 44
 Number of live SSTs: 96
@@ -971,7 +971,7 @@ Compactions: 56
 New SSTs: 758
 Deleted SSTs: 758
 Duplicate keys merged: 0
-Write amplification: 12419072 KV pairs, 48512 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 45
 Number of live SSTs: 98
@@ -990,7 +990,7 @@ Compactions: 57
 New SSTs: 762
 Deleted SSTs: 762
 Duplicate keys merged: 0
-Write amplification: 12484608 KV pairs, 48768 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 52
 Number of live SSTs: 100
@@ -1009,7 +1009,7 @@ Compactions: 58
 New SSTs: 768
 Deleted SSTs: 768
 Duplicate keys merged: 0
-Write amplification: 12582912 KV pairs, 49152 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 53
 Number of live SSTs: 102
@@ -1028,7 +1028,7 @@ Compactions: 59
 New SSTs: 776
 Deleted SSTs: 776
 Duplicate keys merged: 0
-Write amplification: 12713984 KV pairs, 49664 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 54
 Number of live SSTs: 104
@@ -1047,7 +1047,7 @@ Compactions: 60
 New SSTs: 786
 Deleted SSTs: 786
 Duplicate keys merged: 0
-Write amplification: 12877824 KV pairs, 50304 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 55
 Number of live SSTs: 106
@@ -1066,7 +1066,7 @@ Compactions: 62
 New SSTs: 906
 Deleted SSTs: 906
 Duplicate keys merged: 0
-Write amplification: 14843904 KV pairs, 57984 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 50
 Number of live SSTs: 108
@@ -1085,7 +1085,7 @@ Compactions: 63
 New SSTs: 908
 Deleted SSTs: 908
 Duplicate keys merged: 0
-Write amplification: 14876672 KV pairs, 58112 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 51
 Number of live SSTs: 110
@@ -1104,7 +1104,7 @@ Compactions: 64
 New SSTs: 912
 Deleted SSTs: 912
 Duplicate keys merged: 0
-Write amplification: 14942208 KV pairs, 58368 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 58
 Number of live SSTs: 112
@@ -1123,7 +1123,7 @@ Compactions: 65
 New SSTs: 918
 Deleted SSTs: 918
 Duplicate keys merged: 0
-Write amplification: 15040512 KV pairs, 58752 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 59
 Number of live SSTs: 114
@@ -1142,7 +1142,7 @@ Compactions: 66
 New SSTs: 926
 Deleted SSTs: 926
 Duplicate keys merged: 0
-Write amplification: 15171584 KV pairs, 59264 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 60
 Number of live SSTs: 116
@@ -1161,7 +1161,7 @@ Compactions: 67
 New SSTs: 936
 Deleted SSTs: 936
 Duplicate keys merged: 0
-Write amplification: 15335424 KV pairs, 59904 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 61
 Number of live SSTs: 118
@@ -1180,7 +1180,7 @@ Compactions: 68
 New SSTs: 948
 Deleted SSTs: 948
 Duplicate keys merged: 0
-Write amplification: 15532032 KV pairs, 60672 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 62
 Number of live SSTs: 120
@@ -1199,7 +1199,7 @@ Compactions: 69
 New SSTs: 950
 Deleted SSTs: 950
 Duplicate keys merged: 0
-Write amplification: 15564800 KV pairs, 60800 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 63
 Number of live SSTs: 122
@@ -1218,7 +1218,7 @@ Compactions: 70
 New SSTs: 954
 Deleted SSTs: 954
 Duplicate keys merged: 0
-Write amplification: 15630336 KV pairs, 61056 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 71
 Number of live SSTs: 124
@@ -1237,7 +1237,7 @@ Compactions: 71
 New SSTs: 960
 Deleted SSTs: 960
 Duplicate keys merged: 0
-Write amplification: 15728640 KV pairs, 61440 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 72
 Number of live SSTs: 126
@@ -1256,7 +1256,7 @@ Compactions: 72
 New SSTs: 968
 Deleted SSTs: 968
 Duplicate keys merged: 0
-Write amplification: 15859712 KV pairs, 61952 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 73
 Number of live SSTs: 128
@@ -1270,15 +1270,15 @@ Level 4: (0/10000)
 Level 5: (0/100000)
 Level 6: (0/1000000)
 
-End time:   2024/11/23-13:01:02.583450
-Work time:  142.586 s
+End time:   2024/11/23-13:04:42.109088
+Work time:  61.093 s
 
 Total compaction stats:
 Compactions: 72
 New SSTs: 968
 Deleted SSTs: 968
 Duplicate keys merged: 0
-Write amplification: 15859712 KV pairs, 61952 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
 Manifest: 73
 Number of live SSTs: 128
@@ -1295,20 +1295,20 @@ Level 6: (0/1000000)
 Finished work: 0 read operations, 2097152 update operations, 0 insert operations, 0 readmodifywrite operations
 No reads
 WRITES (2097152)
-	Average latency:              67.441 µs
-	Median latency:                0.747 µs
-	P75:                           0.907 µs
-	P90:                           1.083 µs
-	P99:                           1.564 µs
-	P99.9:                         3.371 µs
-	P99.99:                      895.331 µs
-	P99.999:                    1200.019 ms
-Average operation latency: 67.441 µs
-Operations per second: 14.708 K
+	Average latency:              28.586 µs
+	Median latency:                0.763 µs
+	P75:                           0.928 µs
+	P90:                           1.120 µs
+	P99:                           1.616 µs
+	P99.9:                         3.169 µs
+	P99.99:                      928.571 µs
+	P99.999:                     554.441 ms
+Average operation latency: 28.586 µs
+Operations per second: 34.327 K
 COMPACTIONS (64)
-	Average latency:               1.971 s
-	Median latency:                0.809 s
-	P75:                           1.333 s
-	P90:                           6.412 s
-	P99:                          16.051 s
-	Last:                         16.051 s
+	Average latency:               0.744 s
+	Median latency:                0.390 s
+	P75:                           0.488 s
+	P90:                           2.299 s
+	P99:                           5.793 s
+	Last:                          5.793 s

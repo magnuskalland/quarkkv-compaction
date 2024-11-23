@@ -32,43 +32,72 @@ mkdir -p $FS_DBDIR
 
 InstallQuark
 
-# fillseq QuarkStore copy
-# for s in 8 16, 32 64; do
-#     cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${w}${s}gb --engine=quarkstore $ARGS"
+#################
+## QS baseline ##
+#################
+
+# # fillseq
+# for s in 8 16 32 64; do
+#     cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${s}gb --engine=quarkstore $ARGS"
 #     echo $cmd
 #     eval $cmd > quarkstore/fillseq${s}gb.txt
 #     InstallQuark
 # done
 
-# fillseq QuarkStore append
-for s in 8 16 32 64 128 256 512; do
-    cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${w}${s}gb --engine=quarkstore_append $ARGS"
-    echo $cmd
-    eval $cmd > quarkstore_append/fillseq${s}gb.txt
-    InstallQuark
+# YCSB
+for s in 8 16 32 64; do
+    for w in a b c d f; do
+        cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/workload${w}${s}gb --engine=quarkstore $ARGS"
+        echo $cmd
+        eval $cmd > quarkstore/workload${w}${s}gb.txt
+        InstallQuark
+    done
 done
 
-sizes=("8" "64" "512")
-workloads=("a" "b" "c" "d" "f")
+###############
+## QS append ##
+###############
 
-# YCSB QuarkStore copy
-# InstallQuark
-# for s in "${sizes[@]}"; do
-#     for w in "${workloads[@]}"; do
-#         cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/workload${w}${s}gb --engine=quarkstore $ARGS"
+# fillseq
+# for s in 8 16 32 64; do
+#     cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${s}gb --engine=quarkstore_append $ARGS"
+#     echo $cmd
+#     eval $cmd > quarkstore_append/fillseq${s}gb.txt
+#     InstallQuark
+# done
+
+# YCSB
+for s in 8 16 32 64; do
+    for w in a b c d f; do
+        cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/workload${w}${s}gb --engine=quarkstore_append $ARGS"
+        echo $cmd
+        eval $cmd > quarkstore/workload${w}${s}gb.txt
+        InstallQuark
+    done
+done
+
+########
+## FS ##
+########
+
+# # fillseq
+# rm -rf $FS_DBDIR/*
+# for s in 8 16 32 64; do
+#     for w in a b c d f; do
+#         cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${s}gb --engine=fs --db-directory=$FS_DBDIR $ARGS"
 #         echo $cmd
-#         eval $cmd
-#         InstallQuark
+#         eval $cmd > fs/fillseq${s}gb.txt
+#         rm -rf $FS_DBDIR/*
 #     done
 # done
 
-# YCSB FS
+# # YCSB
 # rm -rf $FS_DBDIR/*
-# for s in "${sizes[@]}"; do
-#     for w in "${workloads[@]}"; do
+# for s in 8 16 32 64; do
+#     for w in a b c d f; do
 #         cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/workload${w}${s}gb --engine=fs --db-directory=$FS_DBDIR $ARGS"
 #         echo $cmd
-#         eval $cmd 
+#         eval $cmd > fs/workload${w}${s}gb.txt
 #         rm -rf $FS_DBDIR/*
 #     done
 # done

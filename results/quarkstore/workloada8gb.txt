@@ -1,0 +1,655 @@
+Config
+    Engine:                        QuarkStore
+    Mode:                          YCSB
+    YCSB workload:                 ../ycsb/workloads/8gb/workloada8gb
+    Compaction picker:             All
+    Levels:                        7
+    Fanout:                        10
+    Key size:                      56 bytes
+    Value size:                    4040 bytes
+    Level 0 max size:              1 SST file
+    SST file size:                 64 MiB
+
+Initialized QuarkStore
+Total compaction stats:
+Compactions: 0
+New SSTs: 0
+Deleted SSTs: 0
+Duplicate keys merged: 0
+Write amplification: 0 KV pairs, 0 MiB
+
+Manifest: -1
+Number of live SSTs: 0
+Average live SST size: 0 MiB
+Database size: 0 MiB
+Level 0: (0/1)
+Level 1: (0/10)
+Level 2: (0/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Starting load of 2097152 KV pairs (~8192 MiB)...
+Total compaction stats:
+Compactions: 1
+New SSTs: 2
+Deleted SSTs: 2
+Duplicate keys merged: 0
+Write amplification: 32768 KV pairs, 128 MiB
+
+Manifest: 1
+Number of live SSTs: 2
+Average live SST size: 64 MiB
+Database size: 128 MiB
+Level 0: (0/1)
+Level 1: 000003.sst 000004.sst (2/10)
+Level 2: (0/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 2
+New SSTs: 6
+Deleted SSTs: 6
+Duplicate keys merged: 0
+Write amplification: 98304 KV pairs, 384 MiB
+
+Manifest: 2
+Number of live SSTs: 4
+Average live SST size: 64 MiB
+Database size: 256 MiB
+Level 0: (0/1)
+Level 1: 000008.sst 000009.sst 000010.sst 000011.sst (4/10)
+Level 2: (0/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 3
+New SSTs: 12
+Deleted SSTs: 12
+Duplicate keys merged: 0
+Write amplification: 196608 KV pairs, 768 MiB
+
+Manifest: 3
+Number of live SSTs: 6
+Average live SST size: 64 MiB
+Database size: 384 MiB
+Level 0: (0/1)
+Level 1: 000015.sst 000016.sst 000017.sst 000018.sst 000019.sst 000020.sst (6/10)
+Level 2: (0/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 4
+New SSTs: 20
+Deleted SSTs: 20
+Duplicate keys merged: 0
+Write amplification: 327680 KV pairs, 1280 MiB
+
+Manifest: 4
+Number of live SSTs: 8
+Average live SST size: 64 MiB
+Database size: 512 MiB
+Level 0: (0/1)
+Level 1: 000024.sst 000025.sst 000026.sst 000027.sst 000028.sst 000029.sst 000030.sst 000031.sst (8/10)
+Level 2: (0/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 5
+New SSTs: 30
+Deleted SSTs: 30
+Duplicate keys merged: 0
+Write amplification: 491520 KV pairs, 1920 MiB
+
+Manifest: 5
+Number of live SSTs: 10
+Average live SST size: 64 MiB
+Database size: 640 MiB
+Level 0: (0/1)
+Level 1: 000035.sst 000036.sst 000037.sst 000038.sst 000039.sst 000040.sst 000041.sst 000042.sst 000043.sst 000044.sst (10/10)
+Level 2: (0/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 6
+New SSTs: 42
+Deleted SSTs: 42
+Duplicate keys merged: 0
+Write amplification: 688128 KV pairs, 2688 MiB
+
+Manifest: 6
+Number of live SSTs: 12
+Average live SST size: 64 MiB
+Database size: 768 MiB
+Level 0: (0/1)
+Level 1: (0/10)
+Level 2: 000048.sst 000049.sst 000050.sst 000051.sst 000052.sst 000053.sst 000054.sst 000055.sst 000056.sst 000057.sst 000058.sst 000059.sst (12/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 7
+New SSTs: 44
+Deleted SSTs: 44
+Duplicate keys merged: 0
+Write amplification: 720896 KV pairs, 2816 MiB
+
+Manifest: 7
+Number of live SSTs: 14
+Average live SST size: 64 MiB
+Database size: 896 MiB
+Level 0: (0/1)
+Level 1: 000063.sst 000064.sst (2/10)
+Level 2: 000048.sst 000049.sst 000050.sst 000051.sst 000052.sst 000053.sst 000054.sst 000055.sst 000056.sst 000057.sst 000058.sst 000059.sst (12/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 8
+New SSTs: 48
+Deleted SSTs: 48
+Duplicate keys merged: 0
+Write amplification: 786432 KV pairs, 3072 MiB
+
+Manifest: 10
+Number of live SSTs: 16
+Average live SST size: 64 MiB
+Database size: 1024 MiB
+Level 0: (0/1)
+Level 1: 000068.sst 000069.sst 000070.sst 000071.sst (4/10)
+Level 2: 000048.sst 000049.sst 000050.sst 000051.sst 000052.sst 000053.sst 000054.sst 000055.sst 000056.sst 000057.sst 000058.sst 000059.sst (12/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 9
+New SSTs: 54
+Deleted SSTs: 54
+Duplicate keys merged: 0
+Write amplification: 884736 KV pairs, 3456 MiB
+
+Manifest: 11
+Number of live SSTs: 18
+Average live SST size: 64 MiB
+Database size: 1152 MiB
+Level 0: (0/1)
+Level 1: 000075.sst 000076.sst 000077.sst 000078.sst 000079.sst 000080.sst (6/10)
+Level 2: 000048.sst 000049.sst 000050.sst 000051.sst 000052.sst 000053.sst 000054.sst 000055.sst 000056.sst 000057.sst 000058.sst 000059.sst (12/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 10
+New SSTs: 62
+Deleted SSTs: 62
+Duplicate keys merged: 0
+Write amplification: 1015808 KV pairs, 3968 MiB
+
+Manifest: 12
+Number of live SSTs: 20
+Average live SST size: 64 MiB
+Database size: 1280 MiB
+Level 0: (0/1)
+Level 1: 000084.sst 000085.sst 000086.sst 000087.sst 000088.sst 000089.sst 000090.sst 000091.sst (8/10)
+Level 2: 000048.sst 000049.sst 000050.sst 000051.sst 000052.sst 000053.sst 000054.sst 000055.sst 000056.sst 000057.sst 000058.sst 000059.sst (12/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 11
+New SSTs: 72
+Deleted SSTs: 72
+Duplicate keys merged: 0
+Write amplification: 1179648 KV pairs, 4608 MiB
+
+Manifest: 13
+Number of live SSTs: 22
+Average live SST size: 64 MiB
+Database size: 1408 MiB
+Level 0: (0/1)
+Level 1: 000095.sst 000096.sst 000097.sst 000098.sst 000099.sst 000100.sst 000101.sst 000102.sst 000103.sst 000104.sst (10/10)
+Level 2: 000048.sst 000049.sst 000050.sst 000051.sst 000052.sst 000053.sst 000054.sst 000055.sst 000056.sst 000057.sst 000058.sst 000059.sst (12/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 13
+New SSTs: 108
+Deleted SSTs: 108
+Duplicate keys merged: 0
+Write amplification: 1769472 KV pairs, 6912 MiB
+
+Manifest: 8
+Number of live SSTs: 24
+Average live SST size: 64 MiB
+Database size: 1536 MiB
+Level 0: (0/1)
+Level 1: (0/10)
+Level 2: 000120.sst 000121.sst 000122.sst 000123.sst 000124.sst 000125.sst 000126.sst 000127.sst 000128.sst 000129.sst 000130.sst 000131.sst 000132.sst 000133.sst 000134.sst 000135.sst 000136.sst 000137.sst 000138.sst 000139.sst 000140.sst 000141.sst 000142.sst 000143.sst (24/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 14
+New SSTs: 110
+Deleted SSTs: 110
+Duplicate keys merged: 0
+Write amplification: 1802240 KV pairs, 7040 MiB
+
+Manifest: 9
+Number of live SSTs: 26
+Average live SST size: 64 MiB
+Database size: 1664 MiB
+Level 0: (0/1)
+Level 1: 000147.sst 000148.sst (2/10)
+Level 2: 000120.sst 000121.sst 000122.sst 000123.sst 000124.sst 000125.sst 000126.sst 000127.sst 000128.sst 000129.sst 000130.sst 000131.sst 000132.sst 000133.sst 000134.sst 000135.sst 000136.sst 000137.sst 000138.sst 000139.sst 000140.sst 000141.sst 000142.sst 000143.sst (24/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 15
+New SSTs: 114
+Deleted SSTs: 114
+Duplicate keys merged: 0
+Write amplification: 1867776 KV pairs, 7296 MiB
+
+Manifest: 15
+Number of live SSTs: 28
+Average live SST size: 64 MiB
+Database size: 1792 MiB
+Level 0: (0/1)
+Level 1: 000152.sst 000153.sst 000154.sst 000155.sst (4/10)
+Level 2: 000120.sst 000121.sst 000122.sst 000123.sst 000124.sst 000125.sst 000126.sst 000127.sst 000128.sst 000129.sst 000130.sst 000131.sst 000132.sst 000133.sst 000134.sst 000135.sst 000136.sst 000137.sst 000138.sst 000139.sst 000140.sst 000141.sst 000142.sst 000143.sst (24/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 16
+New SSTs: 120
+Deleted SSTs: 120
+Duplicate keys merged: 0
+Write amplification: 1966080 KV pairs, 7680 MiB
+
+Manifest: 16
+Number of live SSTs: 30
+Average live SST size: 64 MiB
+Database size: 1920 MiB
+Level 0: (0/1)
+Level 1: 000159.sst 000160.sst 000161.sst 000162.sst 000163.sst 000164.sst (6/10)
+Level 2: 000120.sst 000121.sst 000122.sst 000123.sst 000124.sst 000125.sst 000126.sst 000127.sst 000128.sst 000129.sst 000130.sst 000131.sst 000132.sst 000133.sst 000134.sst 000135.sst 000136.sst 000137.sst 000138.sst 000139.sst 000140.sst 000141.sst 000142.sst 000143.sst (24/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 17
+New SSTs: 128
+Deleted SSTs: 128
+Duplicate keys merged: 0
+Write amplification: 2097152 KV pairs, 8192 MiB
+
+Manifest: 17
+Number of live SSTs: 32
+Average live SST size: 64 MiB
+Database size: 2048 MiB
+Level 0: (0/1)
+Level 1: 000168.sst 000169.sst 000170.sst 000171.sst 000172.sst 000173.sst 000174.sst 000175.sst (8/10)
+Level 2: 000120.sst 000121.sst 000122.sst 000123.sst 000124.sst 000125.sst 000126.sst 000127.sst 000128.sst 000129.sst 000130.sst 000131.sst 000132.sst 000133.sst 000134.sst 000135.sst 000136.sst 000137.sst 000138.sst 000139.sst 000140.sst 000141.sst 000142.sst 000143.sst (24/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 18
+New SSTs: 138
+Deleted SSTs: 138
+Duplicate keys merged: 0
+Write amplification: 2260992 KV pairs, 8832 MiB
+
+Manifest: 18
+Number of live SSTs: 34
+Average live SST size: 64 MiB
+Database size: 2176 MiB
+Level 0: (0/1)
+Level 1: 000179.sst 000180.sst 000181.sst 000182.sst 000183.sst 000184.sst 000185.sst 000186.sst 000187.sst 000188.sst (10/10)
+Level 2: 000120.sst 000121.sst 000122.sst 000123.sst 000124.sst 000125.sst 000126.sst 000127.sst 000128.sst 000129.sst 000130.sst 000131.sst 000132.sst 000133.sst 000134.sst 000135.sst 000136.sst 000137.sst 000138.sst 000139.sst 000140.sst 000141.sst 000142.sst 000143.sst (24/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 20
+New SSTs: 186
+Deleted SSTs: 186
+Duplicate keys merged: 0
+Write amplification: 3047424 KV pairs, 11904 MiB
+
+Manifest: 14
+Number of live SSTs: 36
+Average live SST size: 64 MiB
+Database size: 2304 MiB
+Level 0: (0/1)
+Level 1: (0/10)
+Level 2: 000204.sst 000205.sst 000206.sst 000207.sst 000208.sst 000209.sst 000210.sst 000211.sst 000212.sst 000213.sst 000214.sst 000215.sst 000216.sst 000217.sst 000218.sst 000219.sst 000220.sst 000221.sst 000222.sst 000223.sst 000224.sst 000225.sst 000226.sst 000227.sst 000228.sst 000229.sst 000230.sst 000231.sst 000232.sst 000233.sst 000234.sst 000235.sst 000236.sst 000237.sst 000238.sst 000239.sst (36/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 21
+New SSTs: 188
+Deleted SSTs: 188
+Duplicate keys merged: 0
+Write amplification: 3080192 KV pairs, 12032 MiB
+
+Manifest: 20
+Number of live SSTs: 38
+Average live SST size: 64 MiB
+Database size: 2432 MiB
+Level 0: (0/1)
+Level 1: 000243.sst 000244.sst (2/10)
+Level 2: 000204.sst 000205.sst 000206.sst 000207.sst 000208.sst 000209.sst 000210.sst 000211.sst 000212.sst 000213.sst 000214.sst 000215.sst 000216.sst 000217.sst 000218.sst 000219.sst 000220.sst 000221.sst 000222.sst 000223.sst 000224.sst 000225.sst 000226.sst 000227.sst 000228.sst 000229.sst 000230.sst 000231.sst 000232.sst 000233.sst 000234.sst 000235.sst 000236.sst 000237.sst 000238.sst 000239.sst (36/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 22
+New SSTs: 192
+Deleted SSTs: 192
+Duplicate keys merged: 0
+Write amplification: 3145728 KV pairs, 12288 MiB
+
+Manifest: 22
+Number of live SSTs: 40
+Average live SST size: 64 MiB
+Database size: 2560 MiB
+Level 0: (0/1)
+Level 1: 000248.sst 000249.sst 000250.sst 000251.sst (4/10)
+Level 2: 000204.sst 000205.sst 000206.sst 000207.sst 000208.sst 000209.sst 000210.sst 000211.sst 000212.sst 000213.sst 000214.sst 000215.sst 000216.sst 000217.sst 000218.sst 000219.sst 000220.sst 000221.sst 000222.sst 000223.sst 000224.sst 000225.sst 000226.sst 000227.sst 000228.sst 000229.sst 000230.sst 000231.sst 000232.sst 000233.sst 000234.sst 000235.sst 000236.sst 000237.sst 000238.sst 000239.sst (36/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 23
+New SSTs: 198
+Deleted SSTs: 198
+Duplicate keys merged: 0
+Write amplification: 3244032 KV pairs, 12672 MiB
+
+Manifest: 23
+Number of live SSTs: 42
+Average live SST size: 64 MiB
+Database size: 2688 MiB
+Level 0: (0/1)
+Level 1: 000255.sst 000256.sst 000257.sst 000258.sst 000259.sst 000260.sst (6/10)
+Level 2: 000204.sst 000205.sst 000206.sst 000207.sst 000208.sst 000209.sst 000210.sst 000211.sst 000212.sst 000213.sst 000214.sst 000215.sst 000216.sst 000217.sst 000218.sst 000219.sst 000220.sst 000221.sst 000222.sst 000223.sst 000224.sst 000225.sst 000226.sst 000227.sst 000228.sst 000229.sst 000230.sst 000231.sst 000232.sst 000233.sst 000234.sst 000235.sst 000236.sst 000237.sst 000238.sst 000239.sst (36/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 24
+New SSTs: 206
+Deleted SSTs: 206
+Duplicate keys merged: 0
+Write amplification: 3375104 KV pairs, 13184 MiB
+
+Manifest: 24
+Number of live SSTs: 44
+Average live SST size: 64 MiB
+Database size: 2816 MiB
+Level 0: (0/1)
+Level 1: 000264.sst 000265.sst 000266.sst 000267.sst 000268.sst 000269.sst 000270.sst 000271.sst (8/10)
+Level 2: 000204.sst 000205.sst 000206.sst 000207.sst 000208.sst 000209.sst 000210.sst 000211.sst 000212.sst 000213.sst 000214.sst 000215.sst 000216.sst 000217.sst 000218.sst 000219.sst 000220.sst 000221.sst 000222.sst 000223.sst 000224.sst 000225.sst 000226.sst 000227.sst 000228.sst 000229.sst 000230.sst 000231.sst 000232.sst 000233.sst 000234.sst 000235.sst 000236.sst 000237.sst 000238.sst 000239.sst (36/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 25
+New SSTs: 216
+Deleted SSTs: 216
+Duplicate keys merged: 0
+Write amplification: 3538944 KV pairs, 13824 MiB
+
+Manifest: 25
+Number of live SSTs: 46
+Average live SST size: 64 MiB
+Database size: 2944 MiB
+Level 0: (0/1)
+Level 1: 000275.sst 000276.sst 000277.sst 000278.sst 000279.sst 000280.sst 000281.sst 000282.sst 000283.sst 000284.sst (10/10)
+Level 2: 000204.sst 000205.sst 000206.sst 000207.sst 000208.sst 000209.sst 000210.sst 000211.sst 000212.sst 000213.sst 000214.sst 000215.sst 000216.sst 000217.sst 000218.sst 000219.sst 000220.sst 000221.sst 000222.sst 000223.sst 000224.sst 000225.sst 000226.sst 000227.sst 000228.sst 000229.sst 000230.sst 000231.sst 000232.sst 000233.sst 000234.sst 000235.sst 000236.sst 000237.sst 000238.sst 000239.sst (36/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 27
+New SSTs: 276
+Deleted SSTs: 276
+Duplicate keys merged: 0
+Write amplification: 4521984 KV pairs, 17664 MiB
+
+Manifest: 19
+Number of live SSTs: 48
+Average live SST size: 64 MiB
+Database size: 3072 MiB
+Level 0: (0/1)
+Level 1: (0/10)
+Level 2: 000300.sst 000301.sst 000302.sst 000303.sst 000304.sst 000305.sst 000306.sst 000307.sst 000308.sst 000309.sst 000310.sst 000311.sst 000312.sst 000313.sst 000314.sst 000315.sst 000316.sst 000317.sst 000318.sst 000319.sst 000320.sst 000321.sst 000322.sst 000323.sst 000324.sst 000325.sst 000326.sst 000327.sst 000328.sst 000329.sst 000330.sst 000331.sst 000332.sst 000333.sst 000334.sst 000335.sst 000336.sst 000337.sst 000338.sst 000339.sst 000340.sst 000341.sst 000342.sst 000343.sst 000344.sst 000345.sst 000346.sst 000347.sst (48/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 28
+New SSTs: 278
+Deleted SSTs: 278
+Duplicate keys merged: 0
+Write amplification: 4554752 KV pairs, 17792 MiB
+
+Manifest: 21
+Number of live SSTs: 50
+Average live SST size: 64 MiB
+Database size: 3200 MiB
+Level 0: (0/1)
+Level 1: 000351.sst 000352.sst (2/10)
+Level 2: 000300.sst 000301.sst 000302.sst 000303.sst 000304.sst 000305.sst 000306.sst 000307.sst 000308.sst 000309.sst 000310.sst 000311.sst 000312.sst 000313.sst 000314.sst 000315.sst 000316.sst 000317.sst 000318.sst 000319.sst 000320.sst 000321.sst 000322.sst 000323.sst 000324.sst 000325.sst 000326.sst 000327.sst 000328.sst 000329.sst 000330.sst 000331.sst 000332.sst 000333.sst 000334.sst 000335.sst 000336.sst 000337.sst 000338.sst 000339.sst 000340.sst 000341.sst 000342.sst 000343.sst 000344.sst 000345.sst 000346.sst 000347.sst (48/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 29
+New SSTs: 282
+Deleted SSTs: 282
+Duplicate keys merged: 0
+Write amplification: 4620288 KV pairs, 18048 MiB
+
+Manifest: 26
+Number of live SSTs: 52
+Average live SST size: 64 MiB
+Database size: 3328 MiB
+Level 0: (0/1)
+Level 1: 000356.sst 000357.sst 000358.sst 000359.sst (4/10)
+Level 2: 000300.sst 000301.sst 000302.sst 000303.sst 000304.sst 000305.sst 000306.sst 000307.sst 000308.sst 000309.sst 000310.sst 000311.sst 000312.sst 000313.sst 000314.sst 000315.sst 000316.sst 000317.sst 000318.sst 000319.sst 000320.sst 000321.sst 000322.sst 000323.sst 000324.sst 000325.sst 000326.sst 000327.sst 000328.sst 000329.sst 000330.sst 000331.sst 000332.sst 000333.sst 000334.sst 000335.sst 000336.sst 000337.sst 000338.sst 000339.sst 000340.sst 000341.sst 000342.sst 000343.sst 000344.sst 000345.sst 000346.sst 000347.sst (48/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 30
+New SSTs: 288
+Deleted SSTs: 288
+Duplicate keys merged: 0
+Write amplification: 4718592 KV pairs, 18432 MiB
+
+Manifest: 27
+Number of live SSTs: 54
+Average live SST size: 64 MiB
+Database size: 3456 MiB
+Level 0: (0/1)
+Level 1: 000363.sst 000364.sst 000365.sst 000366.sst 000367.sst 000368.sst (6/10)
+Level 2: 000300.sst 000301.sst 000302.sst 000303.sst 000304.sst 000305.sst 000306.sst 000307.sst 000308.sst 000309.sst 000310.sst 000311.sst 000312.sst 000313.sst 000314.sst 000315.sst 000316.sst 000317.sst 000318.sst 000319.sst 000320.sst 000321.sst 000322.sst 000323.sst 000324.sst 000325.sst 000326.sst 000327.sst 000328.sst 000329.sst 000330.sst 000331.sst 000332.sst 000333.sst 000334.sst 000335.sst 000336.sst 000337.sst 000338.sst 000339.sst 000340.sst 000341.sst 000342.sst 000343.sst 000344.sst 000345.sst 000346.sst 000347.sst (48/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 31
+New SSTs: 296
+Deleted SSTs: 296
+Duplicate keys merged: 0
+Write amplification: 4849664 KV pairs, 18944 MiB
+
+Manifest: 28
+Number of live SSTs: 56
+Average live SST size: 64 MiB
+Database size: 3584 MiB
+Level 0: (0/1)
+Level 1: 000372.sst 000373.sst 000374.sst 000375.sst 000376.sst 000377.sst 000378.sst 000379.sst (8/10)
+Level 2: 000300.sst 000301.sst 000302.sst 000303.sst 000304.sst 000305.sst 000306.sst 000307.sst 000308.sst 000309.sst 000310.sst 000311.sst 000312.sst 000313.sst 000314.sst 000315.sst 000316.sst 000317.sst 000318.sst 000319.sst 000320.sst 000321.sst 000322.sst 000323.sst 000324.sst 000325.sst 000326.sst 000327.sst 000328.sst 000329.sst 000330.sst 000331.sst 000332.sst 000333.sst 000334.sst 000335.sst 000336.sst 000337.sst 000338.sst 000339.sst 000340.sst 000341.sst 000342.sst 000343.sst 000344.sst 000345.sst 000346.sst 000347.sst (48/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 32
+New SSTs: 306
+Deleted SSTs: 306
+Duplicate keys merged: 0
+Write amplification: 5013504 KV pairs, 19584 MiB
+
+Manifest: 29
+Number of live SSTs: 58
+Average live SST size: 64 MiB
+Database size: 3712 MiB
+Level 0: (0/1)
+Level 1: 000383.sst 000384.sst 000385.sst 000386.sst 000387.sst 000388.sst 000389.sst 000390.sst 000391.sst 000392.sst (10/10)
+Level 2: 000300.sst 000301.sst 000302.sst 000303.sst 000304.sst 000305.sst 000306.sst 000307.sst 000308.sst 000309.sst 000310.sst 000311.sst 000312.sst 000313.sst 000314.sst 000315.sst 000316.sst 000317.sst 000318.sst 000319.sst 000320.sst 000321.sst 000322.sst 000323.sst 000324.sst 000325.sst 000326.sst 000327.sst 000328.sst 000329.sst 000330.sst 000331.sst 000332.sst 000333.sst 000334.sst 000335.sst 000336.sst 000337.sst 000338.sst 000339.sst 000340.sst 000341.sst 000342.sst 000343.sst 000344.sst 000345.sst 000346.sst 000347.sst (48/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 34
+New SSTs: 378
+Deleted SSTs: 378
+Duplicate keys merged: 0
+Write amplification: 6193152 KV pairs, 24192 MiB
+
+Manifest: 30
+Number of live SSTs: 60
+Average live SST size: 64 MiB
+Database size: 3840 MiB
+Level 0: (0/1)
+Level 1: (0/10)
+Level 2: 000408.sst 000409.sst 000410.sst 000411.sst 000412.sst 000413.sst 000414.sst 000415.sst 000416.sst 000417.sst 000418.sst 000419.sst 000420.sst 000421.sst 000422.sst 000423.sst 000424.sst 000425.sst 000426.sst 000427.sst 000428.sst 000429.sst 000430.sst 000431.sst 000432.sst 000433.sst 000434.sst 000435.sst 000436.sst 000437.sst 000438.sst 000439.sst 000440.sst 000441.sst 000442.sst 000443.sst 000444.sst 000445.sst 000446.sst 000447.sst 000448.sst 000449.sst 000450.sst 000451.sst 000452.sst 000453.sst 000454.sst 000455.sst 000456.sst 000457.sst 000458.sst 000459.sst 000460.sst 000461.sst 000462.sst 000463.sst 000464.sst 000465.sst 000466.sst 000467.sst (60/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 35
+New SSTs: 380
+Deleted SSTs: 380
+Duplicate keys merged: 0
+Write amplification: 6225920 KV pairs, 24320 MiB
+
+Manifest: 31
+Number of live SSTs: 62
+Average live SST size: 64 MiB
+Database size: 3968 MiB
+Level 0: (0/1)
+Level 1: 000471.sst 000472.sst (2/10)
+Level 2: 000408.sst 000409.sst 000410.sst 000411.sst 000412.sst 000413.sst 000414.sst 000415.sst 000416.sst 000417.sst 000418.sst 000419.sst 000420.sst 000421.sst 000422.sst 000423.sst 000424.sst 000425.sst 000426.sst 000427.sst 000428.sst 000429.sst 000430.sst 000431.sst 000432.sst 000433.sst 000434.sst 000435.sst 000436.sst 000437.sst 000438.sst 000439.sst 000440.sst 000441.sst 000442.sst 000443.sst 000444.sst 000445.sst 000446.sst 000447.sst 000448.sst 000449.sst 000450.sst 000451.sst 000452.sst 000453.sst 000454.sst 000455.sst 000456.sst 000457.sst 000458.sst 000459.sst 000460.sst 000461.sst 000462.sst 000463.sst 000464.sst 000465.sst 000466.sst 000467.sst (60/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 36
+New SSTs: 384
+Deleted SSTs: 384
+Duplicate keys merged: 0
+Write amplification: 6291456 KV pairs, 24576 MiB
+
+Manifest: 34
+Number of live SSTs: 64
+Average live SST size: 64 MiB
+Database size: 4096 MiB
+Level 0: (0/1)
+Level 1: 000476.sst 000477.sst 000478.sst 000479.sst (4/10)
+Level 2: 000408.sst 000409.sst 000410.sst 000411.sst 000412.sst 000413.sst 000414.sst 000415.sst 000416.sst 000417.sst 000418.sst 000419.sst 000420.sst 000421.sst 000422.sst 000423.sst 000424.sst 000425.sst 000426.sst 000427.sst 000428.sst 000429.sst 000430.sst 000431.sst 000432.sst 000433.sst 000434.sst 000435.sst 000436.sst 000437.sst 000438.sst 000439.sst 000440.sst 000441.sst 000442.sst 000443.sst 000444.sst 000445.sst 000446.sst 000447.sst 000448.sst 000449.sst 000450.sst 000451.sst 000452.sst 000453.sst 000454.sst 000455.sst 000456.sst 000457.sst 000458.sst 000459.sst 000460.sst 000461.sst 000462.sst 000463.sst 000464.sst 000465.sst 000466.sst 000467.sst (60/100)
+Level 3: (0/1000)
+Level 4: (0/10000)
+Level 5: (0/100000)
+Level 6: (0/1000000)
+
+Total compaction stats:
+Compactions: 37
+New SSTs: 390
+Deleted SSTs: 390
+Duplicate keys merged: 0
+Write amplification: 6389760 KV pairs, 24960 MiB
+
+Manifest: 35
+Number of live SSTs: 66
+Average live SST size: 64 MiB
+Database size: 4224 MiB
+Level 0: (0/1)
+Level 1: 000483.sst 000484.sst 000485.sst 000486.sst 000487.sst 000488.sst (6/10)
+Level 2: 000408.sst 000409.sst 000410.sst 000411.sst 000412.sst 000413.sst 000414.sst 000415.sst 000416.sst 000417.sst 000418.
