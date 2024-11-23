@@ -22,7 +22,7 @@
 #   Request distribution: zipfian
 
 recordcount=0
-operationcount=15728640 # 60 GiB
+operationcount=8388608
 workload=site.ycsb.workloads.CoreWorkload
 
 readallfields=true
