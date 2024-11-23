@@ -107,7 +107,7 @@ int ManifestQuark::getCurrentManifest()
     ok = ::AtomRead(current_, buf, BLOCK_SIZE, 0);
 
     // no manifest exists or read failed
-    if (ok < 0) {
+    if (ok != BLOCK_SIZE) {
         return 0;
     }
 
