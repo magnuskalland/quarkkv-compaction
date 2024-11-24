@@ -92,7 +92,7 @@ struct Config {
         std::sprintf(buf, R"(Config
     %-30s %s
     %-30s %s)",
-                     "Engine:", engine == FS ? "FS" : "QuarkStore",
+                     "Engine:", engine == FS ? "FS" : engine == QUARKSTORE ? "QuarkStore" : "Quarkstore append",
                      "Mode:", mode == MANUAL ? "Manual" : "YCSB");
 
         s = s + std::string(buf);

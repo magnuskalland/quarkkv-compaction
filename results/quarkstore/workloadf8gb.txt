@@ -1,7 +1,7 @@
 Config
     Engine:                        QuarkStore
     Mode:                          YCSB
-    YCSB workload:                 ../ycsb/workloads/8gb/workloada8gb
+    YCSB workload:                 ../ycsb/workloads/8gb/workloadf8gb
     Compaction picker:             All
     Levels:                        7
     Fanout:                        10
@@ -1247,7 +1247,7 @@ Level 4: (0/10000)
 Level 5: (0/100000)
 Level 6: (0/1000000)
 
-Finished loading in 147.193 s.
+Finished loading in 115.608 s.
 
 Total compaction stats:
 Compactions: 72
@@ -1269,7 +1269,7 @@ Level 5: (0/100000)
 Level 6: (0/1000000)
 
 Starting work (2000000 operations)...
-Start time: 2024/11/23-16:55:55.856013
+Start time: 2024/11/23-17:06:18.144160
 Total compaction stats:
 Compactions: 73
 New SSTs: 978
@@ -1840,8 +1840,8 @@ Level 4: (0/10000)
 Level 5: (0/100000)
 Level 6: (0/1000000)
 
-End time:   2024/11/23-16:57:10.719568
-Work time:  74.863 s
+End time:   2024/11/23-17:07:40.540614
+Work time:  82.396 s
 
 Total compaction stats:
 Compactions: 107
@@ -1862,29 +1862,29 @@ Level 4: (0/10000)
 Level 5: (0/100000)
 Level 6: (0/1000000)
 
-Finished work: 999577 read operations, 1000423 update operations, 0 insert operations, 0 readmodifywrite operations
+Finished work: 999577 read operations, 0 update operations, 0 insert operations, 1000423 readmodifywrite operations
 READS (999577)
-	Average latency:              17.973 µs
-	Median latency:               18.006 µs
-	P75:                          20.595 µs
-	P90:                          23.090 µs
-	P99:                          28.586 µs
-	P999:                         34.543 µs
+	Average latency:              11.742 µs
+	Median latency:               12.194 µs
+	P75:                          13.937 µs
+	P90:                          15.236 µs
+	P99:                          17.305 µs
+	P999:                         20.941 µs
 WRITES (1000423)
-	Average latency:              55.700 µs
-	Median latency:                1.264 µs
-	P75:                           1.723 µs
-	P90:                           2.305 µs
-	P99:                           3.711 µs
-	P99.9:                         5.277 µs
-	P99.99:                      596.594 µs
-	P99.999:                    1049.345 ms
-Average operation latency: 36.844 µs
-Operations per second: 26.716 K
+	Average latency:              69.775 µs
+	Median latency:               12.921 µs
+	P75:                          14.667 µs
+	P90:                          15.970 µs
+	P99:                          18.063 µs
+	P99.9:                        21.933 µs
+	P99.99:                      688.560 µs
+	P99.999:                    1159.011 ms
+Average operation latency: 40.771 µs
+Operations per second: 24.273 K
 COMPACTIONS (30)
-	Average latency:               1.632 s
-	Median latency:                0.921 s
-	P75:                           1.150 s
-	P90:                           6.354 s
-	P99:                           8.206 s
-	Last:                          8.206 s
+	Average latency:               1.713 s
+	Median latency:                0.798 s
+	P75:                           1.298 s
+	P90:                           7.114 s
+	P99:                           8.161 s
+	Last:                          8.161 s
