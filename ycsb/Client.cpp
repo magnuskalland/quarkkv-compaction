@@ -201,22 +201,22 @@ int Client::Work()
     // Scans
     if (scan_time_.Size() > 0) {
         printf(
-            "SCANS (%ld)\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
-            "µs\n\t%-25s "
-            "%10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
-            "µs\n\t%-25s "
+            "SCANS (%ld)\n\t%-25s %10.3lf ms\n\t%-25s %10.3lf ms\n\t%-25s %10.3lf "
+            "ms\n\t%-25s "
+            "%10.3lf ms\n\t%-25s %10.3lf ms\n\t%-25s %10.3lf ms\n\t%-25s %10.3lf "
+            "ms\n\t%-25s "
             "%10.3lf ms\n",
             scan_time_.Size(),
-            "Average latency:", scan_time_.Sum() / scan_time_.Size(),
-            "Median latency:", scan_time_.Tail(0.5), "P75:", scan_time_.Tail(0.75),
-            "P90:", scan_time_.Tail(0.90), "P99:", scan_time_.Tail(0.99),
-            "P99.9:", scan_time_.Tail(0.999), "P99.99:", scan_time_.Tail(0.9999),
+            "Average latency:", (scan_time_.Sum() / scan_time_.Size()) / 1000.0,
+            "Median latency:", scan_time_.Tail(0.5) / 1000.0, "P75:", scan_time_.Tail(0.75) / 1000.0,
+            "P90:", scan_time_.Tail(0.90) / 1000.0, "P99:", scan_time_.Tail(0.99) / 1000.0,
+            "P99.9:", scan_time_.Tail(0.999) / 1000.0, "P99.99:", scan_time_.Tail(0.9999) / 1000.0,
             "P99.999:", scan_time_.Tail(0.99999) / 1000.0);
-        printf("Average scan size: %10.3lf\n", scan_sizes / (float) scan_ops);
+        printf("Average scan size: %ld KV pairs\n", scan_sizes / scan_ops);
     }
     else {
         printf("No scans\n");
-    }
+    }   
 
     printf("Average operation latency: %.3lf µs\n",
            request_time_.Sum() / request_time_.Size());

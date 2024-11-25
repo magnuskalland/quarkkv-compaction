@@ -2463,7 +2463,7 @@ Level 4: (0/10000)
 Level 5: (0/100000)
 Level 6: (0/1000000)
 
-Finished loading in 373.414 s.
+Finished loading in 390.073 s.
 
 Total compaction stats:
 Compactions: 147
@@ -2485,9 +2485,9 @@ Level 5: (0/100000)
 Level 6: (0/1000000)
 
 Starting work (10000 operations)...
-Start time: 2024/11/25-08:03:18.427121
-End time:   2024/11/25-08:03:18.449273
-Work time:  0.022 s
+Start time: 2024/11/25-08:30:45.184164
+End time:   2024/11/25-08:33:18.899285
+Work time:  153.715 s
 
 Total compaction stats:
 Compactions: 147
@@ -2508,17 +2508,27 @@ Level 4: (0/10000)
 Level 5: (0/100000)
 Level 6: (0/1000000)
 
-Finished work: 0 read operations, 10000 update operations, 0 insert operations, 0 readmodifywrite operations
+Finished work: 0 read operations, 473 update operations, 0 insert operations, 9527 scan operations, 0 readmodifywrite operations
 No reads
-WRITES (10000)
-	Average latency:               1.247 µs
-	Median latency:                0.937 µs
-	P75:                           1.543 µs
-	P90:                           2.004 µs
-	P99:                           2.592 µs
-	P99.9:                         3.202 µs
-	P99.99:                      582.399 µs
-	P99.999:                       0.582 ms
-Average operation latency: 1.247 µs
-Operations per second: 462.789 K
+WRITES (473)
+	Average latency:               6.606 µs
+	Median latency:                3.420 µs
+	P75:                           4.095 µs
+	P90:                           4.782 µs
+	P99:                         140.209 µs
+	P99.9:                       212.349 µs
+	P99.99:                      212.349 µs
+	P99.999:                       0.212 ms
+SCANS (9527)
+	Average latency:              16.129 ms
+	Median latency:               16.187 ms
+	P75:                          24.238 ms
+	P90:                          28.949 ms
+	P99:                          32.468 ms
+	P99.9:                        33.501 ms
+	P99.99:                       41.449 ms
+	P99.999:                      41.449 ms
+Average scan size: 8192 KV pairs
+Average operation latency: 15365.965 µs
+Operations per second: 0.065 K
 No compactions
