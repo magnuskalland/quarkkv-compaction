@@ -31,6 +31,12 @@ int DB::Put(std::string key, std::string _)
     return db_.Put(key, _);
 }
 
+int DB::Scan(std::string start, int len,
+             std::map<std::string, std::string>::iterator& dest)
+{
+    return db_.Scan(start, len, dest);
+}
+
 std::string DB::ToString()
 {
     return db_.ToString();

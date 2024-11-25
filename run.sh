@@ -24,9 +24,9 @@ set -e
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 LIB_PATH=../Quark/quarkstore/quarklibio/build
 
-ENGINE=quarkstore
-MODE=manual
-WORKLOAD=ycsb/workloads/workloadb8gb
+ENGINE=fs
+MODE=ycsb
+WORKLOAD=ycsb/workloads/8gb/workloade8gb
 DIR=./dbdir
 DISTRIBUTION=zipfian
 PREPOPULATE=524288
@@ -43,7 +43,6 @@ else
         rm -rf "$DIR"/*
     fi
 fi
-
 
 LD_LIBRARY_PATH=$LIB_PATH ./main \
     --engine=$ENGINE \

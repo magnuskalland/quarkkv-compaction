@@ -32,28 +32,34 @@ void LevelIterator::Next()
             ptr_ = nullptr;
             return;
         }
-        // printf("Current iterator exhausted, moving to %d. Previous key is %s\n",
-        // index_,
-        //        prev->GetKey().c_str());
         iter = &iterators_.at(index_);
         ok = iter->SeekToFirst();
         assert(ok != -1);
     }
 
     ptr_ = iter->Get();
-    if (!(!ptr_ || *ptr_ > *prev)) {
-        if (!(ptr_)) {
-            printf("ptr_ is null\n");
-        }
-        if (!(*ptr_ > *prev)) {
-            printf(
-                "(index %d, iteration %d) ptr_ is not greater than previous:\n%s\n%s\n",
-                index_, iterations_, ptr_->ToString().c_str(), ptr_->ToString().c_str());
-            printf("KV iterator iteration %d\n", iter->GetIterations());
-        }
-    }
     assert(!ptr_ || *ptr_ > *prev);
     iterations_++;
+}
+
+int LevelIterator::Seek(std::string key)
+{
+    assert(index_ == 0);
+    int ok;
+    for (auto it = iterators_.begin(); it != iterators_.end(); it++) {
+        ok = (*it).Seek(key);
+        if (ok == -1) {
+            return -1;
+        }
+        if ((*it).Get() == nullptr) {
+            index_ = index_ + 1;
+            continue;
+        }
+
+        ptr_ = (*it).Get();
+        break;
+    }
+    return 0;
 }
 
 int LevelIterator::SeekToFirst()

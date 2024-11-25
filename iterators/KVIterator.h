@@ -9,6 +9,7 @@ class KVIterator : public Iterator {
     KVIterator(Config* config, std::shared_ptr<SST> sst);
     void Next() override;
     int SeekToFirst() override;
+    int Seek(std::string key);
 
    protected:
     std::shared_ptr<SST> sst_;

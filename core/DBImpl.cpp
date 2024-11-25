@@ -153,6 +153,69 @@ int DBImpl::Put(std::string key, std::string _)
     return 0;
 }
 
+int DBImpl::Scan(std::string start, int len,
+                 std::map<std::string, std::string>::iterator& dest)
+{
+    padKey(start);
+    printf("Scanning for %d elements from key '%s'\n", len, start.c_str());
+    int ok;
+    std::priority_queue<KVPair, std::vector<KVPair>, KVPair::KVPairComparator> pairs;
+    std::string largest;
+
+    // scan memtable
+    auto table = memTable_->GetTable();
+    for (auto it = table->lower_bound(start); it != table->end(); it++) {
+        printf("Search from key %s\n", (*it).first.c_str());
+        pairs.emplace((*it).second);
+        printf("Found key within range: %s\n", (*it).second.GetKey().c_str());
+
+        if ((int)pairs.size() == len) {
+            break;
+        }
+    }
+
+    if (pairs.size() > 0) {
+        largest = pairs.top().GetKey();
+    }
+
+    // scan all levels
+    int l = 0;
+    for (auto level = ssts_.begin(); level != ssts_.end(); level++) {
+        printf("Scanning level %d\n", l++);
+        if ((*level).size() == 0) {
+            continue;
+        }
+
+        LevelIterator it(config_, *level);
+        ok = it.Seek(start);
+        if (ok == -1) {
+            return -1;
+        }
+
+        while (it.Get() != it.End()) {
+            auto e = it.Get();
+            it.Next();
+            if (pairs.size() < (size_t)len) {
+                pairs.emplace(*e);
+                continue;
+            }
+
+            if (*e > pairs.top()) {
+                break;
+            }
+
+            printf("Replacing %s with %s\n", pairs.top().ToString().c_str(),
+                   e->ToString().c_str());
+            pairs.pop();
+            pairs.push(*e);
+        }
+    }
+
+    printf("Returned %ld/%d elements\n", pairs.size(), len);
+    exit(1);
+    return 0;
+}
+
 std::string DBImpl::ToString()
 {
     int ok;
@@ -229,7 +292,6 @@ int DBImpl::flush()
 {
     std::shared_ptr<SST> sst;
     int ok;
-
 
     ok = manager_->FlushToSST(memTable_, sst);
     if (ok == -1) {

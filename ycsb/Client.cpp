@@ -68,7 +68,8 @@ int Client::Work()
     int ok;
     uint64_t operation_count;
 
-    uint64_t read_ops = 0, update_ops = 0, insert_ops = 0, readmodifywrite_ops = 0;
+    uint64_t read_ops = 0, update_ops = 0, insert_ops = 0, scan_ops = 0,
+             readmodifywrite_ops = 0;
     uint64_t reads = 0, writes = 0;
 
     operation_count = stoull(props_[ycsbc::CoreWorkload::OPERATION_COUNT_PROPERTY]);
@@ -82,6 +83,7 @@ int Client::Work()
 
     for (uint64_t i = 0; i < operation_count; i++) {
         WorkloadProducer::Request* req = producer_->GetRequest();
+        std::map<std::string, std::string>::iterator it;
         std::string dest;
         assert(req);
 
@@ -99,6 +101,10 @@ int Client::Work()
             case INSERT:
                 ok = db_->Put(req->Key(), "-");
                 insert_ops++;
+                break;
+            case SCAN:
+                ok = db_->Scan(req->Key(), req->Len(), it);
+                scan_ops++;
                 break;
             case READMODIFYWRITE:
                 ok = db_->Get(req->Key(), dest);
@@ -123,6 +129,7 @@ int Client::Work()
 
         switch (req->Type()) {
             case READ:
+            case SCAN:
                 reads++;
                 // printf("Inserting read time: %.3lf us\n", op_time);
                 read_time_.Insert(op_time);
@@ -148,9 +155,9 @@ int Client::Work()
 
     printf(
         "Finished work: %ld read operations, %ld update operations, %ld insert "
-        "operations, %ld "
+        "operations, %ld scan operations, %ld "
         "readmodifywrite operations\n",
-        read_ops, update_ops, insert_ops, readmodifywrite_ops);
+        read_ops, update_ops, insert_ops, scan_ops, readmodifywrite_ops);
 
     // Reads
     if (read_time_.Size() > 0) {
@@ -199,13 +206,15 @@ int Client::Work()
             "%10.3lf s\n\t%-25s %10.3lf s\n\t%-25s %10.3lf s\n",
             compactions.Size(),
             "Average latency:", (compactions.Sum() / compactions.Size()) / 1000000.0,
-            "Median latency:", compactions.Tail(0.5) / 1000000.0, "P75:", compactions.Tail(0.75) / 1000000.0,
-            "P90:", compactions.Tail(0.90) / 1000000.0, "P99:", compactions.Tail(0.99) / 1000000.0, "Last:", compactions.Last() / 1000000.0);
+            "Median latency:", compactions.Tail(0.5) / 1000000.0,
+            "P75:", compactions.Tail(0.75) / 1000000.0,
+            "P90:", compactions.Tail(0.90) / 1000000.0,
+            "P99:", compactions.Tail(0.99) / 1000000.0,
+            "Last:", compactions.Last() / 1000000.0);
     }
     else {
         printf("No compactions\n");
     }
-
 
     return 0;
 }

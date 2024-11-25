@@ -9,6 +9,13 @@
 
 class KVPair {
    public:
+    struct KVPairComparator {
+        bool operator()(const KVPair& lhs, const KVPair& rhs) const
+        {
+            return lhs > rhs;
+        }
+    };
+
     KVPair(std::string key, uint64_t ts, uint32_t value_size)
         : key_(key), ts_(ts), value_size_(value_size)
     {

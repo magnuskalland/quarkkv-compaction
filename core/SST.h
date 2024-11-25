@@ -82,6 +82,8 @@ class SST {
 
     int GetKVAtIndex(uint32_t index, KVPair** dest);
 
+    int SearchClosest(std::string key);
+
     int GetHandler();
     uint32_t GetEntries();
     uint32_t GetLevel();

@@ -10,6 +10,7 @@ class LevelIterator : public Iterator {
                   std::set<std::shared_ptr<SST>, SST::SSTComparator> ssts);
     void Next() override;
     int SeekToFirst() override;
+    int Seek(std::string key);
 
    private:
     std::vector<KVIterator> iterators_;

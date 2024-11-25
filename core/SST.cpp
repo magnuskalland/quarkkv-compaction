@@ -105,6 +105,15 @@ int SST::GetKVAtIndex(uint32_t index, KVPair** dest)
     return 0;
 }
 
+int SST::SearchClosest(std::string key)
+{
+    auto match = indexTable_.lower_bound(key);
+    if (match != indexTable_.end()) {
+        return (int)match->second / config_->kv_size();
+    }
+    return -1;
+}
+
 bool SST::operator>(const SST& other) const
 {
     return smallestKey_ > other.smallestKey_;

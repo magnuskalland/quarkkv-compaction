@@ -14,9 +14,16 @@ class WorkloadProducer {
        private:
         Operation opt_;
         const std::string key_;
+        int len_;
 
        public:
-        Request(Operation opt, std::string key) : opt_(opt), key_(key) {}
+        Request(Operation opt, std::string key) : opt_(opt), key_(key)
+        {
+            len_ = 0;
+        }
+        Request(Operation opt, std::string key, int len) : opt_(opt), key_(key), len_(len)
+        {
+        }
 
         Operation Type()
         {
@@ -26,6 +33,11 @@ class WorkloadProducer {
         std::string Key()
         {
             return key_;
+        }
+
+        int Len()
+        {
+            return len_;
         }
 
         void SetType(Operation opt)
@@ -42,6 +54,7 @@ class WorkloadProducer {
         std::string table, key;
         std::vector<std::string> fields;
         std::vector<ycsbc::CoreWorkload::KVPair> values;
+        int len;
 
         while (true) {
             opt = proxy_->GetNextOperation();
@@ -61,8 +74,10 @@ class WorkloadProducer {
                     proxy_->GetReadModifyWriteArgs(table, key, fields, values);
                     assert(values.size() > 0);
                     return new Request(READMODIFYWRITE, key);
+                case SCAN:
+                    proxy_->GetScanArgs(table, key, len, fields);
+                    return new Request(SCAN, key, len);
                 default:
-                    // discard scans
                     continue;
             }
         }

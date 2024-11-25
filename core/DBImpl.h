@@ -20,6 +20,8 @@ class DBImpl {
     int Close();
     int Get(std::string key, std::string& dest);
     int Put(std::string key, std::string _);
+    int Scan(std::string start, int len,
+             std::map<std::string, std::string>::iterator& dest);
 
     std::string ToString();
     struct stats GetStats();

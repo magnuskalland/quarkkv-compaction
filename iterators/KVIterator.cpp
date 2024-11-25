@@ -23,6 +23,33 @@ void KVIterator::Next()
     iterations_++;
 }
 
+int KVIterator::Seek(std::string key)
+{
+    assert(index_ == 0);
+    int ok;
+    int index;
+
+    if (sst_.get()->GetSmallestKey() > key) {
+        ptr_ = nullptr;
+        return 0;
+    }
+
+    if (sst_.get()->GetLargestKey() < key) {
+        ptr_ = nullptr;
+        return 0;
+    }
+
+    index = sst_.get()->SearchClosest(key);
+    if (index == -1) {
+        ptr_ = nullptr;
+        return 0;
+    }
+
+    ok = sst_->GetKVAtIndex(index, &ptr_);
+    index_ = index;
+    return ok;
+}
+
 int KVIterator::SeekToFirst()
 {
     int ok;
