@@ -133,6 +133,7 @@ class SST {
     Config* config_;
     int handler_;
     int id_;
+    char* buf_;
     std::string smallestKey_;
     std::string largestKey_;
     std::map<std::string, uint64_t> indexTable_;

@@ -87,7 +87,7 @@ ulimit -n 65535
 # for s in 32 64; do
 #     cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${s}gb --engine=fs --db-directory=$FS_DBDIR $ARGS"
 #     echo $cmd
-#     eval $cmd > fs/fillseq${s}gb.txt
+#     eval $cmd > nvme/fs/fillseq${s}gb.txt
 #     rm -rf $FS_DBDIR/*
 # done
 
@@ -97,7 +97,7 @@ ulimit -n 65535
 #     for w in a b c d e f; do
 #         cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/workload${w}${s}gb --engine=fs --db-directory=$FS_DBDIR $ARGS"
 #         echo $cmd
-#         eval $cmd > fs/workload${w}${s}gb.txt
+#         eval $cmd > nvme/fs/workload${w}${s}gb.txt
 #         rm -rf $FS_DBDIR/*
 #     done
 # done

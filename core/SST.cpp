@@ -4,7 +4,10 @@
 
 /* Public */
 
-SST::~SST() {}
+SST::~SST() 
+{
+    free(buf_);
+}
 
 int SST::Persist(uint64_t ts)
 {
@@ -199,37 +202,16 @@ SST::SST(Config* config, uint32_t handler, int id)
     entries_ = 0;
     smallestKey_ = "";
     largestKey_ = "";
+    posix_memalign((void**) &buf_, BLOCK_SIZE, config->kv_size());
 }
-
-// int SST::appendKV(KVPair* kv)
-// {
-//     uint32_t kv_size = config_->kv_size();
-//     char kv_pair[kv_size];
-//     memcpy(kv_pair, kv->ToBinary().c_str(), kv_size);
-
-//     int ok = append(kv_pair, kv_size);
-//     if (ok == -1) {
-//         return -1;
-//     }
-//     return 0;
-// }
 
 int SST::appendKV(KVPair* kv)
 {
     uint32_t kv_size = config_->kv_size();
-    void* kv_pair = nullptr;
     int ok;
 
-    ok = posix_memalign(&kv_pair, BLOCK_SIZE, kv_size);
-
-    if (ok != 0) {
-        return -1;
-    }
-
-    memcpy(kv_pair, kv->ToBinary().c_str(), kv_size);
-    ok = append(static_cast<char*>(kv_pair), kv_size);
-    free(kv_pair);
-
+    memcpy(buf_, kv->ToBinary().c_str(), kv_size);
+    ok = append(buf_, kv_size);
     if (ok == -1) {
         return -1;
     }
