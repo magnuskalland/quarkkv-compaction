@@ -15,7 +15,7 @@ fi
 InstallQuark() {
     cd ../../Quark/experiments/tests
     bash quarkcontroller_uninstall.sh
-    bash quarkcontroller_install.sh 0
+    bash quarkcontroller_install.sh 1
     cd $SCRIPT_DIR
     clear
 }
@@ -37,19 +37,19 @@ InstallQuark
 #################
 
 # # fillseq
-# for s in 8 16 32 64; do
-#     cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${s}gb --engine=quarkstore $ARGS"
-#     echo $cmd
-#     eval $cmd > quarkstore/fillseq${s}gb.txt
-#     InstallQuark
-# done
+for s in 8 16 32 64; do
+    cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${s}gb --engine=quarkstore $ARGS"
+    echo $cmd
+    eval $cmd > nvme/quarkstore/fillseq${s}gb.txt
+    InstallQuark
+done
 
 # YCSB
-for s in 8 16 32; do
-    for w in e; do
+for s in 32; do
+    for w in a b c d e f; do
         cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/workload${w}${s}gb --engine=quarkstore $ARGS"
         echo $cmd
-        eval $cmd > quarkstore/workload${w}${s}gb.txt
+        eval $cmd > nvme/quarkstore/workload${w}${s}gb.txt
         InstallQuark
     done
 done
@@ -59,19 +59,19 @@ done
 ############### 
 
 # fillseq
-# for s in 8 16 32 64; do
-#     cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${s}gb --engine=quarkstore_append $ARGS"
-#     echo $cmd
-#     eval $cmd > quarkstore_append/fillseq${s}gb.txt
-#     InstallQuark
-# done
+for s in 8 16 32 64; do
+    cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/fillseq${s}gb --engine=quarkstore_append $ARGS"
+    echo $cmd
+    eval $cmd > nvme/quarkstore_append/fillseq${s}gb.txt
+    InstallQuark
+done
 
 # YCSB
-for s in 8 16 32; do
-    for w in e; do
+for s in 32; do
+    for w in a b c d e f; do
         cmd="$BASE_CMD --ycsb-workload=$WORKLOAD_BASE/${s}gb/workload${w}${s}gb --engine=quarkstore_append $ARGS"
         echo $cmd
-        eval $cmd > quarkstore_append/workload${w}${s}gb.txt
+        eval $cmd > nvme/quarkstore_append/workload${w}${s}gb.txt
         InstallQuark
     done
 done

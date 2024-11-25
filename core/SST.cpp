@@ -201,13 +201,35 @@ SST::SST(Config* config, uint32_t handler, int id)
     largestKey_ = "";
 }
 
+// int SST::appendKV(KVPair* kv)
+// {
+//     uint32_t kv_size = config_->kv_size();
+//     char kv_pair[kv_size];
+//     memcpy(kv_pair, kv->ToBinary().c_str(), kv_size);
+
+//     int ok = append(kv_pair, kv_size);
+//     if (ok == -1) {
+//         return -1;
+//     }
+//     return 0;
+// }
+
 int SST::appendKV(KVPair* kv)
 {
     uint32_t kv_size = config_->kv_size();
-    char kv_pair[kv_size];
-    memcpy(kv_pair, kv->ToBinary().c_str(), kv_size);
+    void* kv_pair = nullptr;
+    int ok;
 
-    int ok = append(kv_pair, kv_size);
+    ok = posix_memalign(&kv_pair, BLOCK_SIZE, kv_size);
+
+    if (ok != 0) {
+        return -1;
+    }
+
+    memcpy(kv_pair, kv->ToBinary().c_str(), kv_size);
+    ok = append(static_cast<char*>(kv_pair), kv_size);
+    free(kv_pair);
+
     if (ok == -1) {
         return -1;
     }
@@ -223,7 +245,13 @@ int SST::writeIndexBlock()
     uint32_t index_block_size = index_blocks * BLOCK_SIZE;
     // assert(entries_ % entries_per_block == 0);
     size_t offset = 0;
-    char buf[index_block_size];
+    char *buf = nullptr;
+    int ok;
+
+    ok = posix_memalign((void**) &buf, BLOCK_SIZE, index_block_size);
+    if (ok == -1) {
+        return -1;
+    }
 
     for (auto it = indexTable_.begin(); it != indexTable_.end(); it++) {
         assert(it->first.size() == config_->key_size);
@@ -233,7 +261,9 @@ int SST::writeIndexBlock()
     }
 
     // assert(offset == index_block_size);
-    int ok = append(buf, index_block_size);
+    ok = append(buf, index_block_size);
+    free(buf);
+
     if (ok == -1) {
         return -1;
     }
@@ -246,13 +276,20 @@ int SST::writeIndexBlock()
 int SST::writeNumberOfEntries()
 {
     int ok;
-    char number_of_kv_pairs[BLOCK_SIZE] = {'\0'};
+    char* buf = nullptr;
 
     assert(indexBlockOffset_ != -1);
     assert((int)indexBlockSize_ != -1);
 
-    std::memcpy(&number_of_kv_pairs[0], &entries_, sizeof(uint32_t));
-    ok = append(number_of_kv_pairs, BLOCK_SIZE);
+    ok = posix_memalign((void**) &buf, BLOCK_SIZE, BLOCK_SIZE);
+    if (ok == -1) {
+        return -1;
+    }
+
+    memset(buf, 0, BLOCK_SIZE);
+    std::memcpy(&buf[0], &entries_, sizeof(uint32_t));
+    ok = append(buf, BLOCK_SIZE);
+    free(buf);
     if (ok == -1) {
         return -1;
     }
