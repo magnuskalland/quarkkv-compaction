@@ -29,5 +29,6 @@ class Client {
     TimeRecord request_time_;
     TimeRecord read_time_;
     TimeRecord write_time_;
+    TimeRecord scan_time_;
 };
 }  // namespace ycsbc

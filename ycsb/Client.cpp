@@ -71,6 +71,7 @@ int Client::Work()
     uint64_t read_ops = 0, update_ops = 0, insert_ops = 0, scan_ops = 0,
              readmodifywrite_ops = 0;
     uint64_t reads = 0, writes = 0;
+    uint64_t scan_sizes = 0;
 
     operation_count = stoull(props_[ycsbc::CoreWorkload::OPERATION_COUNT_PROPERTY]);
 
@@ -105,6 +106,7 @@ int Client::Work()
             case SCAN:
                 ok = db_->Scan(req->Key(), req->Len(), it);
                 scan_ops++;
+                scan_sizes += req->Len();
                 break;
             case READMODIFYWRITE:
                 ok = db_->Get(req->Key(), dest);
@@ -129,7 +131,6 @@ int Client::Work()
 
         switch (req->Type()) {
             case READ:
-            case SCAN:
                 reads++;
                 // printf("Inserting read time: %.3lf us\n", op_time);
                 read_time_.Insert(op_time);
@@ -140,6 +141,10 @@ int Client::Work()
                 writes++;
                 // printf("Inserting write time: %.3lf us\n", op_time);
                 write_time_.Insert(op_time);
+                break;
+            case SCAN:
+                reads++;
+                scan_time_.Insert(op_time);
                 break;
             default:
                 return -1;
@@ -192,6 +197,27 @@ int Client::Work()
     else {
         printf("No writes\n");
     }
+
+    // Scans
+    if (scan_time_.Size() > 0) {
+        printf(
+            "SCANS (%ld)\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
+            "µs\n\t%-25s "
+            "%10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf µs\n\t%-25s %10.3lf "
+            "µs\n\t%-25s "
+            "%10.3lf ms\n",
+            scan_time_.Size(),
+            "Average latency:", scan_time_.Sum() / scan_time_.Size(),
+            "Median latency:", scan_time_.Tail(0.5), "P75:", scan_time_.Tail(0.75),
+            "P90:", scan_time_.Tail(0.90), "P99:", scan_time_.Tail(0.99),
+            "P99.9:", scan_time_.Tail(0.999), "P99.99:", scan_time_.Tail(0.9999),
+            "P99.999:", scan_time_.Tail(0.99999) / 1000.0);
+        printf("Average scan size: %10.3lf\n", scan_sizes / (float) scan_ops);
+    }
+    else {
+        printf("No scans\n");
+    }
+
     printf("Average operation latency: %.3lf µs\n",
            request_time_.Sum() / request_time_.Size());
     printf("Operations per second: %.3lf K\n",

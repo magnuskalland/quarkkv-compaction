@@ -157,7 +157,6 @@ int DBImpl::Scan(std::string start, int len,
                  std::map<std::string, std::string>::iterator& dest)
 {
     padKey(start);
-    printf("Scanning for %d elements from key '%s'\n", len, start.c_str());
     int ok;
     std::priority_queue<KVPair, std::vector<KVPair>, KVPair::KVPairComparator> pairs;
     std::string largest;
@@ -165,9 +164,7 @@ int DBImpl::Scan(std::string start, int len,
     // scan memtable
     auto table = memTable_->GetTable();
     for (auto it = table->lower_bound(start); it != table->end(); it++) {
-        printf("Search from key %s\n", (*it).first.c_str());
         pairs.emplace((*it).second);
-        printf("Found key within range: %s\n", (*it).second.GetKey().c_str());
 
         if ((int)pairs.size() == len) {
             break;
@@ -181,7 +178,6 @@ int DBImpl::Scan(std::string start, int len,
     // scan all levels
     int l = 0;
     for (auto level = ssts_.begin(); level != ssts_.end(); level++) {
-        printf("Scanning level %d\n", l++);
         if ((*level).size() == 0) {
             continue;
         }
@@ -204,15 +200,10 @@ int DBImpl::Scan(std::string start, int len,
                 break;
             }
 
-            printf("Replacing %s with %s\n", pairs.top().ToString().c_str(),
-                   e->ToString().c_str());
             pairs.pop();
             pairs.push(*e);
         }
     }
-
-    printf("Returned %ld/%d elements\n", pairs.size(), len);
-    exit(1);
     return 0;
 }
 
