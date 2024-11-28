@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 groups = ['8 GiB', '16 GiB', '32 GiB', '64 GiB'] 
 categories = ['File system baseline', 'QuarkStore baseline', 'QuarkStore+Append'] 
 data = list(map(lambda x : x / 60.0, [
-    [174.316, 142.586, 61.093],  # Data for Group 1
-    [398.812, 315.829, 130.609],  # Data for Group 2
-    [826.795, 814.191, 318.341],  # Data for Group 3
-    [2021.058, 1700.623, 697.789],  # Data for Group 4
+    [1984.92, 1953.671, 1346.366],  # Data for Group 1
+    [4681.404, 4439.511, 3099.037],  # Data for Group 2
+    [10741.152, 10240.989, 7091.115],  # Data for Group 3
+    [25231.287, 23748.888, 16282.249],  # Data for Group 4
 ]))
 
 # Colors for each category

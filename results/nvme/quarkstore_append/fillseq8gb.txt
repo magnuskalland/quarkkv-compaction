@@ -1,5 +1,5 @@
 Config
-    Engine:                        QuarkStore
+    Engine:                        Quarkstore append
     Mode:                          YCSB
     YCSB workload:                 ../ycsb/workloads/8gb/fillseq8gb
     Compaction picker:             All
@@ -53,15 +53,15 @@ Level 5: (0/100000)
 Level 6: (0/1000000)
 
 Starting work (2097152 operations)...
-Start time: 2024/11/25-16:50:35.380306
+Start time: 2024/11/28-06:31:24.939321
 Total compaction stats:
 Compactions: 1
 New SSTs: 2
 Deleted SSTs: 2
 Duplicate keys merged: 0
-Write amplification: 32768 KV pairs, 128 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 1
+Manifest: 5
 Number of live SSTs: 2
 Average live SST size: 64 MiB
 Database size: 128 MiB
@@ -78,9 +78,9 @@ Compactions: 2
 New SSTs: 6
 Deleted SSTs: 6
 Duplicate keys merged: 0
-Write amplification: 98304 KV pairs, 384 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 2
+Manifest: 12
 Number of live SSTs: 4
 Average live SST size: 64 MiB
 Database size: 256 MiB
@@ -97,9 +97,9 @@ Compactions: 3
 New SSTs: 12
 Deleted SSTs: 12
 Duplicate keys merged: 0
-Write amplification: 196608 KV pairs, 768 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 3
+Manifest: 21
 Number of live SSTs: 6
 Average live SST size: 64 MiB
 Database size: 384 MiB
@@ -116,9 +116,9 @@ Compactions: 4
 New SSTs: 20
 Deleted SSTs: 20
 Duplicate keys merged: 0
-Write amplification: 327680 KV pairs, 1280 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 4
+Manifest: 32
 Number of live SSTs: 8
 Average live SST size: 64 MiB
 Database size: 512 MiB
@@ -135,9 +135,9 @@ Compactions: 5
 New SSTs: 30
 Deleted SSTs: 30
 Duplicate keys merged: 0
-Write amplification: 491520 KV pairs, 1920 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 5
+Manifest: 45
 Number of live SSTs: 10
 Average live SST size: 64 MiB
 Database size: 640 MiB
@@ -154,9 +154,9 @@ Compactions: 6
 New SSTs: 42
 Deleted SSTs: 42
 Duplicate keys merged: 0
-Write amplification: 688128 KV pairs, 2688 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 6
+Manifest: 60
 Number of live SSTs: 12
 Average live SST size: 64 MiB
 Database size: 768 MiB
@@ -173,9 +173,9 @@ Compactions: 7
 New SSTs: 44
 Deleted SSTs: 44
 Duplicate keys merged: 0
-Write amplification: 720896 KV pairs, 2816 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 7
+Manifest: 65
 Number of live SSTs: 14
 Average live SST size: 64 MiB
 Database size: 896 MiB
@@ -192,9 +192,9 @@ Compactions: 8
 New SSTs: 48
 Deleted SSTs: 48
 Duplicate keys merged: 0
-Write amplification: 786432 KV pairs, 3072 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 10
+Manifest: 72
 Number of live SSTs: 16
 Average live SST size: 64 MiB
 Database size: 1024 MiB
@@ -211,9 +211,9 @@ Compactions: 9
 New SSTs: 54
 Deleted SSTs: 54
 Duplicate keys merged: 0
-Write amplification: 884736 KV pairs, 3456 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 11
+Manifest: 81
 Number of live SSTs: 18
 Average live SST size: 64 MiB
 Database size: 1152 MiB
@@ -230,9 +230,9 @@ Compactions: 10
 New SSTs: 62
 Deleted SSTs: 62
 Duplicate keys merged: 0
-Write amplification: 1015808 KV pairs, 3968 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 12
+Manifest: 92
 Number of live SSTs: 20
 Average live SST size: 64 MiB
 Database size: 1280 MiB
@@ -249,9 +249,9 @@ Compactions: 11
 New SSTs: 72
 Deleted SSTs: 72
 Duplicate keys merged: 0
-Write amplification: 1179648 KV pairs, 4608 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 13
+Manifest: 105
 Number of live SSTs: 22
 Average live SST size: 64 MiB
 Database size: 1408 MiB
@@ -268,9 +268,9 @@ Compactions: 13
 New SSTs: 108
 Deleted SSTs: 108
 Duplicate keys merged: 0
-Write amplification: 1769472 KV pairs, 6912 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 8
+Manifest: 144
 Number of live SSTs: 24
 Average live SST size: 64 MiB
 Database size: 1536 MiB
@@ -287,9 +287,9 @@ Compactions: 14
 New SSTs: 110
 Deleted SSTs: 110
 Duplicate keys merged: 0
-Write amplification: 1802240 KV pairs, 7040 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 9
+Manifest: 149
 Number of live SSTs: 26
 Average live SST size: 64 MiB
 Database size: 1664 MiB
@@ -306,9 +306,9 @@ Compactions: 15
 New SSTs: 114
 Deleted SSTs: 114
 Duplicate keys merged: 0
-Write amplification: 1867776 KV pairs, 7296 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 15
+Manifest: 156
 Number of live SSTs: 28
 Average live SST size: 64 MiB
 Database size: 1792 MiB
@@ -325,9 +325,9 @@ Compactions: 16
 New SSTs: 120
 Deleted SSTs: 120
 Duplicate keys merged: 0
-Write amplification: 1966080 KV pairs, 7680 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 16
+Manifest: 165
 Number of live SSTs: 30
 Average live SST size: 64 MiB
 Database size: 1920 MiB
@@ -344,9 +344,9 @@ Compactions: 17
 New SSTs: 128
 Deleted SSTs: 128
 Duplicate keys merged: 0
-Write amplification: 2097152 KV pairs, 8192 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 17
+Manifest: 176
 Number of live SSTs: 32
 Average live SST size: 64 MiB
 Database size: 2048 MiB
@@ -363,9 +363,9 @@ Compactions: 18
 New SSTs: 138
 Deleted SSTs: 138
 Duplicate keys merged: 0
-Write amplification: 2260992 KV pairs, 8832 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 18
+Manifest: 189
 Number of live SSTs: 34
 Average live SST size: 64 MiB
 Database size: 2176 MiB
@@ -382,9 +382,9 @@ Compactions: 20
 New SSTs: 186
 Deleted SSTs: 186
 Duplicate keys merged: 0
-Write amplification: 3047424 KV pairs, 11904 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 14
+Manifest: 240
 Number of live SSTs: 36
 Average live SST size: 64 MiB
 Database size: 2304 MiB
@@ -401,9 +401,9 @@ Compactions: 21
 New SSTs: 188
 Deleted SSTs: 188
 Duplicate keys merged: 0
-Write amplification: 3080192 KV pairs, 12032 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 20
+Manifest: 245
 Number of live SSTs: 38
 Average live SST size: 64 MiB
 Database size: 2432 MiB
@@ -420,9 +420,9 @@ Compactions: 22
 New SSTs: 192
 Deleted SSTs: 192
 Duplicate keys merged: 0
-Write amplification: 3145728 KV pairs, 12288 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 22
+Manifest: 252
 Number of live SSTs: 40
 Average live SST size: 64 MiB
 Database size: 2560 MiB
@@ -439,9 +439,9 @@ Compactions: 23
 New SSTs: 198
 Deleted SSTs: 198
 Duplicate keys merged: 0
-Write amplification: 3244032 KV pairs, 12672 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 23
+Manifest: 261
 Number of live SSTs: 42
 Average live SST size: 64 MiB
 Database size: 2688 MiB
@@ -458,9 +458,9 @@ Compactions: 24
 New SSTs: 206
 Deleted SSTs: 206
 Duplicate keys merged: 0
-Write amplification: 3375104 KV pairs, 13184 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 24
+Manifest: 272
 Number of live SSTs: 44
 Average live SST size: 64 MiB
 Database size: 2816 MiB
@@ -477,9 +477,9 @@ Compactions: 25
 New SSTs: 216
 Deleted SSTs: 216
 Duplicate keys merged: 0
-Write amplification: 3538944 KV pairs, 13824 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 25
+Manifest: 285
 Number of live SSTs: 46
 Average live SST size: 64 MiB
 Database size: 2944 MiB
@@ -496,9 +496,9 @@ Compactions: 27
 New SSTs: 276
 Deleted SSTs: 276
 Duplicate keys merged: 0
-Write amplification: 4521984 KV pairs, 17664 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 19
+Manifest: 348
 Number of live SSTs: 48
 Average live SST size: 64 MiB
 Database size: 3072 MiB
@@ -515,9 +515,9 @@ Compactions: 28
 New SSTs: 278
 Deleted SSTs: 278
 Duplicate keys merged: 0
-Write amplification: 4554752 KV pairs, 17792 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 21
+Manifest: 353
 Number of live SSTs: 50
 Average live SST size: 64 MiB
 Database size: 3200 MiB
@@ -534,9 +534,9 @@ Compactions: 29
 New SSTs: 282
 Deleted SSTs: 282
 Duplicate keys merged: 0
-Write amplification: 4620288 KV pairs, 18048 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 26
+Manifest: 360
 Number of live SSTs: 52
 Average live SST size: 64 MiB
 Database size: 3328 MiB
@@ -553,9 +553,9 @@ Compactions: 30
 New SSTs: 288
 Deleted SSTs: 288
 Duplicate keys merged: 0
-Write amplification: 4718592 KV pairs, 18432 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 27
+Manifest: 369
 Number of live SSTs: 54
 Average live SST size: 64 MiB
 Database size: 3456 MiB
@@ -572,9 +572,9 @@ Compactions: 31
 New SSTs: 296
 Deleted SSTs: 296
 Duplicate keys merged: 0
-Write amplification: 4849664 KV pairs, 18944 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 28
+Manifest: 380
 Number of live SSTs: 56
 Average live SST size: 64 MiB
 Database size: 3584 MiB
@@ -591,9 +591,9 @@ Compactions: 32
 New SSTs: 306
 Deleted SSTs: 306
 Duplicate keys merged: 0
-Write amplification: 5013504 KV pairs, 19584 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 29
+Manifest: 393
 Number of live SSTs: 58
 Average live SST size: 64 MiB
 Database size: 3712 MiB
@@ -610,9 +610,9 @@ Compactions: 34
 New SSTs: 378
 Deleted SSTs: 378
 Duplicate keys merged: 0
-Write amplification: 6193152 KV pairs, 24192 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 30
+Manifest: 468
 Number of live SSTs: 60
 Average live SST size: 64 MiB
 Database size: 3840 MiB
@@ -629,9 +629,9 @@ Compactions: 35
 New SSTs: 380
 Deleted SSTs: 380
 Duplicate keys merged: 0
-Write amplification: 6225920 KV pairs, 24320 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 31
+Manifest: 473
 Number of live SSTs: 62
 Average live SST size: 64 MiB
 Database size: 3968 MiB
@@ -648,9 +648,9 @@ Compactions: 36
 New SSTs: 384
 Deleted SSTs: 384
 Duplicate keys merged: 0
-Write amplification: 6291456 KV pairs, 24576 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 34
+Manifest: 480
 Number of live SSTs: 64
 Average live SST size: 64 MiB
 Database size: 4096 MiB
@@ -667,9 +667,9 @@ Compactions: 37
 New SSTs: 390
 Deleted SSTs: 390
 Duplicate keys merged: 0
-Write amplification: 6389760 KV pairs, 24960 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 35
+Manifest: 489
 Number of live SSTs: 66
 Average live SST size: 64 MiB
 Database size: 4224 MiB
@@ -686,9 +686,9 @@ Compactions: 38
 New SSTs: 398
 Deleted SSTs: 398
 Duplicate keys merged: 0
-Write amplification: 6520832 KV pairs, 25472 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 36
+Manifest: 500
 Number of live SSTs: 68
 Average live SST size: 64 MiB
 Database size: 4352 MiB
@@ -705,9 +705,9 @@ Compactions: 39
 New SSTs: 408
 Deleted SSTs: 408
 Duplicate keys merged: 0
-Write amplification: 6684672 KV pairs, 26112 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 37
+Manifest: 513
 Number of live SSTs: 70
 Average live SST size: 64 MiB
 Database size: 4480 MiB
@@ -724,9 +724,9 @@ Compactions: 41
 New SSTs: 492
 Deleted SSTs: 492
 Duplicate keys merged: 0
-Write amplification: 8060928 KV pairs, 31488 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 32
+Manifest: 600
 Number of live SSTs: 72
 Average live SST size: 64 MiB
 Database size: 4608 MiB
@@ -743,9 +743,9 @@ Compactions: 42
 New SSTs: 494
 Deleted SSTs: 494
 Duplicate keys merged: 0
-Write amplification: 8093696 KV pairs, 31616 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 33
+Manifest: 605
 Number of live SSTs: 74
 Average live SST size: 64 MiB
 Database size: 4736 MiB
@@ -762,9 +762,9 @@ Compactions: 43
 New SSTs: 498
 Deleted SSTs: 498
 Duplicate keys merged: 0
-Write amplification: 8159232 KV pairs, 31872 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 40
+Manifest: 612
 Number of live SSTs: 76
 Average live SST size: 64 MiB
 Database size: 4864 MiB
@@ -781,9 +781,9 @@ Compactions: 44
 New SSTs: 504
 Deleted SSTs: 504
 Duplicate keys merged: 0
-Write amplification: 8257536 KV pairs, 32256 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 41
+Manifest: 621
 Number of live SSTs: 78
 Average live SST size: 64 MiB
 Database size: 4992 MiB
@@ -800,9 +800,9 @@ Compactions: 45
 New SSTs: 512
 Deleted SSTs: 512
 Duplicate keys merged: 0
-Write amplification: 8388608 KV pairs, 32768 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 42
+Manifest: 632
 Number of live SSTs: 80
 Average live SST size: 64 MiB
 Database size: 5120 MiB
@@ -819,9 +819,9 @@ Compactions: 46
 New SSTs: 522
 Deleted SSTs: 522
 Duplicate keys merged: 0
-Write amplification: 8552448 KV pairs, 33408 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 43
+Manifest: 645
 Number of live SSTs: 82
 Average live SST size: 64 MiB
 Database size: 5248 MiB
@@ -838,9 +838,9 @@ Compactions: 48
 New SSTs: 618
 Deleted SSTs: 618
 Duplicate keys merged: 0
-Write amplification: 10125312 KV pairs, 39552 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 38
+Manifest: 744
 Number of live SSTs: 84
 Average live SST size: 64 MiB
 Database size: 5376 MiB
@@ -857,9 +857,9 @@ Compactions: 49
 New SSTs: 620
 Deleted SSTs: 620
 Duplicate keys merged: 0
-Write amplification: 10158080 KV pairs, 39680 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 39
+Manifest: 749
 Number of live SSTs: 86
 Average live SST size: 64 MiB
 Database size: 5504 MiB
@@ -876,9 +876,9 @@ Compactions: 50
 New SSTs: 624
 Deleted SSTs: 624
 Duplicate keys merged: 0
-Write amplification: 10223616 KV pairs, 39936 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 46
+Manifest: 756
 Number of live SSTs: 88
 Average live SST size: 64 MiB
 Database size: 5632 MiB
@@ -895,9 +895,9 @@ Compactions: 51
 New SSTs: 630
 Deleted SSTs: 630
 Duplicate keys merged: 0
-Write amplification: 10321920 KV pairs, 40320 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 47
+Manifest: 765
 Number of live SSTs: 90
 Average live SST size: 64 MiB
 Database size: 5760 MiB
@@ -914,9 +914,9 @@ Compactions: 52
 New SSTs: 638
 Deleted SSTs: 638
 Duplicate keys merged: 0
-Write amplification: 10452992 KV pairs, 40832 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 48
+Manifest: 776
 Number of live SSTs: 92
 Average live SST size: 64 MiB
 Database size: 5888 MiB
@@ -933,9 +933,9 @@ Compactions: 53
 New SSTs: 648
 Deleted SSTs: 648
 Duplicate keys merged: 0
-Write amplification: 10616832 KV pairs, 41472 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 49
+Manifest: 789
 Number of live SSTs: 94
 Average live SST size: 64 MiB
 Database size: 6016 MiB
@@ -952,9 +952,9 @@ Compactions: 55
 New SSTs: 756
 Deleted SSTs: 756
 Duplicate keys merged: 0
-Write amplification: 12386304 KV pairs, 48384 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 44
+Manifest: 900
 Number of live SSTs: 96
 Average live SST size: 64 MiB
 Database size: 6144 MiB
@@ -971,9 +971,9 @@ Compactions: 56
 New SSTs: 758
 Deleted SSTs: 758
 Duplicate keys merged: 0
-Write amplification: 12419072 KV pairs, 48512 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 45
+Manifest: 905
 Number of live SSTs: 98
 Average live SST size: 64 MiB
 Database size: 6272 MiB
@@ -990,9 +990,9 @@ Compactions: 57
 New SSTs: 762
 Deleted SSTs: 762
 Duplicate keys merged: 0
-Write amplification: 12484608 KV pairs, 48768 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 52
+Manifest: 912
 Number of live SSTs: 100
 Average live SST size: 64 MiB
 Database size: 6400 MiB
@@ -1009,9 +1009,9 @@ Compactions: 58
 New SSTs: 768
 Deleted SSTs: 768
 Duplicate keys merged: 0
-Write amplification: 12582912 KV pairs, 49152 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 53
+Manifest: 921
 Number of live SSTs: 102
 Average live SST size: 64 MiB
 Database size: 6528 MiB
@@ -1028,9 +1028,9 @@ Compactions: 59
 New SSTs: 776
 Deleted SSTs: 776
 Duplicate keys merged: 0
-Write amplification: 12713984 KV pairs, 49664 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 54
+Manifest: 932
 Number of live SSTs: 104
 Average live SST size: 64 MiB
 Database size: 6656 MiB
@@ -1047,9 +1047,9 @@ Compactions: 60
 New SSTs: 786
 Deleted SSTs: 786
 Duplicate keys merged: 0
-Write amplification: 12877824 KV pairs, 50304 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 55
+Manifest: 945
 Number of live SSTs: 106
 Average live SST size: 64 MiB
 Database size: 6784 MiB
@@ -1066,9 +1066,9 @@ Compactions: 62
 New SSTs: 906
 Deleted SSTs: 906
 Duplicate keys merged: 0
-Write amplification: 14843904 KV pairs, 57984 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 50
+Manifest: 1068
 Number of live SSTs: 108
 Average live SST size: 64 MiB
 Database size: 6912 MiB
@@ -1085,9 +1085,9 @@ Compactions: 63
 New SSTs: 908
 Deleted SSTs: 908
 Duplicate keys merged: 0
-Write amplification: 14876672 KV pairs, 58112 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 51
+Manifest: 1073
 Number of live SSTs: 110
 Average live SST size: 64 MiB
 Database size: 7040 MiB
@@ -1104,9 +1104,9 @@ Compactions: 64
 New SSTs: 912
 Deleted SSTs: 912
 Duplicate keys merged: 0
-Write amplification: 14942208 KV pairs, 58368 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 58
+Manifest: 1080
 Number of live SSTs: 112
 Average live SST size: 64 MiB
 Database size: 7168 MiB
@@ -1123,9 +1123,9 @@ Compactions: 65
 New SSTs: 918
 Deleted SSTs: 918
 Duplicate keys merged: 0
-Write amplification: 15040512 KV pairs, 58752 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 59
+Manifest: 1089
 Number of live SSTs: 114
 Average live SST size: 64 MiB
 Database size: 7296 MiB
@@ -1142,9 +1142,9 @@ Compactions: 66
 New SSTs: 926
 Deleted SSTs: 926
 Duplicate keys merged: 0
-Write amplification: 15171584 KV pairs, 59264 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 60
+Manifest: 1100
 Number of live SSTs: 116
 Average live SST size: 64 MiB
 Database size: 7424 MiB
@@ -1161,9 +1161,9 @@ Compactions: 67
 New SSTs: 936
 Deleted SSTs: 936
 Duplicate keys merged: 0
-Write amplification: 15335424 KV pairs, 59904 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 61
+Manifest: 1113
 Number of live SSTs: 118
 Average live SST size: 64 MiB
 Database size: 7552 MiB
@@ -1180,9 +1180,9 @@ Compactions: 68
 New SSTs: 948
 Deleted SSTs: 948
 Duplicate keys merged: 0
-Write amplification: 15532032 KV pairs, 60672 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 62
+Manifest: 1128
 Number of live SSTs: 120
 Average live SST size: 64 MiB
 Database size: 7680 MiB
@@ -1199,9 +1199,9 @@ Compactions: 69
 New SSTs: 950
 Deleted SSTs: 950
 Duplicate keys merged: 0
-Write amplification: 15564800 KV pairs, 60800 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 63
+Manifest: 1133
 Number of live SSTs: 122
 Average live SST size: 64 MiB
 Database size: 7808 MiB
@@ -1218,9 +1218,9 @@ Compactions: 70
 New SSTs: 954
 Deleted SSTs: 954
 Duplicate keys merged: 0
-Write amplification: 15630336 KV pairs, 61056 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 71
+Manifest: 1140
 Number of live SSTs: 124
 Average live SST size: 64 MiB
 Database size: 7936 MiB
@@ -1237,9 +1237,9 @@ Compactions: 71
 New SSTs: 960
 Deleted SSTs: 960
 Duplicate keys merged: 0
-Write amplification: 15728640 KV pairs, 61440 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 72
+Manifest: 1149
 Number of live SSTs: 126
 Average live SST size: 64 MiB
 Database size: 8064 MiB
@@ -1256,9 +1256,9 @@ Compactions: 72
 New SSTs: 968
 Deleted SSTs: 968
 Duplicate keys merged: 0
-Write amplification: 15859712 KV pairs, 61952 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 73
+Manifest: 1160
 Number of live SSTs: 128
 Average live SST size: 64 MiB
 Database size: 8192 MiB
@@ -1270,17 +1270,17 @@ Level 4: (0/10000)
 Level 5: (0/100000)
 Level 6: (0/1000000)
 
-End time:   2024/11/25-17:23:09.051127
-Work time:  1953.671 s
+End time:   2024/11/28-06:53:51.305707
+Work time:  1346.366 s
 
 Total compaction stats:
 Compactions: 72
 New SSTs: 968
 Deleted SSTs: 968
 Duplicate keys merged: 0
-Write amplification: 15859712 KV pairs, 61952 MiB
+Write amplification: 0 KV pairs, 0 MiB
 
-Manifest: 73
+Manifest: 1160
 Number of live SSTs: 128
 Average live SST size: 64 MiB
 Database size: 8192 MiB
@@ -1295,21 +1295,21 @@ Level 6: (0/1000000)
 Finished work: 0 read operations, 2097152 update operations, 0 insert operations, 0 scan operations, 0 readmodifywrite operations
 No reads
 WRITES (2097152)
-	Average latency:             930.770 µs
-	Median latency:                0.850 µs
-	P75:                           1.151 µs
-	P90:                           1.534 µs
-	P99:                           2.931 µs
-	P99.9:                         4.414 µs
-	P99.99:                     1330.884 µs
-	P99.999:                   17001.452 ms
+	Average latency:             641.190 µs
+	Median latency:                0.899 µs
+	P75:                           1.199 µs
+	P90:                           1.550 µs
+	P99:                           2.789 µs
+	P99.9:                         4.093 µs
+	P99.99:                     1008.532 µs
+	P99.999:                   11322.234 ms
 No scans
-Average operation latency: 930.770 µs
-Operations per second: 1.073 K
+Average operation latency: 641.190 µs
+Operations per second: 1.558 K
 COMPACTIONS (64)
-	Average latency:              29.756 s
-	Median latency:               13.054 s
-	P75:                          19.560 s
-	P90:                          94.931 s
-	P99:                         235.377 s
-	Last:                        235.377 s
+	Average latency:              20.235 s
+	Median latency:                8.177 s
+	P75:                          13.492 s
+	P90:                          64.313 s
+	P99:                         160.652 s
+	Last:                        160.652 s

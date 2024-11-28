@@ -2,14 +2,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Data
-groups = ['8 GiB', '16 GiB', '32 GiB', '64 GiB'] 
+groups = ['A', 'B', 'C', 'D', 'E', 'F'] 
 categories = ['File system baseline', 'QuarkStore baseline', 'QuarkStore+Append'] 
-data = list(map(lambda x : x / 60.0, [
-    [174.316, 142.586, 61.093],  # Data for Group 1
-    [398.812, 315.829, 130.609],  # Data for Group 2
-    [826.795, 814.191, 318.341],  # Data for Group 3
-    [2021.058, 1700.623, 697.789],  # Data for Group 4
-]))
+data = [
+    [194 / 60.0, 153 / 60.0, 80 / 60.0],  # A
+    [56 / 60.0, 53 / 60.0, 45 / 60.0],  # B
+    [36 / 60.0, 42 / 60.0, 46 / 60.0],  # C
+    [30 / 60.0, 30 / 60.0, 21 / 60.0],  # D
+    [151 / 60.0, 149 / 60.0, 159 / 60.0],  # E
+    [216 / 60.0, 205 / 60.0, 99 / 60.0],  # F
+]
 
 # Colors for each category
 colors = ['#EC6B56', '#FFC154', '#47B39C']  # Specify custom colors for bars
@@ -38,7 +40,7 @@ for i, category in enumerate(categories):
 
 # Labels and customization
 plt.xticks(x, groups)  # Set group labels on x-axis
-plt.xlabel('Workload size')
+plt.xlabel('YCSB workload')
 plt.ylabel('Time (minutes)')
 # plt.title('Runtime of a sequential fill of QuarkKV.')
 plt.legend(title="Configurations")
