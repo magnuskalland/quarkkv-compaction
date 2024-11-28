@@ -159,7 +159,6 @@ int DBImpl::Scan(std::string start, int len,
     padKey(start);
     int ok;
     std::priority_queue<KVPair, std::vector<KVPair>, KVPair::KVPairComparator> pairs;
-    std::string largest;
 
     // scan memtable
     auto table = memTable_->GetTable();
@@ -169,10 +168,6 @@ int DBImpl::Scan(std::string start, int len,
         if ((int)pairs.size() == len) {
             break;
         }
-    }
-
-    if (pairs.size() > 0) {
-        largest = pairs.top().GetKey();
     }
 
     // scan all levels
