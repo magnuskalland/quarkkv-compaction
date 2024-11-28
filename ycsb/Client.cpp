@@ -47,6 +47,8 @@ int Client::Load()
 
     for (uint64_t i = 0; i < record_count; i++) {
         WorkloadProducer::Request* req = producer_->GetLoadRequest();
+        printf("Putting request\n");
+        fflush(stdout);
         ok = db_->Put(req->Key(), "-");
         if (ok == -1) {
             fprintf(stderr, "loading failed\n");

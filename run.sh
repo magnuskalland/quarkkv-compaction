@@ -24,12 +24,12 @@ set -e
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 LIB_PATH=../Quark/quarkstore/quarklibio/build
 
-ENGINE=fs
-MODE=ycsb
+ENGINE=quarkstore
+MODE=manual
 WORKLOAD=ycsb/workloads/8gb/workloade8gb
 DIR=./dbdir
 DISTRIBUTION=zipfian
-PREPOPULATE=524288
+PREPOPULATE=16384
 WRITE_SIZE=0
 READ_SIZE=100000
 KEY_SIZE=56

@@ -57,17 +57,19 @@ int ManifestQuark::Open()
 int ManifestQuark::Persist()
 {
     int ok, manifest_aid;
+    char *buf;
 
     manifest_aid = createNewManifest();
     if (manifest_aid < 0) {
         return -1;
     }
 
-    char buf[BLOCK_SIZE];
+    ok = posix_memalign((void**) &buf, BLOCK_SIZE, BLOCK_SIZE);
     serializeLevels(buf);
 
     ok = ::AtomWrite(handler_, buf, BLOCK_SIZE, 0);
     if (ok < 0) {
+        free(buf);
         return -1;
     }
 
@@ -75,6 +77,7 @@ int ManifestQuark::Persist()
     std::memcpy(buf, &manifest_aid, sizeof(manifest_aid));
 
     ok = ::AtomWrite(current_, buf, BLOCK_SIZE, 0);
+    free(buf);
     return ok;
 }
 

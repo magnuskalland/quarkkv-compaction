@@ -49,6 +49,7 @@ ssize_t AtomRead(int ah, void* buf, size_t len, loff_t off)
 ssize_t AtomWrite(int ah, const void* buf, size_t len, loff_t off)
 {
     assert(off % BLOCK_SIZE == 0);
+    assert((unsigned long) buf % BLOCK_SIZE == 0);
     int ok = quarklibio_atom_write(ah, buf, len, off, 0);
     if (ah < 0) {
         fprintf(stderr, "error: quarklibio_atom_write\n");
