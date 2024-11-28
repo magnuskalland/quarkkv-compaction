@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 # Data
 groups = ['8 GiB', '16 GiB', '32 GiB', '64 GiB'] 
-categories = ['Ext4', 'QuarkStore', 'QuarkStore+Append'] 
+categories = ['File system baseline', 'QuarkStore baseline', 'QuarkStore+Append'] 
 data = [
     [174.316 / 60.0, 142.586 / 60.0, 61.093 / 60.0],  # Data for Group 1
     [398.812 / 60.0, 315.829 / 60.0, 130.609 / 60.0],  # Data for Group 2
@@ -27,7 +27,14 @@ offsets = np.arange(-(n_categories // 2), n_categories // 2 + 1) * bar_width
 # Plot
 plt.figure(figsize=(10, 6))
 for i, category in enumerate(categories):
-    plt.bar(x + offsets[i], [group[i] for group in data], bar_width, label=category, color=colors[i])
+    plt.bar(
+        x + offsets[i], 
+        [group[i] for group in data], 
+        bar_width, 
+        label=category, 
+        color=colors[i], 
+        edgecolor='black'  # Add black border to bars
+    )
 
 # Labels and customization
 plt.xticks(x, groups)  # Set group labels on x-axis
@@ -35,7 +42,7 @@ plt.xlabel('Workload size')
 plt.ylabel('Time (minutes)')
 # plt.title('Runtime of a sequential fill of QuarkKV.')
 plt.legend(title="Configurations")
-# plt.tight_layout()
+plt.tight_layout()
 
 # Show the plot
 plt.show()
