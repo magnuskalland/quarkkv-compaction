@@ -4,14 +4,14 @@ import matplotlib.pyplot as plt
 # Data
 groups = ['A', 'B', 'C', 'D', 'E', 'F'] 
 categories = ['File system baseline', 'QuarkStore baseline', 'QuarkStore+Append'] 
-data = [
-    [194 / 60.0, 153 / 60.0, 80 / 60.0],  # A
-    [56 / 60.0, 53 / 60.0, 45 / 60.0],  # B
-    [36 / 60.0, 42 / 60.0, 46 / 60.0],  # C
-    [30 / 60.0, 30 / 60.0, 21 / 60.0],  # D
-    [151 / 60.0, 149 / 60.0, 159 / 60.0],  # E
-    [216 / 60.0, 205 / 60.0, 99 / 60.0],  # F
-]
+data = list(map(lambda x : x / 60.0, [
+    [2387.848, 2201.000, 1580.055],  # A
+    [429.009, 428.949, 346.637],  # B
+    [219.537, 217.031, 198.051],  # C
+    [415.644, 395.173, 328.790],  # D
+    [6641.622, 6599.133, 6672.000],  # E
+    [2485.990, 2260.875, 1674.255],  # F
+]))
 
 # Colors for each category
 colors = ['#EC6B56', '#FFC154', '#47B39C']  # Specify custom colors for bars
