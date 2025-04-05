@@ -1,7 +1,7 @@
 CC = g++
 # ASAN = -fsanitize=address	
 # insert path to your quarklibio
-QUARKLIBIO_SRC_DIR = $(abspath ../Quark/quarkstore/quarklibio)
+QUARKLIBIO_SRC_DIR = $(abspath ${QUARKSTORE_SRC_DIR}/quarkstore/quarklibio)
 QUARKLIBIO_DIR = $(QUARKLIBIO_SRC_DIR)/build
 
 INCLUDE := -I./fs -I./quark -I./utils -I./core -I./iterators -I./ycsb -I./ycsb/core -I$(QUARKLIBIO_SRC_DIR)

@@ -12,8 +12,13 @@ if [ "$EUID" -ne 0 ]; then
     exit
 fi
 
+if [ "${QUARKSTORE_SRC_DIR}" == "" ]; then
+    echo "Missing QUARKSTORE_SRC_DIR from environment"
+    exit
+fi
+
 InstallQuark() {
-    cd ../Quark/experiments/tests
+    cd ${QUARKSTORE_SRC_DIR}/experiments/tests
     bash quarkcontroller_uninstall.sh
     bash quarkcontroller_install.sh 1
     cd $SCRIPT_DIR
@@ -22,16 +27,27 @@ InstallQuark() {
 
 set -e
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-LIB_PATH=../Quark/quarkstore/quarklibio/build
+LIB_PATH=${QUARKSTORE_SRC_DIR}/quarkstore/quarklibio/build
 
-ENGINE=quarkstore
+# fs | quarkstore | quarkstore_append
+ENGINE=fs
+
+# manual | ycsb
 MODE=manual
+
+# if ycsb, specify ycsb workload file
 WORKLOAD=ycsb/workloads/8gb/workloade8gb
+
+# if fs, specify database directory
 DIR=./dbdir
-DISTRIBUTION=zipfian
+
+# don't care about these
 PREPOPULATE=16384
-WRITE_SIZE=0
-READ_SIZE=100000
+WRITE_SIZE=65536
+READ_SIZE=65536
+
+# don't touch these
+DISTRIBUTION=zipfian
 KEY_SIZE=56
 PICKER=all
 
