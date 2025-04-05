@@ -4,15 +4,16 @@ import matplotlib.pyplot as plt
 # Data
 groups = ['8 GiB', '16 GiB', '32 GiB', '64 GiB'] 
 categories = ['File system baseline', 'QuarkStore baseline', 'QuarkStore+Append'] 
-data = list(map(lambda x : x / 60.0, [
+data = [list(map(lambda x: x / 60.0, group)) for group in [
     [1984.92, 1953.671, 1346.366],  # Data for Group 1
     [4681.404, 4439.511, 3099.037],  # Data for Group 2
     [10741.152, 10240.989, 7091.115],  # Data for Group 3
     [25231.287, 23748.888, 16282.249],  # Data for Group 4
-]))
+]]
+
 
 # Colors for each category
-colors = ['#EC6B56', '#FFC154', '#47B39C']  # Specify custom colors for bars
+colors = ['#ffd966', '#8faadc', '#a9d18e']  # Specify custom colors for bars
 
 # Number of groups and categories
 n_groups = len(groups)

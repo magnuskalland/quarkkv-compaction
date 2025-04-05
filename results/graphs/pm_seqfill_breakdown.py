@@ -16,11 +16,16 @@ data = {
     'Other': [fs - (fs * 0.893), qs - (qs * 0.8896), app - (app * 0.8376)],  # Segment for other operations
 }
 
-print(f"FS: {fs * 0.5122}")
-print(f"QuarkStore+Append: {app * 0.0787}")
+print(f"FS compaction time: {fs * (0.5122 + 0.2088)}")
+print(f"QuarkStore compaction time: {qs * (0.3933 + 0.2978)}")
+print(f"QuarkStore+Append compaction time: {app * (0.0787 + 0.525)}")
+
+print(f"FS write time: {fs * (0.5122)}")
+print(f"QuarkStore write time: {qs * (0.3933)}")
+print(f"QuarkStore+Append write time: {app * (0.0787)}")
 
 # Colors for each segment
-segment_colors = ['#EC6B56', '#FFC154', '#47B39C', '#8E4162', '#6A4C93']
+segment_colors = ['#ffd966', '#8faadc', '#a9d18e', '#EC6B56', '#6A4C93']
 
 # Bar width and positions
 n_categories = len(categories)

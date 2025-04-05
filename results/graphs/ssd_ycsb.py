@@ -2,19 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Data
-groups = ['A', 'B', 'C', 'D', 'E', 'F'] 
+groups = ['A', 'B', 'C', 'D', 'F'] 
 categories = ['File system baseline', 'QuarkStore baseline', 'QuarkStore+Append'] 
-data = list(map(lambda x : x / 60.0, [
+data = [list(map(lambda x: x / 60.0, group)) for group in [
     [2387.848, 2201.000, 1580.055],  # A
     [429.009, 428.949, 346.637],  # B
     [219.537, 217.031, 198.051],  # C
     [415.644, 395.173, 328.790],  # D
-    [6641.622, 6599.133, 6672.000],  # E
+    # list(map(lambda x: x / 2.0, [6641.622, 6599.133, 6672.000])),  # E
     [2485.990, 2260.875, 1674.255],  # F
-]))
+]]
 
 # Colors for each category
-colors = ['#EC6B56', '#FFC154', '#47B39C']  # Specify custom colors for bars
+colors = ['#ffd966', '#8faadc', '#a9d18e']  # Specify custom colors for bars
 
 # Number of groups and categories
 n_groups = len(groups)
